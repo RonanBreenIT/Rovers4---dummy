@@ -1,0 +1,39 @@
+﻿@model PlayersListViewModel
+
+@{
+    ViewData["Title"] = "Team Player List";
+}
+
+<h1>Rovers Players</h1>
+<h4>Here are all the Rovers Players</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Staff)
+            </th>
+            
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var staff in Model.Staff)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => staff.FullName)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@staff.PersonID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
+                </td>
+            </tr>
+
+        }
+
+    </tbody>
+</table>
