@@ -1,0 +1,145 @@
+﻿@model Rovers4.Models.Person
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Person</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PersonType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PersonType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MgmtRole)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MgmtRole)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PlayerPosition)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PlayerPosition)
+        </dd>
+        @*<dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Surname)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Surname)
+            </dd>*@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DOB)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DOB)
+        </dd>
+        @*<dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Mobile)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Mobile)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Image)
+            </dd>*@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Team)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Team.Name)
+        </dd>
+        @*<dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PlayerStat.GamesPlayed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PlayerStat.GamesPlayed)
+        </dd>*@
+
+    </dl>
+</div>
+
+@if (Model.PersonType == PersonType.Player)
+{
+    <h3>Player Stats</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlayerStat.GamesPlayed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlayerStat.Assists)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlayerStat.Goals)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlayerStat.CleanSheet)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlayerStat.RedCards)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlayerStat.MotmAward)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.PlayerStat.GamesPlayed)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PlayerStat.Assists)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PlayerStat.Goals)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PlayerStat.CleanSheet)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PlayerStat.RedCards)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PlayerStat.MotmAward)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PersonID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

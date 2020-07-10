@@ -1,0 +1,145 @@
+﻿@model Rovers4.Models.Fixture
+
+@{
+    ViewData["Title"] = "AddResult";
+}
+
+<h1>Add Result</h1>
+
+<h4>Fixture</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddResult">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="FixtureID" />
+            @*<div class="form-group">
+            <label asp-for="Team" class="control-label"></label>
+            <select asp-for="TeamID" class="form-control" asp-items="ViewBag.TeamID"></select>
+        </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.Team, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Team.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FixtureType, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FixtureType, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FixtureDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FixtureDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.HomeOrAway, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.HomeOrAway, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Opponent, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Opponent, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+            <label asp-for="FixtureType" class="control-label"></label>
+            <select asp-for="FixtureType"
+                    class="form-control"
+                    asp-items="Html.GetEnumSelectList<RoversProject3.Models.FixtureType>()">
+                <option>Select type ...</option>
+            </select>
+            <span asp-validation-for="FixtureType" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="FixtureDate" class="control-label"></label>
+            <input asp-for="FixtureDate" class="form-control" />
+            <span asp-validation-for="FixtureDate" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="Location" class="control-label"></label>
+            <input asp-for="Location" class="form-control" />
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="MeetTime" class="control-label"></label>
+            <input asp-for="MeetTime" class="form-control" />
+            <span asp-validation-for="MeetTime" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="MeetLocation" class="control-label"></label>
+            <input asp-for="MeetLocation" class="form-control" />
+            <span asp-validation-for="MeetLocation" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="HomeOrAway" class="control-label"></label>
+            <select asp-for="HomeOrAway"
+                    class="form-control"
+                    asp-items="Html.GetEnumSelectList<RoversProject3.Models.HomeOrAway>()">
+                <option>Select type ...</option>
+            </select>
+            <span asp-validation-for="HomeOrAway" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Opponent" class="control-label"></label>
+            <input asp-for="Opponent" class="form-control" />
+            <span asp-validation-for="Opponent" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label  asp-for="OurScore" class="control-label"></label>
+                <input asp-for="OurScore" class="form-control col-md-10" />
+                <span asp-validation-for="OurScore" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OpponentScore" class="control-label"></label>
+                <input asp-for="OpponentScore" class="form-control col-md-10" />
+                <span asp-validation-for="OpponentScore" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="Result" class="control-label"></label>
+            <input asp-for="Result" class="form-control" />
+            <span asp-validation-for="Result" class="text-danger"></span>
+        </div>*@
+            
+            <div class="form-group">
+                <label asp-for="ResultDescription" class="control-label"></label>
+                <select asp-for="ResultDescription"
+                        class="form-control col-md-10"
+                        asp-items="Html.GetEnumSelectList<Rovers4.Models.ResultDescription>()">
+                    <option>Select type ...</option>
+                </select>
+                <span asp-validation-for="ResultDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MatchReport" class="control-label"></label>
+                <input asp-for="MatchReport" class="form-control col-md-10" />
+                <span asp-validation-for="MatchReport" class="text-danger"></span>
+            </div>
+
+            @*<div class="form-group">
+            <label asp-for="" class="control-label"></label>
+            <select asp-for="UpdateGoalscorers" class="form-control" asp-items="ViewBag.PlayerID">
+                <option value="">-- Select Player --</option>
+            </select>
+            <span asp-validation-for="UpdateGoalscorers" class="text-danger" />
+        </div>*@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,96 @@
+﻿@model Rovers4.Models.Person
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Person</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*Maybe look at looping through PlayerType and displaying q's based on type*@
+
+            <div class="form-group">
+                <label asp-for="PersonType" class="control-label"></label>
+                @*@ViewBag.PlayerOnly = PersonType.Player;*@
+                <select asp-for="PersonType"
+                        class="form-control"
+                        asp-items="Html.GetEnumSelectList<Rovers4.Models.PersonType>()">
+                    <option>Select type ...</option>
+                </select>
+                <span asp-validation-for="PersonType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MgmtRole" class="control-label"></label>
+                <select asp-for="MgmtRole"
+                        class="form-control"
+                        asp-items="Html.GetEnumSelectList<Rovers4.Models.MgmtRole>()">
+                    <option>Select type ...</option>
+                </select>
+                <span asp-validation-for="MgmtRole" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlayerPosition" class="control-label"></label>
+                <select asp-for="PlayerPosition"
+                        class="form-control"
+                        asp-items="Html.GetEnumSelectList<Rovers4.Models.PlayerPosition>()">
+                    <option>Select type ...</option>
+                </select>
+                <span asp-validation-for="PlayerPosition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Surname" class="control-label"></label>
+                <input asp-for="Surname" class="form-control" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DOB" class="control-label"></label>
+                <input asp-for="DOB" class="form-control" />
+                <span asp-validation-for="DOB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mobile" class="control-label"></label>
+                <input asp-for="Mobile" class="form-control" />
+                <span asp-validation-for="Mobile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Team" class="control-label"></label>
+                <select asp-for="TeamName" class="form-control" asp-items="ViewBag.TeamName"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        
+        }
+}
+
