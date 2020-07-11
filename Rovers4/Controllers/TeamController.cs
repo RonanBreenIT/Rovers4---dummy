@@ -13,16 +13,17 @@ namespace Rovers4.Controllers
 {
     public class TeamController : Controller
     {
-        //private readonly ClubContext _context;
+        private readonly ClubContext _context;
         private readonly IPersonRepository _personRepository;
         private readonly ITeamRepository _teamRepository;
        
 
 
-        public TeamController(IPersonRepository personRepository, ITeamRepository teamRepository)
+        public TeamController(IPersonRepository personRepository, ITeamRepository teamRepository, ClubContext context)
         {
             _personRepository = personRepository;
             _teamRepository = teamRepository;
+            _context = context;
         }
 
         public ViewResult TeamPlayerList(string teamName)
@@ -69,7 +70,58 @@ namespace Rovers4.Controllers
         }
 
 
+        // GET: Team/Edit/5
+        public async Task<IActionResult> Edit(string teamName)
+        {
+            if (teamName == null)
+            {
+                return NotFound();
+            }
 
+            var team = await _context.Teams.FindAsync(teamName);
+            if (team == null)
+            {
+                return NotFound();
+            }
+            ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name", team.ClubID);
+            return View(team);
+        }
+
+        // POST: Team/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string teamName, [Bind("Name,ClubID")] Team team)
+        {
+            if (teamName != team.Name)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(team);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (teamName != team.Name)
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name", team.ClubID);
+            return View(team);
+        }
 
 
 
