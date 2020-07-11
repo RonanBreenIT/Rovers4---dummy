@@ -49,7 +49,7 @@ namespace Rovers4.Controllers
         public IActionResult Create()
         {
             //ViewBag.PlayerOnly = PersonType.Player;
-            ViewData["TeamName"] = new SelectList(_context.Teams, "Team", "Name");
+            ViewData["Name"] = new SelectList(_context.Teams, "Team", "Name");
             return View();
         }
 
@@ -66,7 +66,7 @@ namespace Rovers4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeamName"] = new SelectList(_context.Teams, "Team", "Name", person.TeamName);
+            ViewData["Name"] = new SelectList(_context.Teams, "Team", "Name", person.TeamName);
             return View(person);
         }
 
@@ -107,7 +107,7 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-            ViewData["TeamName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamName);
+            //ViewData["TeamName"] = new SelectList(_context.Teams, "Team", "Name", person.TeamName);
             return View(person);
         }
 

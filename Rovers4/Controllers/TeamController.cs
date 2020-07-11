@@ -69,9 +69,33 @@ namespace Rovers4.Controllers
             return View(PlayersListViewModel);
         }
 
+        // GET: Team/Create
+        public IActionResult Create()
+        {
+            ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Address");
+            return View();
+        }
+
+        // POST: Team/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Name,ClubID")] Team team)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(team);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Address", team.ClubID);
+            return View(team);
+        }
+
 
         // GET: Team/Edit/5
-        public async Task<IActionResult> Edit(string teamName)
+        public async Task<IActionResult> Edit(string? teamName)
         {
             if (teamName == null)
             {
@@ -108,7 +132,7 @@ namespace Rovers4.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (teamName != team.Name)
+                    if (!TeamExists(team.Name))
                     {
                         return NotFound();
                     }
@@ -278,10 +302,10 @@ namespace Rovers4.Controllers
         //        return RedirectToAction(nameof(Index));
         //    }
 
-        //    private bool TeamExists(int id)
-        //    {
-        //        return _context.Teams.Any(e => e.TeamID == id);
-        //    }
-        //}
+        private bool TeamExists(string teamName)
+        {
+            return _context.Teams.Any(e => e.Name == teamName);
+        }
     }
 }
+
