@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
-    public class PlayerStatRepository
+    public class PlayerStatRepository: IPlayerStatRepository
     {
         private readonly ClubContext _appDbContext;
 
@@ -15,13 +15,11 @@ namespace Rovers4.Models
             _appDbContext = appDbContext;
         }
 
-        public IEnumerable<PlayerStat> Stats
-        {
-            get
-            {
-                return _appDbContext.PlayerStats;
-            }
-        }
+        public IEnumerable<PlayerStat> AllStats => _appDbContext.PlayerStats;
 
+        public PlayerStat GetStatsById(int personId)
+        {
+            return _appDbContext.PlayerStats.FirstOrDefault(p => p.PersonID == personId);
+        }
     }
 }
