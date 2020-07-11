@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
-    public class iPlayerStatRepository
+    public interface iPlayerStatRepository
     {
+        IEnumerable<PlayerStat> Stats { get; }
+       
+        PlayerStat GetStatsById(int personId);
     }
 }
