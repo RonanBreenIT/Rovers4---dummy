@@ -25,21 +25,21 @@ namespace Rovers4.Controllers
             _teamRepository = teamRepository;
         }
 
-        public ViewResult TeamPlayerList(string team)
+        public ViewResult TeamPlayerList(string teamName)
         {
             IEnumerable<Person> staff;
             string currentTeam;
 
-            if (string.IsNullOrEmpty(team))
+            if (string.IsNullOrEmpty(teamName))
             {
                 staff = _personRepository.AllStaff.OrderBy(p => p.PersonID);
                 currentTeam = "All Teams";
             }
             else
             {
-                staff = _personRepository.AllStaff.Where(p => p.Team.Name == team)
+                staff = _personRepository.AllStaff.Where(p => p.TeamName == teamName)
                     .OrderBy(p => p.PersonID);
-                currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.Name == team)?.Name;
+                currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.Name == teamName)?.Name;
             }
 
             return View(new PlayersListViewModel
