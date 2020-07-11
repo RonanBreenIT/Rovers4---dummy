@@ -81,7 +81,7 @@ namespace Rovers4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,ClubID")] Team team)
+        public async Task<IActionResult> Create([Bind("TeamID,Name,ClubID")] Team team)
         {
             if (ModelState.IsValid)
             {
@@ -93,16 +93,15 @@ namespace Rovers4.Controllers
             return View(team);
         }
 
-
         // GET: Team/Edit/5
-        public async Task<IActionResult> Edit(string? teamName)
+        public async Task<IActionResult> Edit(int? id)
         {
-            if (teamName == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var team = await _context.Teams.FindAsync(teamName);
+            var team = await _context.Teams.FindAsync(id);
             if (team == null)
             {
                 return NotFound();
@@ -116,9 +115,9 @@ namespace Rovers4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string teamName, [Bind("Name,ClubID")] Team team)
+        public async Task<IActionResult> Edit(int id, [Bind("TeamID,Name,ClubID")] Team team)
         {
-            if (teamName != team.Name)
+            if (id != team.TeamID)
             {
                 return NotFound();
             }
@@ -132,7 +131,7 @@ namespace Rovers4.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TeamExists(team.Name))
+                    if (!TeamExists(team.TeamID))
                     {
                         return NotFound();
                     }
@@ -146,6 +145,59 @@ namespace Rovers4.Controllers
             ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name", team.ClubID);
             return View(team);
         }
+
+        //// GET: Team/Edit/5
+        //public async Task<IActionResult> Edit(string? teamName)
+        //{
+        //    if (teamName == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var team = await _context.Teams.FindAsync(teamName);
+        //    if (team == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name", team.ClubID);
+        //    return View(team);
+        //}
+
+        //// POST: Team/Edit/5
+        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(string teamName, [Bind("Name,ClubID")] Team team)
+        //{
+        //    if (teamName != team.Name)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(team);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!TeamExists(team.Name))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name", team.ClubID);
+        //    return View(team);
+        //}
 
 
 
@@ -302,9 +354,9 @@ namespace Rovers4.Controllers
         //        return RedirectToAction(nameof(Index));
         //    }
 
-        private bool TeamExists(string teamName)
+        private bool TeamExists(int id)
         {
-            return _context.Teams.Any(e => e.Name == teamName);
+            return _context.Teams.Any(e => e.TeamID == id);
         }
     }
 }
