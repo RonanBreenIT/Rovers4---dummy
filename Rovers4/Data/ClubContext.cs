@@ -35,13 +35,13 @@ namespace Rovers4.Data
 
             modelBuilder.Entity<Club>().HasData(new Club { ClubID = 1, Address = "Bushy Park", Name = "Ratharnham Rovers", Email = "X00152190@mytudublin.ie", Number = "0872878566" });
 
-            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "First Team" });
-            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "Under 21s" });
-            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "Under 19s" });
-            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "Under 17s" });
-            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "Under 15s" });
-            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "Under 13s" });
-            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "Under 11s" });
+            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "First Team", TeamID = 1});
+            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "Under 21s", TeamID = 2 });
+            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "Under 19s", TeamID = 3 });
+            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "Under 17s", TeamID = 4 });
+            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "Under 15s", TeamID = 5 });
+            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "Under 13s", TeamID = 6 });
+            modelBuilder.Entity<Team>().HasData(new Team { ClubID = 1, Name = "Under 11s", TeamID = 7 });
 
             modelBuilder.Entity<Person>().HasData(new Person { PersonID = 1, FirstName = "Ronan", Surname = "Breen", PersonType = PersonType.Player, PlayerPosition = PlayerPosition.Defender, TeamName = "First Team" });
             modelBuilder.Entity<Person>().HasData(new Person { PersonID = 2, FirstName = "Ronan", Surname = "Grey", PersonType = PersonType.Player, PlayerPosition = PlayerPosition.Goalkeeper, TeamName = "First Team" });

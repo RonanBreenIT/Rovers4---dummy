@@ -26,13 +26,13 @@ namespace Rovers4.Models
     //}
     public class Team
     {
-        //[Key]
-        //public int Name { get; set; }
+        [Key]
+        public int TeamID { get; set; }
 
         //[Display(Name = "Team")]
         //public Grade Grade { get; set; }
 
-        [Key]
+      
         public string Name { get; set; }
 
      
