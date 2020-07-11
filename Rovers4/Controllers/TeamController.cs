@@ -146,6 +146,36 @@ namespace Rovers4.Controllers
             return View(team);
         }
 
+        // GET: Team/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var team = await _context.Teams
+                .Include(t => t.Club)
+                .FirstOrDefaultAsync(m => m.TeamID == id);
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            return View(team);
+        }
+
+        // POST: Team/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var team = await _context.Teams.FindAsync(id);
+            _context.Teams.Remove(team);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         //// GET: Team/Edit/5
         //public async Task<IActionResult> Edit(string? teamName)
         //{
