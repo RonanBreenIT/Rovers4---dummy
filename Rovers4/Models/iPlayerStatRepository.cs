@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
-    public interface iPlayerStatRepository
+    public interface IPlayerStatRepository
     {
-        IEnumerable<PlayerStat> Stats { get; }
+        IEnumerable<PlayerStat> AllStats { get; }
        
         PlayerStat GetStatsById(int personId);
     }

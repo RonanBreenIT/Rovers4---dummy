@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
-    public class FixtureRepository
+    public class FixtureRepository: IFixtureRepository
     {
     }
 }

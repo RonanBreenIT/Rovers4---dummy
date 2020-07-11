@@ -16,7 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Staff)
             </th>
-            
+            <th>
+                @Model.CurrentTeam
+            </th>
 
         </tr>
     </thead>
@@ -31,7 +33,7 @@
 
                 <td>
                     <a asp-controller = "People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a> |
-                    <a asp-action="TeamPlayerDetails" asp-route-id="@staff.PersonID">Details</a> |
+                    <a asp-controller = "PlayerStat" asp-action="PlayerStatList" asp-route-id="@staff.PersonID">Details</a> |
                     <a asp-controller = "People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                 </td>
             </tr>

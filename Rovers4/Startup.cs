@@ -39,6 +39,8 @@ namespace Rovers4
 
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IPlayerStatRepository, PlayerStatRepository>();
+            services.AddScoped<IFixtureRepository, FixtureRepository>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
