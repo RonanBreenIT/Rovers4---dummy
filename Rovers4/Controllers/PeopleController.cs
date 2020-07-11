@@ -49,7 +49,7 @@ namespace Rovers4.Controllers
         public IActionResult Create()
         {
             //ViewBag.PlayerOnly = PersonType.Player;
-            ViewData["Name"] = new SelectList(_context.Teams, "Team", "Name");
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace Rovers4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PersonID,PersonType, PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID")] Person person)
+        public async Task<IActionResult> Create([Bind("PersonID,PersonType,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID")] Person person)
         {
             if (ModelState.IsValid)
             {
@@ -66,14 +66,14 @@ namespace Rovers4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Name"] = new SelectList(_context.Teams, "Team", "Name", person.TeamName);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamName);
             return View(person);
         }
 
         // GET: People/Create
         public IActionResult CreateMgmt()
         {
-            ViewData["TeamName"] = new SelectList(_context.Teams, "Team", "Name");
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name");
             return View();
         }
 
@@ -90,7 +90,7 @@ namespace Rovers4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeamName"] = new SelectList(_context.Teams, "Team", "Name", person.TeamName);// Might just be person.TeamName
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamName);// Might just be person.TeamName
             return View(person);
         }
 
@@ -107,7 +107,7 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-            //ViewData["TeamName"] = new SelectList(_context.Teams, "Team", "Name", person.TeamName);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamName);
             return View(person);
         }
 
@@ -143,7 +143,7 @@ namespace Rovers4.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeamName"] = new SelectList(_context.Teams, "Team", "Name", person.TeamName);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamName);
             return View(person);
         }
 
