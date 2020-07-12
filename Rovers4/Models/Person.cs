@@ -77,6 +77,7 @@ namespace Rovers4.Models
         public string Image { get; set; }
 
         [ForeignKey("TeamName")]
+        [Display(Name = "Team")]
         public string TeamName { get; set; } // Do I need to add the ID also - good to find out (failing on updating DB)
 
         public Team Team { get; set; }

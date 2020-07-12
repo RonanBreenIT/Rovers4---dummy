@@ -7,5 +7,7 @@ namespace Rovers4.Models
 {
     public interface IFixtureRepository
     {
+        IEnumerable<Fixture> AllFixtures { get; }
+        Fixture GetFixtureById(int fixtureId);
     }
 }
