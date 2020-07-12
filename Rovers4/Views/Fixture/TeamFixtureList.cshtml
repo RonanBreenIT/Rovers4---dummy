@@ -1,0 +1,223 @@
+﻿@model FixtureListViewModel
+
+@{
+    ViewData["Title"] = "Team Fixture List";
+}
+
+@{ 
+    DateTime LastYear = DateTime.Today.AddDays(-365);
+    DateTime NextYear = DateTime.Today.AddDays(365);
+
+
+}
+
+<h1>Rovers Fixtures</h1>
+<h4>Here are all the Rovers Fixtures</h4>
+<p>
+    <a asp-controller="Fixture" asp-action="Create">Add Fixture</a>
+</p>
+
+<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Month
+                </th>
+                <th>
+                    @Model.CurrentTeam
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var fixture in Model.Fixtures.OrderBy(i => i.FixtureDate))
+            {
+                @if (fixture.FixtureDate >= LastYear && fixture.FixtureDate <= NextYear)
+                {
+                    @if (fixture.FixtureDate.Month == 1)
+                    {
+                        <tr>
+                            <td>
+                                January
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => fixture.FullText)
+                            </td>
+                            <td>
+                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    else if (fixture.FixtureDate.Month == 2)
+                    {
+                        <tr>
+                            <td>
+                                February
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => fixture.FullText)
+                            </td>
+                            <td>
+                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    else if (fixture.FixtureDate.Month == 3)
+                    {
+                        <tr>
+                            <td>
+                                March
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => fixture.FullText)
+                            </td>
+                            <td>
+                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    else if (fixture.FixtureDate.Month == 4)
+                    {
+                        <tr>
+                            <td>
+                                April
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => fixture.FullText)
+                            </td>
+                            <td>
+                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    else if (fixture.FixtureDate.Month == 5)
+                    {
+                        <tr>
+                            <td>
+                                May
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => fixture.FullText)
+                            </td>
+                            <td>
+                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    else if (fixture.FixtureDate.Month == 6)
+                    {
+                        <tr>
+                            <td>
+                                June
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => fixture.FullText)
+                            </td>
+                            <td>
+                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    else if (fixture.FixtureDate.Month == 7)
+                    {
+                        <tr>
+                            <td>
+                                July
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => fixture.FullText)
+                            </td>
+                            <td>
+                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    else if (fixture.FixtureDate.Month == 8)
+                    {
+                        <tr>
+                            <td>
+                                August
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => fixture.FullText)
+                            </td>
+                            <td>
+                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    else if (fixture.FixtureDate.Month == 9)
+                    {
+                        <tr>
+                            <td>
+                                September
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => fixture.FullText)
+                            </td>
+                            <td>
+                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    else if (fixture.FixtureDate.Month == 10)
+                    {
+                        <tr>
+                            <td>
+                                October
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => fixture.FullText)
+                            </td>
+                            <td>
+                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    else if (fixture.FixtureDate.Month == 11)
+                    {
+                        <tr>
+                            <td>
+                                November
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => fixture.FullText)
+                            </td>
+                            <td>
+                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    else 
+                    {
+                        <tr>
+                            <td>
+                                December
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => fixture.FullText)
+                            </td>
+                            <td>
+                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                   
+                }
+            }
+
+
+        </tbody>
+</table>

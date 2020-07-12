@@ -7,16 +7,74 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
+using Rovers4.ViewModels;
 
 namespace Rovers4.Controllers
 {
     public class FixtureController : Controller
     {
         private readonly ClubContext _context;
+        private readonly IFixtureRepository _fixtureRepository;
+        private readonly ITeamRepository _teamRepository;
+        private readonly IPersonRepository _personRepository;
+        private readonly IPlayerStatRepository _playerStatRepository;
+        
 
-        public FixtureController(ClubContext context)
+        public FixtureController(ClubContext context, IFixtureRepository fixtureRepository , ITeamRepository teamRepository , IPersonRepository personRepository , IPlayerStatRepository playerStatRepository)
         {
             _context = context;
+            _fixtureRepository = fixtureRepository;
+            _teamRepository = teamRepository;
+            _personRepository = personRepository;
+            _playerStatRepository = playerStatRepository;
+        }
+
+        //public ViewResult TeamFixtureList(string teamName)
+        //{
+        //    IEnumerable<Fixture> fixture;
+        //    string currentTeam;
+
+        //    if (string.IsNullOrEmpty(teamName))
+        //    {
+        //        fixture = _fixtureRepository.AllFixtures.OrderBy(p => p.FixtureID);
+        //        currentTeam = "All Teams";
+        //    }
+        //    else
+        //    {
+        //        fixture = _fixtureRepository.AllFixtures.Where(p => p.TeamName == teamName)
+        //            .OrderBy(p => p.FixtureID);
+        //        currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.Name == teamName)?.Name;
+        //    }
+
+        //    return View(new FixtureListViewModel
+        //    {
+        //        Fixtures = fixture,
+        //        CurrentTeam = currentTeam
+        //    });
+        //}
+
+        public ViewResult TeamFixtureList(int? id)
+        {
+            IEnumerable<Fixture> fixture;
+            string currentTeam;
+
+            if (id == null)
+            {
+                fixture = _fixtureRepository.AllFixtures.OrderBy(p => p.TeamID);
+                currentTeam = "All Team";
+            }
+            else
+            {
+                fixture = _fixtureRepository.AllFixtures.Where(p => p.TeamID == id)
+                    .OrderByDescending(p => p.FixtureDate);
+                currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
+            }
+
+            return View(new FixtureListViewModel
+            {
+                Fixtures = fixture,
+                CurrentTeam = currentTeam,
+            });
         }
 
         // GET: Fixture
@@ -64,7 +122,7 @@ namespace Rovers4.Controllers
         // GET: Fixture/Create
         public IActionResult Create()
         {
-            ViewData["TeamName"] = new SelectList(_context.Teams, "Team", "Name");
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name");
             return View();
         }
 
@@ -73,7 +131,7 @@ namespace Rovers4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FixtureID,TeamID,FixtureType,FixtureDate,Location,HomeOrAway,MeetTime,MeetLocation,OurScore,Opponent,OpponentScore,Result,ResultDescription,MatchReport")] Fixture fixture)
+        public async Task<IActionResult> Create([Bind("FixtureID,TeamID,FixtureType,FixtureDate,Location,HomeOrAway,Opponent")] Fixture fixture)
         {
             if (ModelState.IsValid)
             {
@@ -81,6 +139,7 @@ namespace Rovers4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamName);
             return View(fixture);
         }
 
@@ -99,7 +158,7 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-            ViewData["TeamName"] = new SelectList(_context.Teams, "Team", "Name", fixture.Team.Name);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamName);
             return View(fixture);
         }
 
@@ -108,7 +167,7 @@ namespace Rovers4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FixtureID,TeamID,FixtureType,FixtureDate,Location,HomeOrAway,MeetTime,MeetLocation,OurScore,Opponent,OpponentScore,Result,ResultDescription,MatchReport")] Fixture fixture)
+        public async Task<IActionResult> Edit(int id, [Bind("FixtureID,TeamID,FixtureType,FixtureDate,Location,HomeOrAway,Opponent")] Fixture fixture)
         {
             if (id != fixture.FixtureID)
             {
@@ -135,7 +194,7 @@ namespace Rovers4.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeamName"] = new SelectList(_context.Teams, "Team", "Name", fixture.Team.Name);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamName);
             return View(fixture);
         }
 
@@ -152,7 +211,7 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-            ViewData["TeamName"] = new SelectList(_context.Teams, "Team", "Name", fixture.Team.Name);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamName);
             PopulatePlayerDropDownList();
             return View(fixture);
         }
@@ -189,7 +248,7 @@ namespace Rovers4.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeamName"] = new SelectList(_context.Teams, "Team", "Name", fixture.Team.Name);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamName);
             PopulatePlayerDropDownList();
             return View(fixture);
         }
