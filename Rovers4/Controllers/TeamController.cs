@@ -29,24 +29,45 @@ namespace Rovers4.Controllers
         public ViewResult TeamPlayerList(string teamName)
         {
             IEnumerable<Person> staff;
+            IEnumerable<Person> goalkeepers;
+            IEnumerable<Person> defenders;
+            IEnumerable<Person> midfielders;
+            IEnumerable<Person> forwards;
             string currentTeam;
 
             if (string.IsNullOrEmpty(teamName))
             {
                 staff = _personRepository.AllStaff.OrderBy(p => p.PersonID);
+                goalkeepers = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
+                defenders = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
+                midfielders = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
+                forwards = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
                 currentTeam = "All Teams";
             }
             else
             {
                 staff = _personRepository.AllStaff.Where(p => p.TeamName == teamName)
                     .OrderBy(p => p.PersonID);
+                goalkeepers = _personRepository.AllGoalkeepers.Where(p => p.TeamName == teamName)
+                    .OrderBy(p => p.FullName);
+                defenders = _personRepository.AllDefenders.Where(p => p.TeamName == teamName)
+                    .OrderBy(p => p.FullName);
+                midfielders = _personRepository.AllMidfielders.Where(p => p.TeamName == teamName)
+                    .OrderBy(p => p.FullName);
+                forwards = _personRepository.AllForwards.Where(p => p.TeamName == teamName)
+                    .OrderBy(p => p.FullName);
                 currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.Name == teamName)?.Name;
             }
 
             return View(new PlayersListViewModel
             {
                 Staff = staff,
-                CurrentTeam = currentTeam
+                CurrentTeam = currentTeam,
+                Goalkeepers = goalkeepers,
+                Defenders = defenders,
+                Midfielders = midfielders,
+                Forwards = forwards
+
             });
         }
 

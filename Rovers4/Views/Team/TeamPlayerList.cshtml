@@ -11,34 +11,50 @@
 </p>
 
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Staff)
-            </th>
-            <th>
-                @Model.CurrentTeam
-            </th>
-
-        </tr>
-    </thead>
     <tbody>
 
-        @foreach (var staff in Model.Staff)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => staff.FullName)
-                </td>
+        <section>
+            <header>
+                Goalkeepers<header>
+                    @foreach (var staff in Model.Goalkeepers)
+                    {
+                        <div>
+                            <p>@Html.DisplayFor(modelItem => staff.FullName)<a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">&nbsp;Edit</a> |<a asp-controller="PlayerStat" asp-action="PlayerStatList" asp-route-id="@staff.PersonID">&nbsp;Details</a> |<a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a></p>
+                        </div>
+                    }
+        </section>
 
-                <td>
-                    <a asp-controller = "People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a> |
-                    <a asp-controller = "PlayerStat" asp-action="PlayerStatList" asp-route-id="@staff.PersonID">Details</a> |
-                    <a asp-controller = "People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
-                </td>
-            </tr>
+        <section>
+            <header>
+                Defenders<header>
+                    @foreach (var staff in Model.Defenders)
+                    {
+                        <div>
+                            <p>@Html.DisplayFor(modelItem => staff.FullName)<a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">&nbsp;Edit</a> |<a asp-controller="PlayerStat" asp-action="PlayerStatList" asp-route-id="@staff.PersonID">&nbsp;Details</a> |<a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a></p>
+                        </div>
+                    }
+        </section>
 
-        }
+        <section>
+            <header>
+                Midfielders<header>
+                    @foreach (var staff in Model.Midfielders)
+                    {
+                        <div>
+                            <p>@Html.DisplayFor(modelItem => staff.FullName)<a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">&nbsp;Edit</a> |<a asp-controller="PlayerStat" asp-action="PlayerStatList" asp-route-id="@staff.PersonID">&nbsp;Details</a> |<a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a></p>
+                        </div>
+                    }
+        </section>
 
+        <section>
+            <header>
+                Forwards<header>
+                    @foreach (var staff in Model.Forwards)
+                    {
+                        <div>
+                            <p>@Html.DisplayFor(modelItem => staff.FullName)<a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">&nbsp;Edit</a> |<a asp-controller="PlayerStat" asp-action="PlayerStatList" asp-route-id="@staff.PersonID">&nbsp;Details</a> |<a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a></p>
+                        </div>
+                    }
+        </section>
     </tbody>
 </table>
