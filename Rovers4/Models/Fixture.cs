@@ -112,9 +112,9 @@ namespace Rovers4.Models
             {
                 //Date Part
                 StringBuilder sb = new StringBuilder("");
-                string DatesMonth = FixtureDate.ToString("ddd d");
+                string DatesMonth = FixtureDate.ToString("d ddd");
                 string DatesTime = FixtureDate.ToString("hh:mm");
-                sb.Append(DatesMonth + "st " + DatesTime + "\t " + FixtureType.ToString() + "\t " + "Rathfarnham Rovers" + " " + FinalScore + " " + Opponent + "\t" + HomeOrAway.ToString());
+                sb.Append(DatesMonth + " " + DatesTime + "\t- " + FixtureType.ToString() + "\t\t\t" + "Rathfarnham Rovers" + " " + FinalScore + " " + Opponent + "\t\t\t" + HomeOrAway.ToString());
                 return sb.ToString(); 
             }
         }
