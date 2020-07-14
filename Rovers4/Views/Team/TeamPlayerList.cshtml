@@ -7,54 +7,113 @@
 <h1>Rovers Players</h1>
 <h4>Here are all the Rovers Players</h4>
 <p>
-    <a asp-controller = "People" asp-action="Create">Add Player</a>
+    <a asp-controller="People" asp-action="Create">Add Player</a>
 </p>
 
-<table class="table">
-    <tbody>
+<section>
+    <header><h3>
+        Goalkeepers</h3><header>
+            @foreach (var staff in Model.Goalkeepers)
+            {
+                <figure>
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="thumbnail">
+                        <img src="@staff.Image" alt="">
+                        <div class="caption">
+                            <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
+                            <label>
+                                <a asp-controller="PlayerStat"
+                                   asp-action="PlayerStatList"
+                                   asp-route-id="@staff.PersonID">@staff.FullName</a>  
+                                <div>
+                                    <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a> | <a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a>
+                                </div>
 
-        <section>
-            <header>
-                Goalkeepers<header>
-                    @foreach (var staff in Model.Goalkeepers)
-                    {
-                        <div>
-                            <p>@Html.DisplayFor(modelItem => staff.FullName)<a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">&nbsp;Edit</a> |<a asp-controller="PlayerStat" asp-action="PlayerStatList" asp-route-id="@staff.PersonID">&nbsp;Details</a> |<a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a></p>
+                            </label>
                         </div>
-                    }
-        </section>
+                    </div>
+                </div>
+                </figure>
+            }
+</section>
 
-        <section>
-            <header>
-                Defenders<header>
-                    @foreach (var staff in Model.Defenders)
-                    {
-                        <div>
-                            <p>@Html.DisplayFor(modelItem => staff.FullName)<a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">&nbsp;Edit</a> |<a asp-controller="PlayerStat" asp-action="PlayerStatList" asp-route-id="@staff.PersonID">&nbsp;Details</a> |<a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a></p>
-                        </div>
-                    }
-        </section>
+<section>
+    <header><h3>
+        Defenders</h3><header>
+            @foreach (var staff in Model.Defenders)
+            {
+                <figure>
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="@staff.Image" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
+                                <label>
+                                    <a asp-controller="PlayerStat"
+                                       asp-action="PlayerStatList"
+                                       asp-route-id="@staff.PersonID">@staff.FullName</a>  
+                                    <div>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a> | <a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a>
+                                    </div>
 
-        <section>
-            <header>
-                Midfielders<header>
-                    @foreach (var staff in Model.Midfielders)
-                    {
-                        <div>
-                            <p>@Html.DisplayFor(modelItem => staff.FullName)<a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">&nbsp;Edit</a> |<a asp-controller="PlayerStat" asp-action="PlayerStatList" asp-route-id="@staff.PersonID">&nbsp;Details</a> |<a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a></p>
+                                </label>
+                            </div>
                         </div>
-                    }
-        </section>
+                    </div>
+                </figure>
+            }
+</section>
 
-        <section>
-            <header>
-                Forwards<header>
-                    @foreach (var staff in Model.Forwards)
-                    {
-                        <div>
-                            <p>@Html.DisplayFor(modelItem => staff.FullName)<a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">&nbsp;Edit</a> |<a asp-controller="PlayerStat" asp-action="PlayerStatList" asp-route-id="@staff.PersonID">&nbsp;Details</a> |<a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a></p>
+<section>
+    <header><h3>
+        Midfielders</h3><header>
+            @foreach (var staff in Model.Midfielders)
+            {
+                <figure>
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="@staff.Image" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
+                                <label>
+                                    <a asp-controller="PlayerStat"
+                                       asp-action="PlayerStatList"
+                                       asp-route-id="@staff.PersonID">@staff.FullName</a>  
+                                    <div>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a> | <a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a>
+                                    </div>
+
+                                </label>
+                            </div>
                         </div>
-                    }
-        </section>
-    </tbody>
-</table>
+                    </div>
+                </figure>
+            }
+</section>
+
+<section>
+    <header><h3>
+        Forwards</h3><header>
+            @foreach (var staff in Model.Forwards)
+            {
+                <figure>
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="@staff.Image" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
+                                <label>
+                                    <a asp-controller="PlayerStat"
+                                       asp-action="PlayerStatList"
+                                       asp-route-id="@staff.PersonID">@staff.FullName</a>  
+                                    <div>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a> | <a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a>
+                                    </div>
+
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </figure>
+            }
+</section>
