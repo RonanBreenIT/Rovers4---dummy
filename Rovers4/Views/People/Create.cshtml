@@ -13,7 +13,10 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*Maybe look at looping through PlayerType and displaying q's based on type*@
-
+            <div class="form-group">
+                <label asp-for="Team" class="control-label"></label>
+                <select asp-for="TeamName" class="form-control" asp-items="ViewBag.TName"></select>
+            </div>
             <div class="form-group">
                 <label asp-for="PersonType" class="control-label"></label>
                 @*@ViewBag.PlayerOnly = PersonType.Player;*@
@@ -72,10 +75,6 @@
                 <label asp-for="Image" class="control-label"></label>
                 <input asp-for="Image" class="form-control" />
                 <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Team" class="control-label"></label>
-                <select asp-for="TeamName" class="form-control" asp-items="ViewBag.TName"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
