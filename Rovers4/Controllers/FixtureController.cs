@@ -55,25 +55,87 @@ namespace Rovers4.Controllers
 
         public ViewResult TeamFixtureList(int? id)
         {
-            IEnumerable<Fixture> fixture;
+            IEnumerable<Fixture> fixtures;
+            IEnumerable<Fixture> janFixtures;
+            IEnumerable<Fixture> febFixtures;
+            IEnumerable<Fixture> marchFixtures;
+            IEnumerable<Fixture> aprilFixtures;
+            IEnumerable<Fixture> mayFixtures;
+            IEnumerable<Fixture> juneFixtures;
+            IEnumerable<Fixture> julyFixtures;
+            IEnumerable<Fixture> augustFixtures;
+            IEnumerable<Fixture> septemberFixtures;
+            IEnumerable<Fixture> octoberFixtures;
+            IEnumerable<Fixture> novemberFixtures;
+            IEnumerable<Fixture> decemberFixtures;
             string currentTeam;
 
             if (id == null)
             {
-                fixture = _fixtureRepository.AllFixtures.OrderBy(p => p.TeamID);
-                currentTeam = "All Team";
+                fixtures = _fixtureRepository.AllFixtures.OrderBy(p => p.TeamID);
+                janFixtures = _fixtureRepository.JanuaryFixtures.OrderBy(p => p.TeamID);
+                febFixtures = _fixtureRepository.FebruaryFixtures.OrderBy(p => p.TeamID);
+                marchFixtures = _fixtureRepository.MarchFixtures.OrderBy(p => p.TeamID);
+                aprilFixtures = _fixtureRepository.AprilFixtures.OrderBy(p => p.TeamID);
+                mayFixtures = _fixtureRepository.MayFixtures.OrderBy(p => p.TeamID);
+                juneFixtures = _fixtureRepository.JuneFixtures.OrderBy(p => p.TeamID);
+                julyFixtures = _fixtureRepository.JulyFixtures.OrderBy(p => p.TeamID);
+                augustFixtures = _fixtureRepository.AugustFixtures.OrderBy(p => p.TeamID);
+                septemberFixtures = _fixtureRepository.SeptemberFixtures.OrderBy(p => p.TeamID);
+                octoberFixtures = _fixtureRepository.OctoberFixtures.OrderBy(p => p.TeamID);
+                novemberFixtures = _fixtureRepository.NovemberFixtures.OrderBy(p => p.TeamID);
+                decemberFixtures = _fixtureRepository.DecemberFixtures.OrderBy(p => p.TeamID);
+
+                currentTeam = "All Teams";
             }
             else
             {
-                fixture = _fixtureRepository.AllFixtures.Where(p => p.TeamID == id)
+                fixtures = _fixtureRepository.AllFixtures.Where(p => p.TeamID == id)
+                    .OrderByDescending(p => p.FixtureDate);
+                janFixtures = _fixtureRepository.JanuaryFixtures.Where(p => p.TeamID == id)
+                    .OrderByDescending(p => p.FixtureDate);
+                febFixtures = _fixtureRepository.FebruaryFixtures.Where(p => p.TeamID == id)
+                    .OrderByDescending(p => p.FixtureDate);
+                marchFixtures = _fixtureRepository.MarchFixtures.Where(p => p.TeamID == id)
+                    .OrderByDescending(p => p.FixtureDate);
+                aprilFixtures = _fixtureRepository.AprilFixtures.Where(p => p.TeamID == id)
+                    .OrderByDescending(p => p.FixtureDate);
+                mayFixtures = _fixtureRepository.MayFixtures.Where(p => p.TeamID == id)
+                    .OrderByDescending(p => p.FixtureDate);
+                juneFixtures = _fixtureRepository.JuneFixtures.Where(p => p.TeamID == id)
+                    .OrderByDescending(p => p.FixtureDate);
+                julyFixtures = _fixtureRepository.JulyFixtures.Where(p => p.TeamID == id)
+                    .OrderByDescending(p => p.FixtureDate);
+                augustFixtures = _fixtureRepository.AugustFixtures.Where(p => p.TeamID == id)
+                    .OrderByDescending(p => p.FixtureDate);
+                septemberFixtures = _fixtureRepository.SeptemberFixtures.Where(p => p.TeamID == id)
+                    .OrderByDescending(p => p.FixtureDate);
+                octoberFixtures = _fixtureRepository.OctoberFixtures.Where(p => p.TeamID == id)
+                    .OrderByDescending(p => p.FixtureDate);
+                novemberFixtures = _fixtureRepository.NovemberFixtures.Where(p => p.TeamID == id)
+                    .OrderByDescending(p => p.FixtureDate);
+                decemberFixtures = _fixtureRepository.DecemberFixtures.Where(p => p.TeamID == id)
                     .OrderByDescending(p => p.FixtureDate);
                 currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
             }
 
             return View(new FixtureListViewModel
             {
-                Fixtures = fixture,
+                Fixtures = fixtures,
                 CurrentTeam = currentTeam,
+                JanuaryFixtures = janFixtures,
+                FebruaryFixtures = febFixtures,
+                MarchFixtures = marchFixtures, 
+                AprilFixtures = aprilFixtures,
+                MayFixtures = mayFixtures,
+                JuneFixtures = juneFixtures,
+                JulyFixtures = julyFixtures,
+                AugustFixtures = augustFixtures,
+                SeptemberFixtures = septemberFixtures,
+                OctoberFixtures = octoberFixtures,
+                NovemberFixtures = novemberFixtures,
+                DecemberFixtures = decemberFixtures
+
             });
         }
 
@@ -272,6 +334,7 @@ namespace Rovers4.Controllers
             }
 
             var fixture = await _context.Fixtures
+                .Include(p => p.Team)
                 .FirstOrDefaultAsync(m => m.FixtureID == id);
             if (fixture == null)
             {

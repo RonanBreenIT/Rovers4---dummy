@@ -74,6 +74,7 @@ namespace Rovers4.Models
         public string Email { get; set; }
 
         [DisplayFormat(NullDisplayText = "No Image")]
+        [Display(Name = "Thumbhnail Image")]
         public string ThumbnailImage { get; set; }
 
         [DisplayFormat(NullDisplayText = "No Image")]

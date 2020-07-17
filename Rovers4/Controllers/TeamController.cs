@@ -39,7 +39,7 @@ namespace Rovers4.Controllers
             {
                 staff = _personRepository.AllStaff.OrderBy(p => p.PersonID);
                 goalkeepers = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
-                defenders = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
+                defenders = _personRepository.AllDefenders.OrderBy(p => p.PersonID);
                 midfielders = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
                 forwards = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
                 currentTeam = "All Teams";

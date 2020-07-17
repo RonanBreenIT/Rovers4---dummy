@@ -106,7 +106,7 @@ namespace Rovers4.Models
 
         
         //[DisplayFormat(DataFormatString = "{0:dd-MMM}", ApplyFormatInEditMode = true)]
-        public string FullText
+        public string FullDatesText
         {
             get
             {
@@ -114,11 +114,21 @@ namespace Rovers4.Models
                 StringBuilder sb = new StringBuilder("");
                 string DatesMonth = FixtureDate.ToString("d ddd");
                 string DatesTime = FixtureDate.ToString("hh:mm");
-                sb.Append(DatesMonth + " " + DatesTime + "\t- " + FixtureType.ToString() + "\t\t\t" + "Rathfarnham Rovers" + " " + FinalScore + " " + Opponent + "\t\t\t" + HomeOrAway.ToString());
+                sb.Append(DatesMonth + " " + DatesTime + "\t- " + FixtureType.ToString());
                 return sb.ToString(); 
             }
         }
 
+
+        public string ResultText
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder("");
+                sb.Append("Rathfarnham Rovers" + " " + FinalScore + " " + Opponent);
+                return sb.ToString();
+            }
+        }
 
 
 
