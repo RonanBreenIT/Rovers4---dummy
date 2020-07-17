@@ -27,7 +27,7 @@
 
             <td>
                 <a asp-action="Edit" asp-route-id="@team.TeamID">Edit</a> |
-                <a asp-action="TeamPlayerList" asp-route-teamName="@team.Name">Details</a> |
+                <a asp-action="TeamPlayerList" asp-route-id="@team.TeamID">Details</a> |
                 <a asp-controller ="Fixture" asp-action="TeamFixtureList" asp-route-id="@team.TeamID">Fixtures</a> |
                 <a asp-action="Delete" asp-route-id="@team.TeamID">Delete</a>
             </td>

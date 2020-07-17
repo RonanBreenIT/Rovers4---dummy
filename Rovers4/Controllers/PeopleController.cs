@@ -66,7 +66,7 @@ namespace Rovers4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamName);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);
             return View(person);
         }
 
@@ -90,7 +90,7 @@ namespace Rovers4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamName);// Might just be person.TeamName
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);// Might just be person.TeamName
             return View(person);
         }
 
@@ -107,7 +107,7 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamName);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);
             return View(person);
         }
 
@@ -143,7 +143,7 @@ namespace Rovers4.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamName);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);
             return View(person);
         }
 

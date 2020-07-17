@@ -29,8 +29,8 @@ namespace Rovers4.Models
         public int FixtureID { get; set; }
 
         // Reference to Team
-        [Column(Order = 1)]
-        public string TeamName { get; set; } // Do I need to add the ID also - good to find out (failing on updating DB)
+        //[Column(Order = 1)]
+        //public string TeamName { get; set; } // Do I need to add the ID also - good to find out (failing on updating DB)
 
         [ForeignKey("TeamID")]
         public int TeamID { get; set; }

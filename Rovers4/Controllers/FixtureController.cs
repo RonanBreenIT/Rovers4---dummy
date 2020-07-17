@@ -139,7 +139,7 @@ namespace Rovers4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamName);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
             return View(fixture);
         }
 
@@ -158,7 +158,7 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamName);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
             return View(fixture);
         }
 
@@ -194,7 +194,7 @@ namespace Rovers4.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamName);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
             return View(fixture);
         }
 
@@ -211,7 +211,7 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamName);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
             PopulatePlayerDropDownList();
             return View(fixture);
         }
@@ -248,7 +248,7 @@ namespace Rovers4.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamName);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
             PopulatePlayerDropDownList();
             return View(fixture);
         }

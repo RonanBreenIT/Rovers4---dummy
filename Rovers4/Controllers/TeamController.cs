@@ -26,7 +26,7 @@ namespace Rovers4.Controllers
             _context = context;
         }
 
-        public ViewResult TeamPlayerList(string teamName)
+        public ViewResult TeamPlayerList(int? id)
         {
             IEnumerable<Person> staff;
             IEnumerable<Person> goalkeepers;
@@ -35,7 +35,7 @@ namespace Rovers4.Controllers
             IEnumerable<Person> forwards;
             string currentTeam;
 
-            if (string.IsNullOrEmpty(teamName))
+            if (id == null)
             {
                 staff = _personRepository.AllStaff.OrderBy(p => p.PersonID);
                 goalkeepers = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
@@ -46,17 +46,17 @@ namespace Rovers4.Controllers
             }
             else
             {
-                staff = _personRepository.AllStaff.Where(p => p.TeamName == teamName)
+                staff = _personRepository.AllStaff.Where(p => p.TeamID == id)
                     .OrderBy(p => p.PersonID);
-                goalkeepers = _personRepository.AllGoalkeepers.Where(p => p.TeamName == teamName)
+                goalkeepers = _personRepository.AllGoalkeepers.Where(p => p.TeamID == id)
                     .OrderBy(p => p.FullName);
-                defenders = _personRepository.AllDefenders.Where(p => p.TeamName == teamName)
+                defenders = _personRepository.AllDefenders.Where(p => p.TeamID == id)
                     .OrderBy(p => p.FullName);
-                midfielders = _personRepository.AllMidfielders.Where(p => p.TeamName == teamName)
+                midfielders = _personRepository.AllMidfielders.Where(p => p.TeamID == id)
                     .OrderBy(p => p.FullName);
-                forwards = _personRepository.AllForwards.Where(p => p.TeamName == teamName)
+                forwards = _personRepository.AllForwards.Where(p => p.TeamID == id)
                     .OrderBy(p => p.FullName);
-                currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.Name == teamName)?.Name;
+                currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
             }
 
             return View(new PlayersListViewModel
