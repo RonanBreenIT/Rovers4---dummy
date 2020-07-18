@@ -58,7 +58,7 @@ namespace Rovers4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PersonID,PersonType,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID")] Person person)
+        public async Task<IActionResult> Create([Bind("PersonID,PersonType,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID,ThumbnailImage,PersonBio")] Person person)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Rovers4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateMgmt([Bind("PersonID,PersonType,MgmtRole,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID")] Person person)
+        public async Task<IActionResult> CreateMgmt([Bind("PersonID,PersonType,MgmtRole,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID,ThumbnailImage,PersonBio")] Person person)
         {
             if (ModelState.IsValid)
             {
@@ -116,7 +116,7 @@ namespace Rovers4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID")] Person person)
+        public async Task<IActionResult> Edit(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID, ThumbnailImage,PersonBio")] Person person)
         {
             if (id != person.PersonID)
             {

@@ -56,7 +56,7 @@ namespace Rovers4.Controllers
             {
                 Stats = stat,
                 CurrentPlayer = currentPlayer,
-                Staff = staff
+                Staff = staff,
             });
         }
     }
