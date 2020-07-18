@@ -49,7 +49,7 @@ namespace Rovers4.Controllers
                     .OrderBy(p => p.PersonID);
                 staff = _personRepository.AllStaff.Where(p => p.PersonID == id)
                     .OrderBy(p => p.PersonID);
-                currentPlayer = _personRepository.AllStaff.FirstOrDefault(c => c.PersonID == id)?.FullName;
+                currentPlayer = _personRepository.AllStaff.FirstOrDefault(c => c.PersonID == id)?.FullName; 
             }
 
             return View(new PlayerStatsViewModel

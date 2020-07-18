@@ -10,6 +10,8 @@ namespace Rovers4.ViewModels
     {
         public IEnumerable<Person> Staff { get; set; }
 
+        public IEnumerable<Person> Mgmt { get; set; }
+
         public IEnumerable<Person> Goalkeepers { get; set; }
         public IEnumerable<Person> Defenders { get; set; }
         public IEnumerable<Person> Midfielders { get; set; }

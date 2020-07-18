@@ -33,6 +33,7 @@ namespace Rovers4.Controllers
             IEnumerable<Person> defenders;
             IEnumerable<Person> midfielders;
             IEnumerable<Person> forwards;
+            IEnumerable<Person> mgmt;
             string currentTeam;
 
             if (id == null)
@@ -42,6 +43,7 @@ namespace Rovers4.Controllers
                 defenders = _personRepository.AllDefenders.OrderBy(p => p.PersonID);
                 midfielders = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
                 forwards = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
+                mgmt = _personRepository.Mgmt.OrderBy(p => p.PersonID);
                 currentTeam = "All Teams";
             }
             else
@@ -56,6 +58,13 @@ namespace Rovers4.Controllers
                     .OrderBy(p => p.FullName);
                 forwards = _personRepository.AllForwards.Where(p => p.TeamID == id)
                     .OrderBy(p => p.FullName);
+                mgmt = _personRepository.Mgmt.Where(p => p.TeamID == id)
+                    .OrderBy(p => p.MgmtRole == MgmtRole.Manager)
+                    .ThenBy(p => p.MgmtRole == MgmtRole.Coach)
+                    .ThenBy(p => p.MgmtRole == MgmtRole.GoalKeeperCoach)
+                    .ThenBy(p => p.MgmtRole == MgmtRole.SandC)
+                    .ThenBy(p => p.MgmtRole == MgmtRole.Physio)
+                    .ThenBy(p => p.MgmtRole == MgmtRole.SandC);
                 currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
             }
 
@@ -66,7 +75,8 @@ namespace Rovers4.Controllers
                 Goalkeepers = goalkeepers,
                 Defenders = defenders,
                 Midfielders = midfielders,
-                Forwards = forwards
+                Forwards = forwards,
+                Mgmt = mgmt
 
             });
         }
