@@ -24,23 +24,25 @@
         </h3></header>
             @foreach (var fixture in Model.JanuaryFixtures)
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.HomeOrAway)
-                            </th>
-                            <td>
-                                @*@Html.DisplayFor(modelItem => fixture.FullDatesText)*@
-                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
+                <div class="fixtureDisplay">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                    <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                    <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
+                                </th>
+                                <td>
+                                    @*@Html.DisplayFor(modelItem => fixture.FullDatesText)*@
+                                    <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                    <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                    <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             }
 </section>
 
@@ -51,22 +53,25 @@
         </h3></header>
             @foreach (var fixture in Model.FebruaryFixtures)
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.HomeOrAway)
-                            </th>
-                            <td>
-                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
+                <div class="fixtureDisplay">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                    <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                    <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
+                                </th>
+                                <td>
+                                    @*@Html.DisplayFor(modelItem => fixture.FullDatesText)*@
+                                    <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                    <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                    <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             }
 </section>
 
@@ -77,22 +82,25 @@
         </h3></header>
             @foreach (var fixture in Model.MarchFixtures)
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.HomeOrAway)
-                            </th>
-                            <td>
-                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
+                <div class="fixtureDisplay">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                    <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                    <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
+                                </th>
+                                <td>
+                                    @*@Html.DisplayFor(modelItem => fixture.FullDatesText)*@
+                                    <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                    <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                    <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             }
 </section>
 
@@ -103,22 +111,25 @@
         </h3></header>
             @foreach (var fixture in Model.AprilFixtures)
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.HomeOrAway)
-                            </th>
-                            <td>
-                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
+                <div class="fixtureDisplay">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                    <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                    <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
+                                </th>
+                                <td>
+                                    @*@Html.DisplayFor(modelItem => fixture.FullDatesText)*@
+                                    <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                    <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                    <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             }
 </section>
 
@@ -129,22 +140,25 @@
         </h3></header>
             @foreach (var fixture in Model.MayFixtures)
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.HomeOrAway)
-                            </th>
-                            <td>
-                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
+                <div class="fixtureDisplay">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                    <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                    <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
+                                </th>
+                                <td>
+                                    @*@Html.DisplayFor(modelItem => fixture.FullDatesText)*@
+                                    <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                    <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                    <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             }
 </section>
 
@@ -155,22 +169,25 @@
         </h3><header>
             @foreach (var fixture in Model.JuneFixtures)
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.HomeOrAway)
-                            </th>
-                            <td>
-                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
+                 <div class="fixtureDisplay">
+                     <table class="table">
+                         <thead>
+                             <tr>
+                                 <th>
+                                     <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
+                                 </th>
+                                 <td>
+                                     @*@Html.DisplayFor(modelItem => fixture.FullDatesText)*@
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </td>
+                             </tr>
+                         </thead>
+                     </table>
+                 </div>
             }
 </section>
 
@@ -181,22 +198,25 @@
         </h3><header>
             @foreach (var fixture in Model.JulyFixtures)
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.HomeOrAway)
-                            </th>
-                            <td>
-                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
+                 <div class="fixtureDisplay">
+                     <table class="table">
+                         <thead>
+                             <tr>
+                                 <th>
+                                     <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
+                                 </th>
+                                 <td>
+                                     @*@Html.DisplayFor(modelItem => fixture.FullDatesText)*@
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </td>
+                             </tr>
+                         </thead>
+                     </table>
+                 </div>
             }
 </section>
 
@@ -207,22 +227,25 @@
         </h3><header>
             @foreach (var fixture in Model.AugustFixtures)
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.HomeOrAway)
-                            </th>
-                            <td>
-                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
+                 <div class="fixtureDisplay">
+                     <table class="table">
+                         <thead>
+                             <tr>
+                                 <th>
+                                     <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
+                                 </th>
+                                 <td>
+                                     @*@Html.DisplayFor(modelItem => fixture.FullDatesText)*@
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </td>
+                             </tr>
+                         </thead>
+                     </table>
+                 </div>
             }
 </section>
 
@@ -233,22 +256,25 @@
         </h3><header>
             @foreach (var fixture in Model.SeptemberFixtures)
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.HomeOrAway)
-                            </th>
-                            <td>
-                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
+                 <div class="fixtureDisplay">
+                     <table class="table">
+                         <thead>
+                             <tr>
+                                 <th>
+                                     <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
+                                 </th>
+                                 <td>
+                                     @*@Html.DisplayFor(modelItem => fixture.FullDatesText)*@
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </td>
+                             </tr>
+                         </thead>
+                     </table>
+                 </div>
             }
 </section>
 
@@ -259,22 +285,25 @@
         </h3><header>
             @foreach (var fixture in Model.OctoberFixtures)
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.HomeOrAway)
-                            </th>
-                            <td>
-                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
+                 <div class="fixtureDisplay">
+                     <table class="table">
+                         <thead>
+                             <tr>
+                                 <th>
+                                     <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
+                                 </th>
+                                 <td>
+                                     @*@Html.DisplayFor(modelItem => fixture.FullDatesText)*@
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </td>
+                             </tr>
+                         </thead>
+                     </table>
+                 </div>
             }
 </section>
 
@@ -285,22 +314,25 @@
         </h3><header>
             @foreach (var fixture in Model.NovemberFixtures)
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.HomeOrAway)
-                            </th>
-                            <td>
-                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
+                 <div class="fixtureDisplay">
+                     <table class="table">
+                         <thead>
+                             <tr>
+                                 <th>
+                                     <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
+                                 </th>
+                                 <td>
+                                     @*@Html.DisplayFor(modelItem => fixture.FullDatesText)*@
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </td>
+                             </tr>
+                         </thead>
+                     </table>
+                 </div>
             }
 </section>
 
@@ -311,22 +343,25 @@
         </h3><header>
             @foreach (var fixture in Model.DecemberFixtures)
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DisplayFor(modelItem => fixture.HomeOrAway)
-                            </th>
-                            <td>
-                                <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
+                 <div class="fixtureDisplay">
+                     <table class="table">
+                         <thead>
+                             <tr>
+                                 <th>
+                                     <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                                     <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
+                                 </th>
+                                 <td>
+                                     @*@Html.DisplayFor(modelItem => fixture.FullDatesText)*@
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </td>
+                             </tr>
+                         </thead>
+                     </table>
+                 </div>
             }
 </section>
 
