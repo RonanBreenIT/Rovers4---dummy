@@ -17,9 +17,10 @@
             <label asp-for="Team" class="control-label"></label>
             <select asp-for="TeamID" class="form-control" asp-items="ViewBag.TeamID"></select>
         </div>*@
-            <div class="form-group">
+            <div class="form-group" hidden>
                 @Html.LabelFor(model => model.Team, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
+                   @* <select asp-for="TeamID" class="form-control" asp-items="ViewBag.DisplayName"></select>*@
                     @Html.EditorFor(model => model.TeamID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                 </div>
             </div>
@@ -92,47 +93,54 @@
             <span asp-validation-for="Opponent" class="text-danger"></span>
         </div>*@
             <div class="form-group">
-                <label  asp-for="OurScore" class="control-label"></label>
-                <input asp-for="OurScore" class="form-control col-md-10" />
-                <span asp-validation-for="OurScore" class="text-danger"></span>
+                <label asp-for="OurScore" class="control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="OurScore" class="form-control col-md-10" />
+                    <span asp-validation-for="OurScore" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="OpponentScore" class="control-label"></label>
-                <input asp-for="OpponentScore" class="form-control col-md-10" />
-                <span asp-validation-for="OpponentScore" class="text-danger"></span>
+                <div class="col-md-10">
+                    <input asp-for="OpponentScore" class="form-control col-md-10" />
+                    <span asp-validation-for="OpponentScore" class="text-danger"></span>
+                </div>
             </div>
             @*<div class="form-group">
             <label asp-for="Result" class="control-label"></label>
             <input asp-for="Result" class="form-control" />
             <span asp-validation-for="Result" class="text-danger"></span>
         </div>*@
-            
+
             <div class="form-group">
                 <label asp-for="ResultDescription" class="control-label"></label>
-                <select asp-for="ResultDescription"
-                        class="form-control col-md-10"
-                        asp-items="Html.GetEnumSelectList<Rovers4.Models.ResultDescription>()">
-                    <option>Select type ...</option>
-                </select>
-                <span asp-validation-for="ResultDescription" class="text-danger"></span>
+                <div class="col-md-10">
+                    <select asp-for="ResultDescription"
+                            class="form-control col-md-10"
+                            asp-items="Html.GetEnumSelectList<Rovers4.Models.ResultDescription>()">
+                        <option>Select type ...</option>
+                    </select>
+                    <span asp-validation-for="ResultDescription" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="MatchReport" class="control-label"></label>
-                <input asp-for="MatchReport" class="form-control col-md-10" />
-                <span asp-validation-for="MatchReport" class="text-danger"></span>
+                <div class="col-md-10">
+                    <input asp-for="MatchReport" class="form-control col-md-10" />
+                    <span asp-validation-for="MatchReport" class="text-danger"></span>
+                </div>
             </div>
-
-            @*<div class="form-group">
+                @*<div class="form-group">
             <label asp-for="" class="control-label"></label>
             <select asp-for="UpdateGoalscorers" class="form-control" asp-items="ViewBag.PlayerID">
                 <option value="">-- Select Player --</option>
             </select>
             <span asp-validation-for="UpdateGoalscorers" class="text-danger" />
         </div>*@
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+</form>
     </div>
 </div>
 
