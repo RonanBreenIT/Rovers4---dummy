@@ -55,15 +55,15 @@
                 <input asp-for="MeetLocation" class="form-control" />
                 <span asp-validation-for="MeetLocation" class="text-danger"></span>
             </div>*@
+            <div class="form-group" >
+                <label asp-for="Opponent" class="control-label"></label>
+                <input asp-for="Opponent" class="form-control" />
+                <span  asp-validation-for="Opponent" class="text-danger"></span>
+            </div>
             <div class="form-group" hidden>
                 <label asp-for="OurScore" class="control-label"></label>
                 <input asp-for="OurScore" class="form-control" />
                 <span asp-validation-for="OurScore" class="text-danger"></span>
-            </div>
-            <div class="form-group" hidden>
-                <label asp-for="Opponent" class="control-label"></label>
-                <input asp-for="Opponent" class="form-control" />
-                <span  asp-validation-for="Opponent" class="text-danger"></span>
             </div>
             <div class ="form-group" hidden>
                 <label asp-for="OpponentScore" class="control-label"></label>
