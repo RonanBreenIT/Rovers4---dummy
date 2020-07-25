@@ -29,30 +29,6 @@ namespace Rovers4.Controllers
             _playerStatRepository = playerStatRepository;
         }
 
-        //public ViewResult TeamFixtureList(string teamName)
-        //{
-        //    IEnumerable<Fixture> fixture;
-        //    string currentTeam;
-
-        //    if (string.IsNullOrEmpty(teamName))
-        //    {
-        //        fixture = _fixtureRepository.AllFixtures.OrderBy(p => p.FixtureID);
-        //        currentTeam = "All Teams";
-        //    }
-        //    else
-        //    {
-        //        fixture = _fixtureRepository.AllFixtures.Where(p => p.TeamName == teamName)
-        //            .OrderBy(p => p.FixtureID);
-        //        currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.Name == teamName)?.Name;
-        //    }
-
-        //    return View(new FixtureListViewModel
-        //    {
-        //        Fixtures = fixture,
-        //        CurrentTeam = currentTeam
-        //    });
-        //}
-
         public ViewResult TeamFixtureList(int? id)
         {
             IEnumerable<Fixture> fixtures;
@@ -229,7 +205,7 @@ namespace Rovers4.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FixtureID,TeamID,FixtureType,FixtureDate,Location,HomeOrAway,Opponent")] Fixture fixture)
+        public async Task<IActionResult> Edit(int id, [Bind("FixtureID,TeamID,FixtureType,FixtureDate,HomeOrAway,OurScore,Opponent,OpponentScore,Result,ResultDescription,MatchReport")] Fixture fixture)
         {
             if (id != fixture.FixtureID)
             {
