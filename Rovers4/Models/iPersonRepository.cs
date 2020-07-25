@@ -13,6 +13,14 @@ namespace Rovers4.Models
         IEnumerable<Person> Players { get; }
         IEnumerable<Person> Mgmt { get; }
 
+        IEnumerable<Person> AllGoalkeepers { get; }
+
+        IEnumerable<Person> AllDefenders { get; }
+
+        IEnumerable<Person> AllMidfielders { get; }
+
+        IEnumerable<Person> AllForwards{ get; }
+
         Person GetPersonById(int personId);
 
     }

@@ -7,34 +7,18 @@
 <h1>Rovers Teams</h1>
 <h4>Here are all the Rovers Teams </h4>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Teams)
-            </th>
-
-        </tr>
-    </thead>
-    <tbody>
-
-        @foreach (var team in @Model.Teams)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => team.Name)
-            </td>
-
-            <td>
-                <a asp-action="Edit" asp-route-id="@team.TeamID">Edit</a> |
-                <a asp-action="TeamPlayerList" asp-route-teamName="@team.Name">Details</a> |
-                <a asp-controller ="Fixture" asp-action="TeamFixtureList" asp-route-id="@team.TeamID">Fixtures</a> |
+@foreach (var team in @Model.Teams)
+{
+    <div class="teamCaption">
+            <h6 class="pull-right">
+                @Html.DisplayFor(modelItem => team.Name)&nbsp;&nbsp;
+                <a asp-action="Edit" asp-route-id="@team.TeamID">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a asp-action="TeamPlayerList" asp-route-id="@team.TeamID">Details</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a asp-controller="Fixture" asp-action="TeamFixtureList" asp-route-id="@team.TeamID">Fixtures</a>&nbsp;&nbsp;|&nbsp;&nbsp;
                 <a asp-action="Delete" asp-route-id="@team.TeamID">Delete</a>
-            </td>
-        </tr>
-
-    }
-
-    </tbody>
-</table>
+            </h6>
+            <p>@Html.DisplayFor(modelItem => team.TeamBio)</p>
+        </div>
+       
+}
 

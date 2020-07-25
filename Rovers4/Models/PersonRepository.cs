@@ -39,6 +39,43 @@ namespace Rovers4.Models
             }
         }
 
+        public IEnumerable<Person> AllGoalkeepers
+        {
+            get
+            {
+                return _appDbContext.Persons.Where(p => p.PersonType == PersonType.Player).Where(s => s.PlayerPosition == PlayerPosition.Goalkeeper);
+            }
+
+        }
+
+        public IEnumerable<Person> AllDefenders
+        {
+            get
+            {
+                return _appDbContext.Persons.Where(p => p.PersonType == PersonType.Player).Where(s => s.PlayerPosition == PlayerPosition.Defender);
+            }
+
+        }
+
+
+        public IEnumerable<Person> AllMidfielders
+        {
+            get
+            {
+                return _appDbContext.Persons.Where(p => p.PersonType == PersonType.Player).Where(s => s.PlayerPosition == PlayerPosition.Midfielder);
+            }
+
+        }
+
+        public IEnumerable<Person> AllForwards
+        {
+            get
+            {
+                return _appDbContext.Persons.Where(p => p.PersonType == PersonType.Player).Where(s => s.PlayerPosition == PlayerPosition.Forward);
+            }
+
+        }
+
         public Person GetPersonById(int personId)
         {
             return _appDbContext.Persons.FirstOrDefault(p => p.PersonID == personId);

@@ -74,11 +74,18 @@ namespace Rovers4.Models
         public string Email { get; set; }
 
         [DisplayFormat(NullDisplayText = "No Image")]
+        [Display(Name = "Thumbhnail Image")]
+        public string ThumbnailImage { get; set; }
+
+        [DisplayFormat(NullDisplayText = "No Image")]
         public string Image { get; set; }
 
-        [ForeignKey("TeamName")]
+        [Display(Name = "Biography")]
+        public string PersonBio { get; set; }
+
+        [ForeignKey("TeamID")]
         [Display(Name = "Team")]
-        public string TeamName { get; set; } // Do I need to add the ID also - good to find out (failing on updating DB)
+        public int TeamID { get; set; } // Do I need to add the ID also - good to find out (failing on updating DB)
 
         public Team Team { get; set; }
 

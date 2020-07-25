@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Team>
+
+<li class="dropdown">
+    <a asp-controller="Team"
+       asp-action="Index"
+       class="dropdown-toggle" data-toggle="dropdown">Fixtures<b class="caret"></b></a>
+    <ul class="dropdown-menu">
+        @foreach (var team in Model)
+        {
+            <li>
+                <a asp-controller="Fixture" asp-action="TeamFixtureList"
+                   asp-route-id="@team.TeamID">@team.Name</a>
+            </li>
+        }
+        <li class="divider"></li>
+        <li>
+            <a asp-controller="Team" asp-action="Index" asp-route-Category="">View all Fixtures</a>
+        </li>
+    </ul>
+</li>

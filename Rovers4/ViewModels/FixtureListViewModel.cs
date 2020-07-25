@@ -10,10 +10,20 @@ namespace Rovers4.ViewModels
     {
         public IEnumerable<Fixture> Fixtures { get; set; }
         public IEnumerable<Person> Staff { get; set; }
-
         public IEnumerable<PlayerStat> Stats { get; set; }
-
         public IEnumerable<Team> Teams { get; set; }
         public string CurrentTeam { get; set; }
+        public IEnumerable<Fixture> JanuaryFixtures { get; set; }
+        public IEnumerable<Fixture> FebruaryFixtures { get; set; }
+        public IEnumerable<Fixture> MarchFixtures { get; set; }
+        public IEnumerable<Fixture> AprilFixtures { get; set; }
+        public IEnumerable<Fixture> MayFixtures { get; set; }
+        public IEnumerable<Fixture> JuneFixtures { get; set; }
+        public IEnumerable<Fixture> JulyFixtures { get; set; }
+        public IEnumerable<Fixture> AugustFixtures { get; set; }
+        public IEnumerable<Fixture> SeptemberFixtures { get; set; }
+        public IEnumerable<Fixture> OctoberFixtures { get; set; }
+        public IEnumerable<Fixture> NovemberFixtures { get; set; }
+        public IEnumerable<Fixture> DecemberFixtures { get; set; }
     }
 }

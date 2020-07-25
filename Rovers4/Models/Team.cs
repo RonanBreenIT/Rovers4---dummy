@@ -32,10 +32,13 @@ namespace Rovers4.Models
         //[Display(Name = "Team")]
         //public Grade Grade { get; set; }
 
-      
+        
         public string Name { get; set; }
 
-     
+        [Display(Name = "Team Biography")]
+        public string TeamBio { get; set; }
+
+
         [ForeignKey("ClubID")]
         public int ClubID  { get; set; } // Do I need to add the ID also - good to find out
 

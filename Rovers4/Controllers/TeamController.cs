@@ -26,27 +26,58 @@ namespace Rovers4.Controllers
             _context = context;
         }
 
-        public ViewResult TeamPlayerList(string teamName)
+        public ViewResult TeamPlayerList(int? id)
         {
             IEnumerable<Person> staff;
+            IEnumerable<Person> goalkeepers;
+            IEnumerable<Person> defenders;
+            IEnumerable<Person> midfielders;
+            IEnumerable<Person> forwards;
+            IEnumerable<Person> mgmt;
             string currentTeam;
 
-            if (string.IsNullOrEmpty(teamName))
+            if (id == null)
             {
                 staff = _personRepository.AllStaff.OrderBy(p => p.PersonID);
+                goalkeepers = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
+                defenders = _personRepository.AllDefenders.OrderBy(p => p.PersonID);
+                midfielders = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
+                forwards = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
+                mgmt = _personRepository.Mgmt.OrderBy(p => p.PersonID);
                 currentTeam = "All Teams";
             }
             else
             {
-                staff = _personRepository.AllStaff.Where(p => p.TeamName == teamName)
+                staff = _personRepository.AllStaff.Where(p => p.TeamID == id)
                     .OrderBy(p => p.PersonID);
-                currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.Name == teamName)?.Name;
+                goalkeepers = _personRepository.AllGoalkeepers.Where(p => p.TeamID == id)
+                    .OrderBy(p => p.FullName);
+                defenders = _personRepository.AllDefenders.Where(p => p.TeamID == id)
+                    .OrderBy(p => p.FullName);
+                midfielders = _personRepository.AllMidfielders.Where(p => p.TeamID == id)
+                    .OrderBy(p => p.FullName);
+                forwards = _personRepository.AllForwards.Where(p => p.TeamID == id)
+                    .OrderBy(p => p.FullName);
+                mgmt = _personRepository.Mgmt.Where(p => p.TeamID == id)
+                    .OrderBy(p => p.MgmtRole == MgmtRole.Manager)
+                    .ThenBy(p => p.MgmtRole == MgmtRole.Coach)
+                    .ThenBy(p => p.MgmtRole == MgmtRole.GoalKeeperCoach)
+                    .ThenBy(p => p.MgmtRole == MgmtRole.SandC)
+                    .ThenBy(p => p.MgmtRole == MgmtRole.Physio)
+                    .ThenBy(p => p.MgmtRole == MgmtRole.SandC);
+                currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
             }
 
             return View(new PlayersListViewModel
             {
                 Staff = staff,
-                CurrentTeam = currentTeam
+                CurrentTeam = currentTeam,
+                Goalkeepers = goalkeepers,
+                Defenders = defenders,
+                Midfielders = midfielders,
+                Forwards = forwards,
+                Mgmt = mgmt
+
             });
         }
 

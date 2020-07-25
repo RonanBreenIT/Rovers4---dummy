@@ -29,8 +29,8 @@ namespace Rovers4.Models
         public int FixtureID { get; set; }
 
         // Reference to Team
-        [Column(Order = 1)]
-        public string TeamName { get; set; } // Do I need to add the ID also - good to find out (failing on updating DB)
+        //[Column(Order = 1)]
+        //public string TeamName { get; set; } // Do I need to add the ID also - good to find out (failing on updating DB)
 
         [ForeignKey("TeamID")]
         public int TeamID { get; set; }
@@ -106,19 +106,29 @@ namespace Rovers4.Models
 
         
         //[DisplayFormat(DataFormatString = "{0:dd-MMM}", ApplyFormatInEditMode = true)]
-        public string FullText
+        public string FullDatesText
         {
             get
             {
                 //Date Part
                 StringBuilder sb = new StringBuilder("");
-                string DatesMonth = FixtureDate.ToString("ddd d");
+                string DatesMonth = FixtureDate.ToString("d ddd");
                 string DatesTime = FixtureDate.ToString("hh:mm");
-                sb.Append(DatesMonth + "st " + DatesTime + "\t " + FixtureType.ToString() + "\t " + "Rathfarnham Rovers" + " " + FinalScore + " " + Opponent + "\t" + HomeOrAway.ToString());
+                sb.Append(DatesMonth + " " + DatesTime + "\t- " + FixtureType.ToString());
                 return sb.ToString(); 
             }
         }
 
+
+        public string ResultText
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder("");
+                sb.Append("Rathfarnham Rovers" + " " + FinalScore + " " + Opponent);
+                return sb.ToString();
+            }
+        }
 
 
 
