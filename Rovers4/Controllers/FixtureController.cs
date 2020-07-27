@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
+using Rovers4.Services;
 using Rovers4.ViewModels;
 
 namespace Rovers4.Controllers
@@ -18,15 +19,17 @@ namespace Rovers4.Controllers
         private readonly ITeamRepository _teamRepository;
         private readonly IPersonRepository _personRepository;
         private readonly IPlayerStatRepository _playerStatRepository;
-        
+        private IMailService _mailService;
 
-        public FixtureController(ClubContext context, IFixtureRepository fixtureRepository , ITeamRepository teamRepository , IPersonRepository personRepository , IPlayerStatRepository playerStatRepository)
+
+        public FixtureController(ClubContext context, IFixtureRepository fixtureRepository , ITeamRepository teamRepository , IPersonRepository personRepository , IPlayerStatRepository playerStatRepository, IMailService mailService)
         {
             _context = context;
             _fixtureRepository = fixtureRepository;
             _teamRepository = teamRepository;
             _personRepository = personRepository;
             _playerStatRepository = playerStatRepository;
+            _mailService = mailService;
         }
 
         public ViewResult TeamFixtureList(int? id)
@@ -118,6 +121,7 @@ namespace Rovers4.Controllers
         // GET: Fixture
         public async Task<IActionResult> Index()
         {
+            await _mailService.SendEmailAsync("X00152190@mytudublin.ie", "Test Email", "Updated Message. Just checking email service");
             return View(await _context.Fixtures.ToListAsync());
         }
 
