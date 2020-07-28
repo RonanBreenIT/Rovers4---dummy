@@ -19,17 +19,17 @@ namespace Rovers4.Controllers
         private readonly ITeamRepository _teamRepository;
         private readonly IPersonRepository _personRepository;
         private readonly IPlayerStatRepository _playerStatRepository;
-        private IMailService _mailService;
+        
 
 
-        public FixtureController(ClubContext context, IFixtureRepository fixtureRepository , ITeamRepository teamRepository , IPersonRepository personRepository , IPlayerStatRepository playerStatRepository, IMailService mailService)
+        public FixtureController(ClubContext context, IFixtureRepository fixtureRepository , ITeamRepository teamRepository , IPersonRepository personRepository , IPlayerStatRepository playerStatRepository)
         {
             _context = context;
             _fixtureRepository = fixtureRepository;
             _teamRepository = teamRepository;
             _personRepository = personRepository;
             _playerStatRepository = playerStatRepository;
-            _mailService = mailService;
+            
         }
 
         public ViewResult TeamFixtureList(int? id)
@@ -121,8 +121,7 @@ namespace Rovers4.Controllers
         // GET: Fixture
         public async Task<IActionResult> Index()
         {
-            // Below is to send an email
-            await _mailService.SendEmailAsync("X00152190@mytudublin.ie", "Test Email", "Updated Message. Just checking email service");
+            // Below is to send an email  
             return View(await _context.Fixtures.ToListAsync());
         }
 
@@ -334,27 +333,6 @@ namespace Rovers4.Controllers
             _context.Fixtures.Remove(fixture);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        // Below all for our Email Service
-        public IActionResult SendgridEmail()
-        {       
-            return View("SendgridEmail");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> SendgridEmail(EmailModel emailmodel)
-        {
-            ViewData["Message"] = "Notification Sent for Fixture!!!...";
-            
-            await _mailService.SendEmailAsync(emailmodel.To, emailmodel.Subject, emailmodel.Body);
-
-            return View("EmailSent");
-        }
-
-        public IActionResult EmailSent()
-        {
-            return View();
         }
 
         private bool FixtureExists(int id)
