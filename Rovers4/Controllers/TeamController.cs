@@ -223,7 +223,7 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["CurrentTeam"] = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
             return View("SendgridEmail");
         }
 
