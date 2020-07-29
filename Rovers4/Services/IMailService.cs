@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Rovers4.Models;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
@@ -10,7 +11,7 @@ namespace Rovers4.Services
 {
     public interface IMailService
     {
-        Task SendEmailAsync(string toEmail, string subject, string content);
+        Task SendEmailAsync(string toEmail, string subject, string fixTypeString, string homeOrAwayString, DateTime kickOff, string opponent, string meetLocation, DateTime meetTime);
     }
 
     public class SendGridMailService: IMailService
@@ -21,17 +22,28 @@ namespace Rovers4.Services
         {
             _configuration = configuration;
         }
-        public async Task SendEmailAsync(string toEmail, string subject, string content)
+        public async Task SendEmailAsync(string toEmail, string subject, string fixTypeString, string homeOrAwayString, DateTime kickOff, string opponent, string meetLocation, DateTime meetTime)
         {
             var apiKey = _configuration["SendGridAPIKey"];
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("X00152190@mytudublin.ie", "Rathfarnham Rovers");
-            var to = new EmailAddress(toEmail);
-            //var plainTextContent = "and easy to do anywhere, even with C#";
-            //var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
-            //var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, content, content);
-            var response = await client.SendEmailAsync(msg);
+            //var sendGridClient = new SendGridClient(apiKey);
+            var sendGridMessage = new SendGridMessage();
+            sendGridMessage.SetFrom("X00152190@mytudublin.ie", "Rathfarnham Rovers");
+            sendGridMessage.AddTo(toEmail);
+            sendGridMessage.SetSubject(subject);
+            sendGridMessage.SetTemplateId("d-c7983fd7c01943a9be80c381c77db308");
+            sendGridMessage.SetTemplateData(new EmailModel
+            {
+                Subject = subject,
+                FixTypeString = fixTypeString,
+                HomeOrAwayString = homeOrAwayString,
+                KickOffTime = kickOff,
+                Opponent = opponent,
+                MeetLocation = meetLocation,
+                MeetTime = meetTime
+
+            });
+            var response = await client.SendEmailAsync(sendGridMessage);
         }
     }
 }

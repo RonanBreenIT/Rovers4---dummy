@@ -11,25 +11,47 @@ namespace Rovers4.Models
         public string From { get; set; }
         public string To { get; set; }
         public string Subject { get; set; }
-        public string Body
+        //public string Body
+        //{
+        //    get
+        //    {
+        //        StringBuilder sb = new StringBuilder("");
+        //        sb.Append("\nFixture Type: " + FixtureType.ToString() + "\nKick Off Time: " + KickOffTime + 
+        //            "\nOpponent: " + Opponent + "\nVenue: " + HomeOrAway.ToString()
+        //            + "\nMeet Location: " + MeetLocation + "\nMeet Time: " + MeetTime);
+        //        return sb.ToString();
+        //    }
+        //}
+        public FixtureType FixtureType { get; set; }
+
+        public string FixTypeString
         {
             get
             {
-                StringBuilder sb = new StringBuilder("");
-                sb.Append("\nFixture Type: " + FixtureType.ToString() + "\nKick Off Time: " + KickOffTime + 
-                    "\nOpponent: " + Opponent + "\nVenue: " + HomeOrAway.ToString()
-                    + "\nMeet Location: " + MeetLocation + "\nMeet Time: " + MeetTime);
-                return sb.ToString();
+                return FixtureType.ToString();
+            }
+            set
+            {
+                value = FixtureType.ToString();
             }
         }
-        public FixtureType FixtureType { get; set; }
         public HomeOrAway HomeOrAway { get; set; }
+
+        public string HomeOrAwayString
+        {
+            get
+            {
+                return HomeOrAway.ToString();
+            }
+            set
+            {
+                value = HomeOrAway.ToString();
+            }
+        }
         public DateTime KickOffTime { get; set; }
+
         public string Opponent { get; set; }
         public string MeetLocation { get; set; }
         public DateTime MeetTime { get; set; }
-
-        //public int TeamID { get; set; }
-        //public Team Team { get; set; }
     }
 }

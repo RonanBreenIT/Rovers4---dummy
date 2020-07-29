@@ -235,7 +235,7 @@ namespace Rovers4.Controllers
                     .Select(i => i.Email);
             foreach (var person in emailList)
             {
-                await _mailService.SendEmailAsync(person, emailmodel.Subject, emailmodel.Body);
+                await _mailService.SendEmailAsync(person, emailmodel.Subject, emailmodel.FixTypeString, emailmodel.HomeOrAwayString, emailmodel.KickOffTime, emailmodel.Opponent, emailmodel.MeetLocation, emailmodel.MeetTime);
             }
             return View("EmailSent");
         }
