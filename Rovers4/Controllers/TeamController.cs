@@ -233,6 +233,10 @@ namespace Rovers4.Controllers
             ViewData["Message"] = "Notification Sent for Fixture!!!...";
             var emailList = _personRepository.AllStaff.Where(p => p.TeamID == id)
                     .Select(i => i.Email);
+            var currentTeam = _teamRepository.Teams.FirstOrDefault(p => p.TeamID == id)?.Name;
+            currentTeam += " Fixture";
+            emailmodel.Subject = currentTeam;
+
             foreach (var person in emailList)
             {
                 await _mailService.SendEmailAsync(person, emailmodel.Subject, emailmodel.FixTypeString, emailmodel.HomeOrAwayString, emailmodel.KickOffTime, emailmodel.Opponent, emailmodel.MeetLocation, emailmodel.MeetTime);

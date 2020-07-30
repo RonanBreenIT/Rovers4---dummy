@@ -10,11 +10,6 @@
             <form asp-action="SendgridEmail">
                 <div asp-controller="Team" method="post" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Subject" class="control-label">Subject: </label>
-                    <input asp-for="Subject" class="form-control" />
-                    <span asp-validation-for="Subject" class="text-danger"></span>
-                </div>
-                <div class="form-group">
                     <label asp-for="FixtureType" class="control-label">Fixture Type: </label>
                     <select asp-for="FixtureType"
                             class="form-control"
