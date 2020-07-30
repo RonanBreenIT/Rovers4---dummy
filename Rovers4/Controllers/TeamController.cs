@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
+using Rovers4.Services;
 using Rovers4.ViewModels;
 
 namespace Rovers4.Controllers
@@ -16,14 +17,15 @@ namespace Rovers4.Controllers
         private readonly ClubContext _context;
         private readonly IPersonRepository _personRepository;
         private readonly ITeamRepository _teamRepository;
-       
+        private IMailService _mailService;
 
 
-        public TeamController(IPersonRepository personRepository, ITeamRepository teamRepository, ClubContext context)
+        public TeamController(IPersonRepository personRepository, ITeamRepository teamRepository, ClubContext context, IMailService mailService)
         {
             _personRepository = personRepository;
             _teamRepository = teamRepository;
             _context = context;
+            _mailService = mailService;
         }
 
         public ViewResult TeamPlayerList(int? id)
@@ -207,6 +209,45 @@ namespace Rovers4.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Below all for our Email Service
+        public async Task <IActionResult> SendgridEmail(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var team = await _context.Teams
+                .FirstOrDefaultAsync(m => m.TeamID == id);
+            if (team == null)
+            {
+                return NotFound();
+            }
+            ViewData["CurrentTeam"] = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
+            return View("SendgridEmail");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendgridEmail(EmailModel emailmodel, int? id)
+        {
+            ViewData["Message"] = "Notification Sent for Fixture!!!...";
+            var emailList = _personRepository.AllStaff.Where(p => p.TeamID == id)
+                    .Select(i => i.Email);
+            var currentTeam = _teamRepository.Teams.FirstOrDefault(p => p.TeamID == id)?.Name;
+            currentTeam += " Fixture";
+            emailmodel.Subject = currentTeam;
+
+            foreach (var person in emailList)
+            {
+                await _mailService.SendEmailAsync(person, emailmodel.Subject, emailmodel.FixTypeString, emailmodel.HomeOrAwayString, emailmodel.KickOffTime, emailmodel.Opponent, emailmodel.MeetLocation, emailmodel.MeetTime);
+            }
+            return View("EmailSent");
+        }
+
+        public IActionResult EmailSent()
+        {
+            return View();
+        }
         private bool TeamExists(int id)
         {
             return _context.Teams.Any(e => e.TeamID == id);

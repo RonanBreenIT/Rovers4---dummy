@@ -15,7 +15,8 @@
                 <a asp-action="Edit" asp-route-id="@team.TeamID">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;
                 <a asp-action="TeamPlayerList" asp-route-id="@team.TeamID">Details</a>&nbsp;&nbsp;|&nbsp;&nbsp;
                 <a asp-controller="Fixture" asp-action="TeamFixtureList" asp-route-id="@team.TeamID">Fixtures</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                <a asp-action="Delete" asp-route-id="@team.TeamID">Delete</a>
+                <a asp-action="Delete" asp-route-id="@team.TeamID">Delete</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a asp-action="sendGridEmail" asp-route-id="@team.TeamID">Send Email</a>
             </h6>
             <p>@Html.DisplayFor(modelItem => team.TeamBio)</p>
         </div>

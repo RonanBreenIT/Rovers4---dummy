@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Rovers4.Models;
+using Rovers4.Services;
 
 namespace Rovers4
 {
@@ -41,6 +42,8 @@ namespace Rovers4
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IPlayerStatRepository, PlayerStatRepository>();
             services.AddScoped<IFixtureRepository, FixtureRepository>();
+
+            services.AddTransient<IMailService, SendGridMailService>(); // SendGridMail
 
             services.AddControllersWithViews();
             services.AddRazorPages();

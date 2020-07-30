@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
+using Rovers4.Services;
 using Rovers4.ViewModels;
 
 namespace Rovers4.Controllers
@@ -20,6 +21,7 @@ namespace Rovers4.Controllers
         private readonly IPlayerStatRepository _playerStatRepository;
         
 
+
         public FixtureController(ClubContext context, IFixtureRepository fixtureRepository , ITeamRepository teamRepository , IPersonRepository personRepository , IPlayerStatRepository playerStatRepository)
         {
             _context = context;
@@ -27,6 +29,7 @@ namespace Rovers4.Controllers
             _teamRepository = teamRepository;
             _personRepository = personRepository;
             _playerStatRepository = playerStatRepository;
+            
         }
 
         public ViewResult TeamFixtureList(int? id)
@@ -118,6 +121,7 @@ namespace Rovers4.Controllers
         // GET: Fixture
         public async Task<IActionResult> Index()
         {
+            // Below is to send an email  
             return View(await _context.Fixtures.ToListAsync());
         }
 
