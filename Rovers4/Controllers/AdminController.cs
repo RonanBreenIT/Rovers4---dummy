@@ -12,7 +12,7 @@ using Rovers4.ViewModels;
 
 namespace Rovers4.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "Super Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
