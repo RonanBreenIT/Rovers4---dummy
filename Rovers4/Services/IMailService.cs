@@ -31,7 +31,7 @@ namespace Rovers4.Services
             sendGridMessage.SetFrom("X00152190@mytudublin.ie", "Rathfarnham Rovers");
             sendGridMessage.AddTo(toEmail);
             sendGridMessage.SetSubject(subject);
-            sendGridMessage.SetTemplateId("d-c7983fd7c01943a9be80c381c77db308");
+            sendGridMessage.SetTemplateId("d-6fb1d9954f9e49e2a62f5e67385bbbb9");
             sendGridMessage.SetTemplateData(new EmailModel
             {
                 Subject = subject,
