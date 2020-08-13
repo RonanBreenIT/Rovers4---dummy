@@ -10,14 +10,17 @@
 @foreach (var team in @Model.Teams)
 {
     <div class="teamCaption">
-            <h6 class="pull-right">
-                @Html.DisplayFor(modelItem => team.Name)&nbsp;&nbsp;
-                <a asp-action="Edit" asp-route-id="@team.TeamID">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                <a asp-action="TeamPlayerList" asp-route-id="@team.TeamID">Details</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                <a asp-controller="Fixture" asp-action="TeamFixtureList" asp-route-id="@team.TeamID">Fixtures</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                <a asp-action="Delete" asp-route-id="@team.TeamID">Delete</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                <a asp-action="sendGridEmail" asp-route-id="@team.TeamID">Send Email</a>
-            </h6>
+        <h6 class="pull-right">
+            @Html.DisplayFor(modelItem => team.Name)<span>&nbsp; &nbsp;</span>
+            <a asp-action="TeamPlayerList" asp-route-id="@team.TeamID">Details</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+            <a asp-controller="Fixture" asp-action="TeamFixtureList" asp-route-id="@team.TeamID">Fixtures</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+            <a asp-action="sendGridEmail" asp-route-id="@team.TeamID">Send Email</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+            @if (this.User.IsInRole("Super Admin"))
+            {
+                <a asp-action="Edit" asp-route-id="@team.TeamID">Edit</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+                <a asp-action="Delete" asp-route-id="@team.TeamID">Delete</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+            }
+        </h6>
             <p>@Html.DisplayFor(modelItem => team.TeamBio)</p>
         </div>
        
