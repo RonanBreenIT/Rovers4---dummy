@@ -9,8 +9,15 @@
 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
 {
 <p>
-    <a asp-controller="People" asp-action="Create">Add Player</a> |
+    <a asp-controller="People" asp-action="Create">Add Player</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
     <a asp-controller="People" asp-action="CreateMgmt">Add Management</a>
+    @foreach (var team in @Model.Teams)
+    {
+        if (team.Name == Model.CurrentTeam)
+        {
+            <span>&nbsp; &nbsp;| &nbsp; &nbsp;</span><a asp-controller="Team" asp-action="sendGridEmail" asp-route-id="@team.TeamID">Send Fixture Alert</a><span>&nbsp; &nbsp;&nbsp; &nbsp;</span>
+        }
+    }
 </p>
 }
     <section>
@@ -34,7 +41,7 @@
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a> | <a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
 
@@ -67,7 +74,7 @@
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a> | <a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
 
@@ -100,7 +107,7 @@
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a> | <a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
 
@@ -133,7 +140,7 @@
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a> | <a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
 
@@ -166,7 +173,7 @@
                                 @if (this.User.IsInRole("FirstTeamAdmin"))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a> | <a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">&nbsp;Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
                             </label>

@@ -113,7 +113,8 @@ namespace Rovers4.Controllers
                 SeptemberFixtures = septemberFixtures,
                 OctoberFixtures = octoberFixtures,
                 NovemberFixtures = novemberFixtures,
-                DecemberFixtures = decemberFixtures
+                DecemberFixtures = decemberFixtures,
+                Teams = _teamRepository.Teams
 
             });
         }

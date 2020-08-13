@@ -26,15 +26,28 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            @await Component.InvokeAsync("TeamMenu")
-                        </li>
-                        <li class="nav-item">
-                            @await Component.InvokeAsync("FixtureMenu")
-                        </li>
-                        <li class="nav-item">
-                            @await Component.InvokeAsync("AdminMenu")
-                        </li>
+                        @if (this.User.IsInRole("Super Admin"))
+                        {
+                            <li class="nav-item">
+                                @await Component.InvokeAsync("TeamMenu")
+                            </li>
+                            <li class="nav-item">
+                                @await Component.InvokeAsync("FixtureMenu")
+                            </li>
+                            <li class="nav-item">
+                                @await Component.InvokeAsync("AdminMenu")
+                            </li>
+                        }
+                        else if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole("First Team")) || (this.User.IsInRole("Under 21s")) || (this.User.IsInRole("Under 19s")) || (this.User.IsInRole("Under 17s")) || (this.User.IsInRole("Under 15s")) || (this.User.IsInRole("Under 13s")) || (this.User.IsInRole("Under 11s")))
+                        {
+                            <li class="nav-item">
+                                @await Component.InvokeAsync("TeamMenu")
+                            </li>
+                            <li class="nav-item">
+                                @await Component.InvokeAsync("FixtureMenu")
+                            </li>
+                        }
+
 
                     </ul>
                 </div>

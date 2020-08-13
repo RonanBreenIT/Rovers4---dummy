@@ -79,8 +79,8 @@ namespace Rovers4.Controllers
                 Defenders = defenders,
                 Midfielders = midfielders,
                 Forwards = forwards,
-                Mgmt = mgmt
-
+                Mgmt = mgmt,
+                Teams = _teamRepository.Teams
             });
         }
 
