@@ -6,22 +6,28 @@
 
 <h1>Rovers Teams</h1>
 <h4>Here are all the Rovers Teams </h4>
-
-@foreach (var team in @Model.Teams)
+@if (this.User.IsInRole("Super Admin"))
 {
-    <div class="teamCaption">
-        <h6 class="pull-right">
-            @Html.DisplayFor(modelItem => team.Name)<span>&nbsp; &nbsp;</span>
-            <a asp-action="TeamPlayerList" asp-route-id="@team.TeamID">Details</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
-            <a asp-controller="Fixture" asp-action="TeamFixtureList" asp-route-id="@team.TeamID">Fixtures</a>
-            @if (this.User.IsInRole("Super Admin"))
-            {
-                <span>&nbsp; &nbsp;| &nbsp; &nbsp;</span><a asp-action="Edit" asp-route-id="@team.TeamID">Edit</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
-                <a asp-action="Delete" asp-route-id="@team.TeamID">Delete</a>
-            }
-        </h6>
+    <p>
+        <a asp-action="Create">Add Team</a>
+    </p>
+}
+
+    @foreach (var team in @Model.Teams)
+    {
+        <div class="teamCaption">
+            <h6 class="pull-right">
+                @Html.DisplayFor(modelItem => team.Name)<span>&nbsp; &nbsp;</span>
+                <a asp-action="TeamPlayerList" asp-route-id="@team.TeamID">Details</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+                <a asp-controller="Fixture" asp-action="TeamFixtureList" asp-route-id="@team.TeamID">Fixtures</a>
+                @if (this.User.IsInRole("Super Admin"))
+                {
+                    <span>&nbsp; &nbsp;| &nbsp; &nbsp;</span><a asp-action="Edit" asp-route-id="@team.TeamID">Edit</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+                    <a asp-action="Delete" asp-route-id="@team.TeamID">Delete</a>
+                }
+            </h6>
             <p>@Html.DisplayFor(modelItem => team.TeamBio)</p>
         </div>
-       
-}
+
+    }
 

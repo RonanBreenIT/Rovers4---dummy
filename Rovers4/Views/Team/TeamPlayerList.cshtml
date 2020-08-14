@@ -170,7 +170,7 @@
                                 <a asp-controller="PlayerStat"
                                    asp-action="PlayerStatList"
                                    asp-route-id="@staff.PersonID">@staff.FullName</a>
-                                @if (this.User.IsInRole("FirstTeamAdmin"))
+                                @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
                                         <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>

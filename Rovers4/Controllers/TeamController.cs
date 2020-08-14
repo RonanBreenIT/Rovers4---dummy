@@ -29,6 +29,7 @@ namespace Rovers4.Controllers
             _mailService = mailService;
         }
 
+        [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public ViewResult TeamPlayerList(int? id)
         {
             IEnumerable<Person> staff;
@@ -84,15 +85,7 @@ namespace Rovers4.Controllers
             });
         }
 
-        //public IActionResult TeamPlayerDetails(int id)
-        //{
-        //    var person = _personRepository.GetPersonById(id);
-        //    if (person == null)
-        //        return NotFound();
-
-        //    return View(person);
-        //}
-
+        [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public IActionResult Index()
         {
             var PlayersListViewModel = new PlayersListViewModel
@@ -107,7 +100,7 @@ namespace Rovers4.Controllers
         // GET: Team/Create
         public IActionResult Create()
         {
-            ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Address");
+            ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name");
             return View();
         }
 
@@ -125,7 +118,7 @@ namespace Rovers4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Address", team.ClubID);
+            ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name", team.ClubID);
             return View(team);
         }
 
