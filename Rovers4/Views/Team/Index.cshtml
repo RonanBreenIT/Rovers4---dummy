@@ -18,7 +18,7 @@
         <div class="teamCaption">
             <h6 class="pull-right">
                 @Html.DisplayFor(modelItem => team.Name)<span>&nbsp; &nbsp;</span>
-                <a asp-action="TeamPlayerList" asp-route-id="@team.TeamID">Details</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+                <a asp-action="TeamPlayerList" asp-route-id="@team.TeamID">Roster</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
                 <a asp-controller="Fixture" asp-action="TeamFixtureList" asp-route-id="@team.TeamID">Fixtures</a>
                 @if (this.User.IsInRole("Super Admin"))
                 {

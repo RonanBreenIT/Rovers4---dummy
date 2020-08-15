@@ -251,6 +251,61 @@ namespace Rovers4.Controllers
 
         // GET: Fixture/Edit/5
         [Authorize(Roles = "Super Admin, Team Admin")]
+        public async Task<IActionResult> EditResult(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var fixture = await _context.Fixtures.FindAsync(id);
+            if (fixture == null)
+            {
+                return NotFound();
+            }
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
+            return View(fixture);
+        }
+
+        // POST: Fixture/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Super Admin, Team Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditResult(int id, [Bind("FixtureID,TeamID,FixtureType,FixtureDate,HomeOrAway,OurScore,Opponent,OpponentScore,Result,ResultDescription,MatchReport")] Fixture fixture)
+        {
+            if (id != fixture.FixtureID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(fixture);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!FixtureExists(fixture.FixtureID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index", "Team");
+            }
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
+            return View(fixture);
+        }
+
+        // GET: Fixture/Edit/5
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> AddResult(int? id)
         {
             if (id == null)
