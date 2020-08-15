@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Rovers4</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"] - Rathfarnham Rovers</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-lumen.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     @*<link rel="stylesheet" href="~/css/customRovers.css" />*@
 </head>
@@ -12,7 +13,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Rovers4</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Rathfarnham Rovers</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,15 +27,28 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            @await Component.InvokeAsync("TeamMenu")
-                        </li>
-                        <li class="nav-item">
-                            @await Component.InvokeAsync("FixtureMenu")
-                        </li>
-                        <li class="nav-item">
-                            @await Component.InvokeAsync("AdminMenu")
-                        </li>
+                        @if (this.User.IsInRole("Super Admin"))
+                        {
+                            <li class="nav-item">
+                                @await Component.InvokeAsync("TeamMenu")
+                            </li>
+                            <li class="nav-item">
+                                @await Component.InvokeAsync("FixtureMenu")
+                            </li>
+                            <li class="nav-item">
+                                @await Component.InvokeAsync("AdminMenu")
+                            </li>
+                        }
+                        else if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole("First Team")) || (this.User.IsInRole("Under 21s")) || (this.User.IsInRole("Under 19s")) || (this.User.IsInRole("Under 17s")) || (this.User.IsInRole("Under 15s")) || (this.User.IsInRole("Under 13s")) || (this.User.IsInRole("Under 11s")))
+                        {
+                            <li class="nav-item">
+                                @await Component.InvokeAsync("TeamMenu")
+                            </li>
+                            <li class="nav-item">
+                                @await Component.InvokeAsync("FixtureMenu")
+                            </li>
+                        }
+
 
                     </ul>
                 </div>
@@ -49,7 +63,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - Rovers4 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - Rathfarnham Rovers - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

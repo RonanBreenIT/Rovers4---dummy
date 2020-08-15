@@ -1,15 +1,15 @@
-﻿@model Rovers4.Models.Fixture
+﻿@model Fixture
 
 @{
-    ViewData["Title"] = "AddResult";
+    ViewData["Title"] = "EditResult";
 }
 
-<h1>Add Result Details</h1>
+<h1>Edit Result Details</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddResult">
+        <form asp-action="EditResult">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="FixtureID" />
             <div class="form-group" hidden>
@@ -74,10 +74,10 @@
                     <span asp-validation-for="MatchReport" class="text-danger"></span>
                 </div>
             </div>
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                </div>
-</form>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
 </div>
 

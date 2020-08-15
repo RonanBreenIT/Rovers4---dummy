@@ -36,7 +36,7 @@ namespace Rovers4.Models
         public int TeamID { get; set; }
         public Team Team { get; set; }
 
-        [Display(Name = "Type")]
+        [Display(Name = "Fixture Type")]
         [Column(Order = 2)]
         public FixtureType FixtureType { get; set; }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -113,17 +114,18 @@ namespace Rovers4.Controllers
                 SeptemberFixtures = septemberFixtures,
                 OctoberFixtures = octoberFixtures,
                 NovemberFixtures = novemberFixtures,
-                DecemberFixtures = decemberFixtures
+                DecemberFixtures = decemberFixtures,
+                Teams = _teamRepository.Teams
 
             });
         }
 
-        // GET: Fixture
-        public async Task<IActionResult> Index()
-        {
-            // Below is to send an email  
-            return View(await _context.Fixtures.ToListAsync());
-        }
+        //// GET: Fixture
+        //public async Task<IActionResult> Index()
+        //{
+        //    // Below is to send an email  
+        //    return View(await _context.Fixtures.ToListAsync());
+        //}
 
         // GET: Fixture/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -134,6 +136,7 @@ namespace Rovers4.Controllers
             }
 
             var fixture = await _context.Fixtures
+                .Include(p => p.Team)
                 .FirstOrDefaultAsync(m => m.FixtureID == id);
             if (fixture == null)
             {
@@ -152,6 +155,7 @@ namespace Rovers4.Controllers
             }
 
             var fixture = await _context.Fixtures
+                .Include(p => p.Team)
                 .FirstOrDefaultAsync(m => m.FixtureID == id);
             if (fixture == null)
             {
@@ -161,6 +165,7 @@ namespace Rovers4.Controllers
             return View(fixture);
         }
 
+        [Authorize(Roles = "Super Admin, Team Admin")]
         // GET: Fixture/Create
         public IActionResult Create()
         {
@@ -171,7 +176,9 @@ namespace Rovers4.Controllers
         // POST: Fixture/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FixtureID,TeamID,FixtureType,FixtureDate,Location,HomeOrAway,Opponent")] Fixture fixture)
         {
@@ -179,7 +186,7 @@ namespace Rovers4.Controllers
             {
                 _context.Add(fixture);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Team");
             }
             ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
             return View(fixture);
@@ -188,6 +195,7 @@ namespace Rovers4.Controllers
 
 
         // GET: Fixture/Edit/5
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -208,6 +216,7 @@ namespace Rovers4.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("FixtureID,TeamID,FixtureType,FixtureDate,HomeOrAway,OurScore,Opponent,OpponentScore,Result,ResultDescription,MatchReport")] Fixture fixture)
         {
@@ -234,13 +243,69 @@ namespace Rovers4.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Team");
             }
             ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
             return View(fixture);
         }
 
         // GET: Fixture/Edit/5
+        [Authorize(Roles = "Super Admin, Team Admin")]
+        public async Task<IActionResult> EditResult(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var fixture = await _context.Fixtures.FindAsync(id);
+            if (fixture == null)
+            {
+                return NotFound();
+            }
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
+            return View(fixture);
+        }
+
+        // POST: Fixture/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Super Admin, Team Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditResult(int id, [Bind("FixtureID,TeamID,FixtureType,FixtureDate,HomeOrAway,OurScore,Opponent,OpponentScore,Result,ResultDescription,MatchReport")] Fixture fixture)
+        {
+            if (id != fixture.FixtureID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(fixture);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!FixtureExists(fixture.FixtureID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index", "Team");
+            }
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
+            return View(fixture);
+        }
+
+        // GET: Fixture/Edit/5
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> AddResult(int? id)
         {
             if (id == null)
@@ -262,6 +327,7 @@ namespace Rovers4.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddResult(int id, [Bind("FixtureID,TeamID,FixtureType,FixtureDate,HomeOrAway,OurScore,Opponent,OpponentScore,Result,ResultDescription,MatchReport")] Fixture fixture)
         {
@@ -288,7 +354,7 @@ namespace Rovers4.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Team");
             }
             ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
             PopulatePlayerDropDownList();
@@ -306,6 +372,7 @@ namespace Rovers4.Controllers
         }
 
         // GET: Fixture/Delete/5
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -326,13 +393,14 @@ namespace Rovers4.Controllers
 
         // POST: Fixture/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var fixture = await _context.Fixtures.FindAsync(id);
             _context.Fixtures.Remove(fixture);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Team");
         }
 
         private bool FixtureExists(int id)

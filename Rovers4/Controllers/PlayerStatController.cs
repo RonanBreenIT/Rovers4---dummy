@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Rovers4.Data;
 using Rovers4.Models;
@@ -9,6 +10,7 @@ using Rovers4.ViewModels;
 
 namespace Rovers4.Controllers
 {
+    [Authorize(Roles = "Super Admin, Team Admin, Member")]
     public class PlayerStatController : Controller
     {
     
@@ -31,6 +33,7 @@ namespace Rovers4.Controllers
         // Team = Player
         // staff = PlayerStat
 
+        [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public ViewResult PlayerStatList(int? id)
         {
             IEnumerable<PlayerStat> stat;

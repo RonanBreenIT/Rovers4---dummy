@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,7 @@ namespace Rovers4.Controllers
             _mailService = mailService;
         }
 
+        [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public ViewResult TeamPlayerList(int? id)
         {
             IEnumerable<Person> staff;
@@ -78,20 +80,12 @@ namespace Rovers4.Controllers
                 Defenders = defenders,
                 Midfielders = midfielders,
                 Forwards = forwards,
-                Mgmt = mgmt
-
+                Mgmt = mgmt,
+                Teams = _teamRepository.Teams
             });
         }
 
-        //public IActionResult TeamPlayerDetails(int id)
-        //{
-        //    var person = _personRepository.GetPersonById(id);
-        //    if (person == null)
-        //        return NotFound();
-
-        //    return View(person);
-        //}
-
+        [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public IActionResult Index()
         {
             var PlayersListViewModel = new PlayersListViewModel
@@ -102,13 +96,15 @@ namespace Rovers4.Controllers
             return View(PlayersListViewModel);
         }
 
+        [Authorize(Roles = "Super Admin")]
         // GET: Team/Create
         public IActionResult Create()
         {
-            ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Address");
+            ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name");
             return View();
         }
 
+        [Authorize(Roles = "Super Admin")]
         // POST: Team/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -122,10 +118,11 @@ namespace Rovers4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Address", team.ClubID);
+            ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name", team.ClubID);
             return View(team);
         }
 
+        [Authorize(Roles = "Super Admin")]
         // GET: Team/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -143,6 +140,7 @@ namespace Rovers4.Controllers
             return View(team);
         }
 
+        [Authorize(Roles = "Super Admin")]
         // POST: Team/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -179,6 +177,7 @@ namespace Rovers4.Controllers
             return View(team);
         }
 
+        [Authorize(Roles = "Super Admin")]
         // GET: Team/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -198,6 +197,7 @@ namespace Rovers4.Controllers
             return View(team);
         }
 
+        [Authorize(Roles = "Super Admin")]
         // POST: Team/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
