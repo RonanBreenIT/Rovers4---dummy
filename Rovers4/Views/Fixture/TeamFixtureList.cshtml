@@ -4,7 +4,7 @@
     ViewData["Title"] = "Team Fixture List";
 }
 
-<h1>Rovers @Model.CurrentTeam Fixtures</h1>
+<h1>@Model.CurrentTeam</h1>
 
 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
 {
