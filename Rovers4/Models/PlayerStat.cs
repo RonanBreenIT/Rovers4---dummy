@@ -33,6 +33,8 @@ namespace Rovers4.Models
         [ForeignKey("PersonID")]
         public int PersonID { get; set; }
 
+        //public Person Person { get; set; }
+
         //public PlayerStat(Person Stats)
         //{
 

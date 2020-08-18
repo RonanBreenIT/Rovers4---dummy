@@ -1,0 +1,60 @@
+﻿@model Rovers4.Models.PlayerStat
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Amend Stats - @ViewBag.CurrentPlayer</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PlayerStatID" />
+            <div class="form-group">
+                <label asp-for="GamesPlayed" class="control-label"></label>
+                <input asp-for="GamesPlayed" class="form-control" />
+                <span asp-validation-for="GamesPlayed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Assists" class="control-label"></label>
+                <input asp-for="Assists" class="form-control" />
+                <span asp-validation-for="Assists" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Goals" class="control-label"></label>
+                <input asp-for="Goals" class="form-control" />
+                <span asp-validation-for="Goals" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CleanSheet" class="control-label"></label>
+                <input asp-for="CleanSheet" class="form-control" />
+                <span asp-validation-for="CleanSheet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RedCards" class="control-label"></label>
+                <input asp-for="RedCards" class="form-control" />
+                <span asp-validation-for="RedCards" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MotmAward" class="control-label"></label>
+                <input asp-for="MotmAward" class="form-control" />
+                <span asp-validation-for="MotmAward" class="text-danger"></span>
+            </div>
+            <div hidden class="form-group">
+                <label asp-for="PersonID" class="control-label"></label>
+                <input asp-for="PersonID" class="form-control" />
+                <span asp-validation-for="PersonID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Team" asp-action="Index">Back to Team List</a>
+</div>
+

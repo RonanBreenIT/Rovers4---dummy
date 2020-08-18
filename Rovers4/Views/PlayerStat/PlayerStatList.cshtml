@@ -6,6 +6,7 @@
 
 @*<h1>Rovers Players</h1>*@
 <h4>@Model.CurrentPlayer</h4>
+
 <table class="table">
     <tbody>
         @*<h5>Player Details</h5>*@
@@ -66,8 +67,12 @@
             if (staff.PersonType == PersonType.Player)
             {
                 <h5>Player Statistics</h5>
+                <a asp-controller="PlayerStat" asp-action="Create">Add Stats</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+                <a asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Update Stats</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+                <a asp-controller="PlayerStat" asp-action="Delete" asp-route-id="@staff.PersonID">Delete Stats</a>
             }
         }
+
 
         @foreach (var stat in Model.Stats)
         {
@@ -113,4 +118,6 @@
 
     </tbody>
 </table>
+
+<a asp-controller="Team" asp-action="Index">Back to Team List</a>
 

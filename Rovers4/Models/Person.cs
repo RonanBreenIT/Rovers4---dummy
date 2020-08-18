@@ -90,9 +90,9 @@ namespace Rovers4.Models
         public Team Team { get; set; }
 
         [ForeignKey("PlayerStatID")]
-        public int PlayerStatID { get; set; }
+        public int PlayerStatID { get; set; } 
 
-        public virtual PlayerStat PlayerStat { get; set; }
+        public virtual PlayerStat PlayerStat { get; set; }  
     }
 
 }

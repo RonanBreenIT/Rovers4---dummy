@@ -14,5 +14,7 @@ namespace Rovers4.ViewModels
         public IEnumerable<PlayerStat> Stats { get; set; }
 
         public string CurrentPlayer { get; set; }
+
+        public int CurrentPlayerID { get; set; }
     }
 }

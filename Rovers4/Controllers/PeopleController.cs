@@ -61,7 +61,7 @@ namespace Rovers4.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID,ThumbnailImage,PersonBio")] Person person)
         {
@@ -76,7 +76,7 @@ namespace Rovers4.Controllers
         }
 
         // GET: People/Create
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public IActionResult CreateMgmt()
         {
             ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name");
@@ -87,7 +87,7 @@ namespace Rovers4.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateMgmt([Bind("PersonID,PersonType,MgmtRole,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID,ThumbnailImage,PersonBio")] Person person)
         {
@@ -102,7 +102,7 @@ namespace Rovers4.Controllers
         }
 
         // GET: People/Edit/5
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -123,7 +123,7 @@ namespace Rovers4.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID, ThumbnailImage,PersonBio")] Person person)
         {
@@ -157,7 +157,7 @@ namespace Rovers4.Controllers
         }
 
         // GET: People/Edit/5
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> EditMgmt(int? id)
         {
             if (id == null)
@@ -178,7 +178,7 @@ namespace Rovers4.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditMgmt(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID, ThumbnailImage,PersonBio")] Person person)
         {
@@ -212,7 +212,7 @@ namespace Rovers4.Controllers
         }
 
         // GET: People/Delete/5
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -233,7 +233,7 @@ namespace Rovers4.Controllers
 
         // POST: People/Delete/5
         [HttpPost, ActionName("Delete")]
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
