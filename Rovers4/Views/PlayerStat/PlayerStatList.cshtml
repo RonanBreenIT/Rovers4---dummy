@@ -67,9 +67,16 @@
             if (staff.PersonType == PersonType.Player)
             {
                 <h5>Player Statistics</h5>
-                <a asp-controller="PlayerStat" asp-action="Create">Add Stats</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
-                <a asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Update Stats</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
-                <a asp-controller="PlayerStat" asp-action="Delete" asp-route-id="@staff.PersonID">Delete Stats</a>
+                if (!Model.HasStats)
+                {
+                    <a asp-controller="PlayerStat" asp-action="Create">Add Stats</a>
+                }
+                else
+                {
+                    <a asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Update Stats</a>
+                    <span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+                    <a asp-controller="PlayerStat" asp-action="Delete" asp-route-id="@staff.PersonID">Delete Stats</a>
+                }
             }
         }
 

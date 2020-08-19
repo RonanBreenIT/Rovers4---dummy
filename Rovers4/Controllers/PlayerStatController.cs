@@ -43,12 +43,14 @@ namespace Rovers4.Controllers
             IEnumerable<PlayerStat> stat;
             IEnumerable<Person> staff;
             string currentPlayer;
+            bool hasStats;
 
             if (id == null)
             {
                 stat = _playerStatRepository.AllStats.OrderBy(p => p.PersonID);
                 staff = _personRepository.AllStaff.OrderBy(p => p.PersonID);
                 currentPlayer = "All Players";
+                hasStats = false;
             }
             else
             {
@@ -56,7 +58,15 @@ namespace Rovers4.Controllers
                     .OrderBy(p => p.PersonID);
                 staff = _personRepository.AllStaff.Where(p => p.PersonID == id)
                     .OrderBy(p => p.PersonID);
-                currentPlayer = _personRepository.AllStaff.FirstOrDefault(c => c.PersonID == id)?.FullName; 
+                currentPlayer = _personRepository.AllStaff.FirstOrDefault(c => c.PersonID == id)?.FullName;
+                if (stat.Count() <= 0)
+                {
+                    hasStats = false;
+                }
+                else
+                {
+                    hasStats = true;
+                }
             }
 
             return View(new PlayerStatsViewModel
@@ -64,6 +74,7 @@ namespace Rovers4.Controllers
                 Stats = stat,
                 CurrentPlayer = currentPlayer,
                 Staff = staff,
+                HasStats = hasStats
             });
         }
 
