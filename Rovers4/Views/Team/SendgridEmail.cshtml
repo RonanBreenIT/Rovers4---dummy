@@ -10,7 +10,7 @@
             <form asp-action="SendgridEmail">
                 <div asp-controller="Team" method="post" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="FixtureType" class="control-label">Fixture Type: </label>
+                    <label asp-for="FixtureType" class="control-label">Fixture Type</label>
                     <select asp-for="FixtureType"
                             class="form-control"
                             asp-items="Html.GetEnumSelectList<Rovers4.Models.FixtureType>()">
@@ -19,7 +19,7 @@
                     <span asp-validation-for="FixtureType" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="HomeOrAway" class="control-label">Venue: </label>
+                    <label asp-for="HomeOrAway" class="control-label">Venue</label>
                     <select asp-for="HomeOrAway"
                             class="form-control"
                             asp-items="Html.GetEnumSelectList<Rovers4.Models.HomeOrAway>()">
@@ -28,22 +28,22 @@
                     <span asp-validation-for="HomeOrAway" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="KickOffTime" class="control-label">Kick Off: </label>
+                    <label asp-for="KickOffTime" class="control-label">Kick Off</label>
                     <input asp-for="KickOffTime" class="form-control" />
                     <span asp-validation-for="KickOffTime" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Opponent" class="control-label">Opponent: </label>
+                    <label asp-for="Opponent" class="control-label">Opponent</label>
                     <input asp-for="Opponent" class="form-control" />
                     <span asp-validation-for="Opponent" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="MeetLocation" class="control-label">Meet Location: </label>
+                    <label asp-for="MeetLocation" class="control-label">Meet Location</label>
                     <input asp-for="MeetLocation" class="form-control" />
                     <span asp-validation-for="MeetLocation" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="MeetTime" class="control-label">Meet Time: </label>
+                    <label asp-for="MeetTime" class="control-label">Meet Time</label>
                     <input asp-for="MeetTime" class="form-control" />
                     <span asp-validation-for="MeetTime" class="text-danger"></span>
                 </div>
