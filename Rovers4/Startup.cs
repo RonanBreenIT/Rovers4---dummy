@@ -60,7 +60,7 @@ namespace Rovers4
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            //Claims-based
+            //Claims-based ** Not in use **
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("AdministratorOnly", policy => policy.RequireRole("SuperAdmin"));

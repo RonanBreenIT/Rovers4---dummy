@@ -1,4 +1,4 @@
-﻿@model Rovers4.Models.Person
+﻿@model PersonViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form enctype="multipart/form-data" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*Maybe look at looping through PlayerType and displaying q's based on type*@
             <div class="form-group">
@@ -18,7 +18,7 @@
                 <select asp-for="TeamID" class="form-control" asp-items="ViewBag.TName"></select>
             </div>
             <div class="form-group">
-                <label asp-for="PersonType" class="control-label"></label>         
+                <label asp-for="PersonType" class="control-label"></label>
                 <select asp-for="PersonType"
                         class="form-control"
                         asp-items="Html.GetEnumSelectList<Rovers4.Models.PersonType>()">
@@ -26,7 +26,7 @@
                 </select>
                 <span asp-validation-for="PersonType" class="text-danger"></span>
             </div>
-  
+
             <div class="form-group">
                 <label asp-for="PlayerPosition" class="control-label"></label>
                 <select asp-for="PlayerPosition"
@@ -63,6 +63,22 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="ProfileImage" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="ProfileImage" class="custom-file-input" id="customFile"/>
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProfileThumbnailImage" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="ProfileThumbnailImage" class="custom-file-input" id="customFile"/>
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                    <span asp-validation-for="ProfileThumbnailImage" class="text-danger"></span>
+                </div>
+            </div>
+            @*<div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
                 <input asp-for="Image" class="form-control" />
                 <span asp-validation-for="Image" class="text-danger"></span>
@@ -71,7 +87,7 @@
                 <label asp-for="ThumbnailImage" class="control-label"></label>
                 <input asp-for="ThumbnailImage" class="form-control" />
                 <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="PersonBio" class="control-label"></label>
                 <input asp-for="PersonBio" class="form-control" />
@@ -90,6 +106,14 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script type="text/javascript">
+            // Add the following code if you want the name of the file appear on select
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
         
         }
 }

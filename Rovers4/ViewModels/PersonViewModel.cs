@@ -1,38 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Rovers4.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Rovers4.Models
+namespace Rovers4.ViewModels
 {
-    public enum MgmtRole
+    public class PersonViewModel
     {
-        Manager,
-        Coach,
-        [Display(Name = "Goalkeeping Coach")]
-        GoalKeeperCoach,
-        [Display(Name = "Strength & Conditioning Coach")]
-        SandC,
-        Physio,
-        Kitman
-    }
-
-    public enum PlayerPosition
-    {
-        Goalkeeper, Defender, Midfielder, Forward
-    }
-
-    public enum PersonType
-    {
-        Player, Manager
-    }
-
-
-    public class Person
-    {
-        [Key]
         public int PersonID { get; set; }
 
         [Display(Name = "Type")]
@@ -75,24 +52,23 @@ namespace Rovers4.Models
 
         [DisplayFormat(NullDisplayText = "No Image")]
         [Display(Name = "Thumbnail Image")]
-        public string ThumbnailImage { get; set; }
+        public IFormFile ProfileThumbnailImage { get; set; }
 
         [DisplayFormat(NullDisplayText = "No Image")]
-        public string Image { get; set; }
+        [Display(Name = "Profile Image")]
+        public IFormFile ProfileImage { get; set; }
 
         [Display(Name = "Biography")]
         public string PersonBio { get; set; }
 
-        [ForeignKey("TeamID")]
+        
         [Display(Name = "Team")]
         public int TeamID { get; set; } // Do I need to add the ID also - good to find out (failing on updating DB)
 
         public Team Team { get; set; }
 
-        [ForeignKey("PlayerStatID")]
-        public int PlayerStatID { get; set; } 
+        public int PlayerStatID { get; set; }
 
-        public virtual PlayerStat PlayerStat { get; set; }  
+        public virtual PlayerStat PlayerStat { get; set; }
     }
-
 }
