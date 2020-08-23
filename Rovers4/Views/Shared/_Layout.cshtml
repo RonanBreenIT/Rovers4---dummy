@@ -29,24 +29,14 @@
                         </li>
                         @if (this.User.IsInRole("Super Admin"))
                         {
-                            <div class="dropdown">
-                                <div class="dropdown-content">
-                                    @await Component.InvokeAsync("TeamMenu")
-                                    @await Component.InvokeAsync("FixtureMenu")
-                                    @await Component.InvokeAsync("AdminMenu")
-                    
-                                </div>
-                            </div>
-                            
+                            @await Component.InvokeAsync("TeamMenu")
+                            @await Component.InvokeAsync("FixtureMenu")
+                            @await Component.InvokeAsync("AdminMenu")
                         }
-                        else if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole("Team Admin")))
+                        else if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
                         {
-                            <div class="dropdown">
-                                <div class="dropdown-content">
-                                    @await Component.InvokeAsync("TeamMenu")
-                                    @await Component.InvokeAsync("FixtureMenu")
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("TeamMenu")
+                            @await Component.InvokeAsync("FixtureMenu")
                         }
 
                     </ul>
