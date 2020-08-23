@@ -63,7 +63,7 @@ namespace Rovers4.Controllers
                 forwards = _personRepository.AllForwards.Where(p => p.TeamID == id)
                     .OrderBy(p => p.FullName);
                 mgmt = _personRepository.Mgmt.Where(p => p.TeamID == id)
-                    .OrderBy(p => p.MgmtRole == MgmtRole.Manager)
+                    .OrderByDescending(p => p.MgmtRole == MgmtRole.Manager)
                     .ThenBy(p => p.MgmtRole == MgmtRole.Coach)
                     .ThenBy(p => p.MgmtRole == MgmtRole.GoalKeeperCoach)
                     .ThenBy(p => p.MgmtRole == MgmtRole.SandC)
