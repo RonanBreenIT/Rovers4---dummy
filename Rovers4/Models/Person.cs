@@ -69,7 +69,6 @@ namespace Rovers4.Models
         [DisplayFormat(NullDisplayText = "Null")]
         public string Mobile { get; set; }
 
-        //[Required(ErrorMessage = "The Email field is required.")]
         [EmailAddress(ErrorMessage = "The Email field is not a valid e-mail address.")]
         public string Email { get; set; }
 
@@ -85,7 +84,7 @@ namespace Rovers4.Models
 
         [ForeignKey("TeamID")]
         [Display(Name = "Team")]
-        public int TeamID { get; set; } // Do I need to add the ID also - good to find out (failing on updating DB)
+        public int TeamID { get; set; } 
 
         public Team Team { get; set; }
 

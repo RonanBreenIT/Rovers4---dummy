@@ -26,22 +26,5 @@ namespace Rovers4.Models
         [Required]
         [Display(Name = "Club Number"), StringLength(20, MinimumLength = 1, ErrorMessage = "Contact Number cannot be longer than 20 characters or null.")]
         public string Number { get; set; }
-
-        //public int TeamID { get; set; }
-
-        private List<Team> teamList = null;
-
-        List<Team> TeamList  // Confirm this
-        {
-            get
-            {
-                if (teamList == null)
-                {
-                    return teamList = new List<Team>();
-                }
-                return teamList;
-            }
-        }
-            
     }
 }
