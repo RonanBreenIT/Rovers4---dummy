@@ -20,8 +20,6 @@ namespace Rovers4.Controllers
         private readonly IPlayerStatRepository _playerStatRepository;
         private readonly ClubContext _context;
 
-
-
         public PlayerStatController(IPersonRepository personRepository, ClubContext context, IPlayerStatRepository playerStatRepository)
         {
             _personRepository = personRepository;
@@ -29,13 +27,6 @@ namespace Rovers4.Controllers
             _context = context;
 
         }
-        //public IActionResult PlayerStatsDetails()
-        //{
-        //    return View();
-        //}
-
-        // Team = Player
-        // staff = PlayerStat
 
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public ViewResult PlayerStatList(int? id)
@@ -78,16 +69,12 @@ namespace Rovers4.Controllers
             });
         }
 
-        // GET: PlayerStatsDummy/Create
         public IActionResult Create()
         {
             ViewData["Players"] = new SelectList(_context.Persons, "PersonID", "FullName");
             return View();
         }
 
-        // POST: PlayerStatsDummy/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PlayerStatID,GamesPlayed,Assists,Goals,CleanSheet,RedCards,MotmAward,PersonID")] PlayerStat playerStat)
@@ -107,7 +94,6 @@ namespace Rovers4.Controllers
             return View(playerStat);
         }
 
-        // GET: PlayerStatsDummy/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,7 +103,6 @@ namespace Rovers4.Controllers
 
             var playerStat = await _context.PlayerStats
                 .FirstOrDefaultAsync(m => m.PersonID == id);
-            //var playerStat = await _context.PlayerStats.FindAsync(personID);
             if (playerStat == null)
             {
                 return NotFound();
@@ -126,9 +111,6 @@ namespace Rovers4.Controllers
             return View(playerStat);
         }
 
-        // POST: PlayerStatsDummy/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PlayerStatID,GamesPlayed,Assists,Goals,CleanSheet,RedCards,MotmAward,PersonID")] PlayerStat playerStat)
@@ -163,7 +145,6 @@ namespace Rovers4.Controllers
             return View(playerStat);
         }
 
-        // GET: PlayerStatsDummy/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -181,7 +162,6 @@ namespace Rovers4.Controllers
             return View(playerStat);
         }
 
-        // POST: PlayerStatsDummy/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -120,14 +120,6 @@ namespace Rovers4.Controllers
             });
         }
 
-        //// GET: Fixture
-        //public async Task<IActionResult> Index()
-        //{
-        //    // Below is to send an email  
-        //    return View(await _context.Fixtures.ToListAsync());
-        //}
-
-        // GET: Fixture/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -146,7 +138,6 @@ namespace Rovers4.Controllers
             return View(fixture);
         }
 
-        // GET: Fixture/Details/5
         public async Task<IActionResult> ResultDetails(int? id)
         {
             if (id == null)
@@ -166,16 +157,11 @@ namespace Rovers4.Controllers
         }
 
         [Authorize(Roles = "Super Admin, Team Admin")]
-        // GET: Fixture/Create
         public IActionResult Create()
         {
             ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name");
             return View();
         }
-
-        // POST: Fixture/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
@@ -192,9 +178,6 @@ namespace Rovers4.Controllers
             return View(fixture);
         }
 
-
-
-        // GET: Fixture/Edit/5
         [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -212,9 +195,6 @@ namespace Rovers4.Controllers
             return View(fixture);
         }
 
-        // POST: Fixture/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
@@ -249,7 +229,6 @@ namespace Rovers4.Controllers
             return View(fixture);
         }
 
-        // GET: Fixture/Edit/5
         [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> EditResult(int? id)
         {
@@ -267,9 +246,6 @@ namespace Rovers4.Controllers
             return View(fixture);
         }
 
-        // POST: Fixture/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
@@ -304,7 +280,6 @@ namespace Rovers4.Controllers
             return View(fixture);
         }
 
-        // GET: Fixture/Edit/5
         [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> AddResult(int? id)
         {
@@ -319,13 +294,9 @@ namespace Rovers4.Controllers
                 return NotFound();
             }
             ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
-            PopulatePlayerDropDownList();
             return View(fixture);
         }
 
-        // POST: Fixture/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
@@ -357,21 +328,10 @@ namespace Rovers4.Controllers
                 return RedirectToAction("Index", "Team");
             }
             ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
-            PopulatePlayerDropDownList();
             return View(fixture);
         }
 
-        // Method that loads Player info for the dropdownList - https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/update-related-data?view=aspnetcore-3.1
-        private void PopulatePlayerDropDownList(object selectedPlayer = null)
-        {
-            var personQuery = from d in _context.Persons
-                              where d.PersonType == PersonType.Player
-                              orderby d.FullName
-                              select d;
-            ViewBag.PlayerID = new SelectList(personQuery.AsNoTracking(), "PlayerID", "Name", selectedPlayer);
-        }
 
-        // GET: Fixture/Delete/5
         [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -391,7 +351,6 @@ namespace Rovers4.Controllers
             return View(fixture);
         }
 
-        // POST: Fixture/Delete/5
         [HttpPost, ActionName("Delete")]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]

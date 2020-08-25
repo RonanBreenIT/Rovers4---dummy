@@ -26,15 +26,6 @@ namespace Rovers4.Controllers
             hostingEnvironment = _hostingEnvironment;
         }
 
-        //// GET: People
-        //[Authorize(Roles = "Super Admin, Team Admin, Member")]
-        //public async Task<IActionResult> Index()
-        //{
-        //    var clubContext = _context.Persons.Include(p => p.Team);
-        //    return View(await clubContext.ToListAsync());
-        //}
-
-        // GET: People/Details/5
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public async Task<IActionResult> Details(int? id)
         {
@@ -54,7 +45,6 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
-        // GET: People/Create
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public IActionResult Create()
         {
@@ -96,9 +86,6 @@ namespace Rovers4.Controllers
             return uniqueFileName;
         }
 
-        // POST: People/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
@@ -143,9 +130,6 @@ namespace Rovers4.Controllers
             return View();
         }
 
-        // POST: People/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
@@ -182,7 +166,6 @@ namespace Rovers4.Controllers
             return View();
         }
 
-        // GET: People/Edit/5
         [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -311,9 +294,6 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
-        // POST: People/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
@@ -348,7 +328,6 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
-        // GET: People/Delete/5
         [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -368,7 +347,6 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
-        // POST: People/Delete/5
         [HttpPost, ActionName("Delete")]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
