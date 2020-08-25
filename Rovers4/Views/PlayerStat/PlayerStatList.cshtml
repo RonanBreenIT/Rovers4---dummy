@@ -4,49 +4,50 @@
     ViewData["Title"] = "PlayerStatList";
 }
 
-<h4>@Model.CurrentPlayer</h4>
+<h4 class="font-weight-bold">@Model.CurrentPlayer</h4>
 
 <table class="table">
     <tbody>
         @foreach (var staff in Model.Staff)
         {
-            <dl class="row">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(modelItem => staff.DOB)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => staff.DOB)
+            </dd>
+            @if (staff.PlayerPosition != null)
+            {
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => staff.DOB)
+                    @Html.DisplayNameFor(modelItem => staff.PlayerPosition)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => staff.DOB)
+                    @Html.DisplayFor(modelItem => staff.PlayerPosition)
                 </dd>
-                @if (staff.PlayerPosition != null)
-                {
-                    <dt class="col-sm-2">
-                        @Html.DisplayNameFor(modelItem => staff.PlayerPosition)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @Html.DisplayFor(modelItem => staff.PlayerPosition)
-                    </dd>
-                }
-                else
-                {
-                    <dt class="col-sm-2">
-                        @Html.DisplayNameFor(modelItem => staff.MgmtRole)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @Html.DisplayFor(modelItem => staff.MgmtRole)
-                    </dd>
-                }
+            }
+            else
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => staff.MgmtRole)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => staff.MgmtRole)
+                </dd>
+            }
+            <dd class="col-sm-10">
+                <img src="~/images/@staff.Image" alt="">
+            </dd>
+        </dl>
+            
 
-                <div class="personImage">
-                    <img src="~/images/@staff.Image" alt="">
-                </div>
-
-            </dl>
         }
+
 
         @foreach (var staff in Model.Staff)
         {
             <section>
-                <h5>
+                <h5 class="font-weight-bold">
                     Player Biography
                 </h5>
                 <p>@Html.DisplayFor(modelItem => staff.PersonBio)</p>
@@ -58,7 +59,7 @@
         {
             if (staff.PersonType == PersonType.Player)
             {
-                <h5>Player Statistics</h5>
+                <h5 class="font-weight-bold">Player Statistics</h5>
                 if (!Model.HasStats)
                 {
                     <a asp-controller="PlayerStat" asp-action="Create">Add Stats</a>
