@@ -38,13 +38,13 @@
                         <div class="caption">
                             <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
                             <label>
-                                <a asp-controller="PlayerStat"
+                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
                                    asp-action="PlayerStatList"
                                    asp-route-id="@staff.PersonID">@staff.FullName</a>
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
 
@@ -74,13 +74,13 @@
                         <div class="caption">
                             <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
                             <label>
-                                <a asp-controller="PlayerStat"
+                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
                                    asp-action="PlayerStatList"
                                    asp-route-id="@staff.PersonID">@staff.FullName</a>
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
 
@@ -110,13 +110,13 @@
                         <div class="caption">
                             <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
                             <label>
-                                <a asp-controller="PlayerStat"
+                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
                                    asp-action="PlayerStatList"
                                    asp-route-id="@staff.PersonID">@staff.FullName</a>
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
 
@@ -146,13 +146,13 @@
                         <div class="caption">
                             <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
                             <label>
-                                <a asp-controller="PlayerStat"
+                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
                                    asp-action="PlayerStatList"
                                    asp-route-id="@staff.PersonID">@staff.FullName</a>
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
 
@@ -182,15 +182,16 @@
                         <div class="caption">
                             <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.MgmtRole)</h6>
                             <label>
-                                <a asp-controller="PlayerStat"
+                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
                                    asp-action="PlayerStatList"
                                    asp-route-id="@staff.PersonID">@staff.FullName</a>
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
+
                             </label>
                         </div>
                     </div>
