@@ -106,7 +106,7 @@ namespace Rovers4.Controllers
         [Authorize(Roles = "Super Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TeamID,Name,ClubID")] Team team)
+        public async Task<IActionResult> Create([Bind("TeamID,Name,ClubID, TeamBio")] Team team)
         {
             if (ModelState.IsValid)
             {
@@ -138,7 +138,7 @@ namespace Rovers4.Controllers
         [Authorize(Roles = "Super Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TeamID,Name,ClubID")] Team team)
+        public async Task<IActionResult> Edit(int id, [Bind("TeamID,Name,ClubID,TeamBio")] Team team)
         {
             if (id != team.TeamID)
             {
