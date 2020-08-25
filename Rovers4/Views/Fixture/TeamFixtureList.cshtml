@@ -32,27 +32,23 @@
         </header>
         @foreach (var fixture in Model.JanuaryFixtures)
         {
-            <div class="fixtureDisplay">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
-                            </th>
-                            @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                            {
-                                <td>
-                                    <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
-                                    <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                    <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                    <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                                </td>
-                            }
-                        </tr>
-                    </thead>
-                </table>
+            <div class="container" id="fixtureCon">
+                <div class="row" id="fixtureRow">
+                    <p id="fixtureP">
+                        <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+                        @*<p class="col" id="venue">(@Html.DisplayFor(modelItem => fixture.HomeOrAway))</p>*@
+                    </p>
+                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                    {
+                        <p class="col-sm-3">
+                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
+                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                        </p>
+                    }
+                </div>
             </div>
         }
     </section>
@@ -68,27 +64,23 @@
         </header>
         @foreach (var fixture in Model.FebruaryFixtures)
         {
-            <div class="fixtureDisplay">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
-                            </th>
-                            @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                            {
-                                <td>
-                                    <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
-                                    <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                    <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                    <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                                </td>
-                            }
-                        </tr>
-                    </thead>
-                </table>
+            <div class="container" id="fixtureCon">
+                <div class="row" id="fixtureRow">
+                    <p id="fixtureP">
+                        <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+                        @*<p class="col" id="venue">(@Html.DisplayFor(modelItem => fixture.HomeOrAway))</p>*@
+                    </p>
+                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                    {
+                        <p class="col-sm-3">
+                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
+                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                        </p>
+                    }
+                </div>
             </div>
         }
     </section>
@@ -104,27 +96,23 @@
         </header>
         @foreach (var fixture in Model.MarchFixtures)
         {
-            <div class="fixtureDisplay">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
-                            </th>
-                            @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                            {
-                                <td>
-                                    <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
-                                    <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                    <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                    <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                                </td>
-                            }
-                        </tr>
-                    </thead>
-                </table>
+            <div class="container" id="fixtureCon">
+                <div class="row" id="fixtureRow">
+                    <p id="fixtureP">
+                        <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+                        @*<p class="col" id="venue">(@Html.DisplayFor(modelItem => fixture.HomeOrAway))</p>*@
+                    </p>
+                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                    {
+                        <p class="col-sm-3">
+                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
+                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                        </p>
+                    }
+                </div>
             </div>
         }
     </section>
@@ -140,27 +128,23 @@
         </header>
         @foreach (var fixture in Model.AprilFixtures)
         {
-            <div class="fixtureDisplay">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
-                            </th>
-                            @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                            {
-                                <td>
-                                    <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
-                                    <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                    <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                    <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                                </td>
-                            }
-                        </tr>
-                    </thead>
-                </table>
+            <div class="container" id="fixtureCon">
+                <div class="row" id="fixtureRow">
+                    <p id="fixtureP">
+                        <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+                        @*<p class="col" id="venue">(@Html.DisplayFor(modelItem => fixture.HomeOrAway))</p>*@
+                    </p>
+                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                    {
+                        <p class="col-sm-3">
+                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
+                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                        </p>
+                    }
+                </div>
             </div>
         }
     </section>
@@ -176,27 +160,23 @@
         </header>
         @foreach (var fixture in Model.MayFixtures)
         {
-            <div class="fixtureDisplay">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
-                            </th>
-                            @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                            {
-                                <td>
-                                    <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
-                                    <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                    <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                    <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                                </td>
-                            }
-                        </tr>
-                    </thead>
-                </table>
+            <div class="container" id="fixtureCon">
+                <div class="row" id="fixtureRow">
+                    <p id="fixtureP">
+                        <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+                        @*<p class="col" id="venue">(@Html.DisplayFor(modelItem => fixture.HomeOrAway))</p>*@
+                    </p>
+                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                    {
+                        <p class="col-sm-3">
+                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
+                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                        </p>
+                    }
+                </div>
             </div>
         }
     </section>
@@ -211,28 +191,24 @@
             </h3><header>
                 @foreach (var fixture in Model.JuneFixtures)
                 {
-                    <div class="fixtureDisplay">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
-                                    </th>
-                                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                                    {
-                                        <td>
-                                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
-                                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                                        </td>
-                                    }
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                     <div class="container" id="fixtureCon">
+                         <div class="row" id="fixtureRow">
+                             <p id="fixtureP">
+                             <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                             <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+                             @*<p class="col" id="venue">(@Html.DisplayFor(modelItem => fixture.HomeOrAway))</p>*@
+                             </p>
+                             @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                             {
+                                 <p class="col-sm-3">
+                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </p>
+                             }
+                         </div>
+                     </div>
                 }
     </section>
 }
@@ -246,28 +222,24 @@
             </h3><header>
                 @foreach (var fixture in Model.JulyFixtures)
                 {
-                    <div class="fixtureDisplay">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
-                                    </th>
-                                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                                    {
-                                        <td>
-                                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
-                                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                                        </td>
-                                    }
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                     <div class="container" id="fixtureCon">
+                         <div class="row" id="fixtureRow">
+                             <p id="fixtureP">
+                             <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                             <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+                             @*<p class="col" id="venue">(@Html.DisplayFor(modelItem => fixture.HomeOrAway))</p>*@
+                             </p>
+                             @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                             {
+                                 <p class="col-sm-3">
+                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </p>
+                             }
+                         </div>
+                     </div>
                 }
     </section>
 }
@@ -281,28 +253,24 @@
             </h3><header>
                 @foreach (var fixture in Model.AugustFixtures)
                 {
-                    <div class="fixtureDisplay">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
-                                    </th>
-                                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                                    {
-                                        <td>
-                                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
-                                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                                        </td>
-                                    }
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                     <div class="container" id="fixtureCon">
+                         <div class="row" id="fixtureRow">
+                             <p id="fixtureP">
+                             <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                             <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+                             @*<p class="col" id="venue">(@Html.DisplayFor(modelItem => fixture.HomeOrAway))</p>*@
+                             </p>
+                             @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                             {
+                                 <p class="col-sm-3">
+                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </p>
+                             }
+                         </div>
+                     </div>
                 }
     </section>
 }
@@ -316,28 +284,24 @@
             </h3><header>
                 @foreach (var fixture in Model.SeptemberFixtures)
                 {
-                    <div class="fixtureDisplay">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
-                                    </th>
-                                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                                    {
-                                        <td>
-                                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
-                                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                                        </td>
-                                    }
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                     <div class="container" id="fixtureCon">
+                         <div class="row" id="fixtureRow">
+                             <p id="fixtureP">
+                             <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                             <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+                             @*<p class="col" id="venue">(@Html.DisplayFor(modelItem => fixture.HomeOrAway))</p>*@
+                             </p>
+                             @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                             {
+                                 <p class="col-sm-3">
+                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </p>
+                             }
+                         </div>
+                     </div>
                 }
     </section>
 }
@@ -351,28 +315,24 @@
             </h3><header>
                 @foreach (var fixture in Model.OctoberFixtures)
                 {
-                    <div class="fixtureDisplay">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
-                                    </th>
-                                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                                    {
-                                        <td>
-                                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
-                                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                                        </td>
-                                    }
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                     <div class="container" id="fixtureCon">
+                         <div class="row" id="fixtureRow">
+                             <p id="fixtureP">
+                             <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                             <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+                             @*<p class="col" id="venue">(@Html.DisplayFor(modelItem => fixture.HomeOrAway))</p>*@
+                             </p>
+                             @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                             {
+                                 <p class="col-sm-3">
+                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </p>
+                             }
+                         </div>
+                     </div>
                 }
     </section>
 }
@@ -386,28 +346,24 @@
             </h3><header>
                 @foreach (var fixture in Model.NovemberFixtures)
                 {
-                    <div class="fixtureDisplay">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
-                                    </th>
-                                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                                    {
-                                        <td>
-                                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
-                                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                                        </td>
-                                    }
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                     <div class="container" id="fixtureCon">
+                         <div class="row" id="fixtureRow">
+                             <p id="fixtureP">
+                             <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                             <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+                             @*<p class="col" id="venue">(@Html.DisplayFor(modelItem => fixture.HomeOrAway))</p>*@
+                             </p>
+                             @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                             {
+                                 <p class="col-sm-3">
+                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </p>
+                             }
+                         </div>
+                     </div>
                 }
     </section>
 }
@@ -421,28 +377,24 @@
             </h3><header>
                 @foreach (var fixture in Model.DecemberFixtures)
                 {
-                    <div class="fixtureDisplay">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <text name="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="fixtureText">@Html.DisplayFor(modelItem => fixture.ResultText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                                        <text name="homeOrAway">@Html.DisplayFor(modelItem => fixture.HomeOrAway)</text>
-                                    </th>
-                                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                                    {
-                                        <td>
-                                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
-                                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                                        </td>
-                                    }
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                     <div class="container" id="fixtureCon">
+                         <div class="row" id="fixtureRow">
+                             <p id="fixtureP">
+                             <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                             <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+                             @*<p class="col" id="venue">(@Html.DisplayFor(modelItem => fixture.HomeOrAway))</p>*@
+                             </p>
+                             @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                             {
+                                 <p class="col-sm-3">
+                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Details</a> |
+                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                 </p>
+                             }
+                         </div>
+                     </div>
                 }
     </section>
 }

@@ -54,6 +54,15 @@ namespace Rovers4.Models
         [Column(Order = 5)]
         public HomeOrAway HomeOrAway { get; set; }
 
+        public string HomeOrAwayToShortString
+        {
+            get
+            {
+                return HomeOrAway.ToString()[0].ToString();
+            }
+        }
+
+
         // May get rid of meet times and location - these are for events
         [Display(Name = "Meet Time")]
         [Column(Order = 6)]
@@ -114,7 +123,7 @@ namespace Rovers4.Models
                 StringBuilder sb = new StringBuilder("");
                 string DatesMonth = FixtureDate.ToString("d ddd");
                 string DatesTime = FixtureDate.ToString("hh:mm");
-                sb.Append(DatesMonth + " " + DatesTime + "\t- " + FixtureType.ToString());
+                sb.Append(DatesMonth + " - " + DatesTime + "\t- " + FixtureType.ToString());
                 return sb.ToString(); 
             }
         }

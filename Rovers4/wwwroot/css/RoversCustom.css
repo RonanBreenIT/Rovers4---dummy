@@ -147,4 +147,7 @@ figure {
         color: #333;
     }
 
-
+p#fixtureText.col {
+    text-transform: uppercase;
+    font-weight: bold;
+}
