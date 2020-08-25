@@ -1,4 +1,4 @@
-﻿@model Rovers4.Models.Fixture
+﻿@model Fixture
 
 @{
     ViewData["Title"] = "ResultDetails";
@@ -27,67 +27,38 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FixtureDate)
         </dd>
-        @*<dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>*@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.HomeOrAway)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.HomeOrAway)
         </dd>
-        @*<dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MeetTime)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Opponent)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MeetTime)
+            @Html.DisplayFor(model => model.Opponent)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MeetLocation)
+            @Html.DisplayNameFor(model => model.FinalScore)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MeetLocation)
-        </dd>*@
-        @*<dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.OurScore)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.OurScore)
-            </dd>*@
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Opponent)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Opponent)
-            </dd>
-            @*<dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.OpponentScore)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.OpponentScore)
-            </dd>*@
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.FinalScore)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.FinalScore)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ResultDescription)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ResultDescription)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.MatchReport)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.MatchReport)
-            </dd>
-    </dl>
+            @Html.DisplayFor(model => model.FinalScore)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ResultDescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ResultDescription)
+        </dd>
+
+</div>
+
+<div>
+    <h3>@Html.DisplayNameFor(model => model.MatchReport)</h3>
+    <p>
+        @Html.DisplayFor(model => model.MatchReport)
+    </p>
 </div>
 <div>
     <a asp-action="EditResult" asp-route-id="@Model.FixtureID">Edit</a> |

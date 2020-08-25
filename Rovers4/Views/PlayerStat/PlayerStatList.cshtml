@@ -4,21 +4,13 @@
     ViewData["Title"] = "PlayerStatList";
 }
 
-@*<h1>Rovers Players</h1>*@
 <h4>@Model.CurrentPlayer</h4>
 
 <table class="table">
     <tbody>
-        @*<h5>Player Details</h5>*@
         @foreach (var staff in Model.Staff)
         {
             <dl class="row">
-                @*<dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => staff.FullName)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => staff.FullName)
-                </dd>*@
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(modelItem => staff.DOB)
                 </dt>

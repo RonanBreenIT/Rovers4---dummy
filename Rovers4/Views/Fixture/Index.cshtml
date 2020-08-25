@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Rovers4.Models.Fixture>
+﻿@model IEnumerable<Fixture>
 
 @{
     ViewData["Title"] = "Index";
@@ -21,27 +21,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.FixtureDate)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.HomeOrAway)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.MeetTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MeetLocation)
-            </th>*@
-            @*<th>
-                @Html.DisplayNameFor(model => model.OurScore)
-            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Opponent)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.OpponentScore)
-            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.FinalScore)
             </th>
@@ -63,30 +48,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.FixtureType)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.FullText)
-            </td>*@
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.HomeOrAway)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.MeetTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MeetLocation)
-            </td>*@
-            @*<td>
-                @Html.DisplayFor(modelItem => item.OurScore)
-            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Opponent)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.OpponentScore)
-            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.FinalScore)
             </td>

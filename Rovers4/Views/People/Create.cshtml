@@ -11,7 +11,6 @@
     <div class="col-md-4">
         <form enctype="multipart/form-data" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*Maybe look at looping through PlayerType and displaying q's based on type*@
             <div class="form-group">
                 <label asp-for="Team" class="control-label"></label>
                 <select asp-for="TeamID" class="form-control" asp-items="ViewBag.TName"></select>
