@@ -67,9 +67,11 @@ namespace Rovers4.Models
         public DateTime? DOB { get; set; }
 
         [DisplayFormat(NullDisplayText = "Null")]
+        [DataType(DataType.PhoneNumber)]
         public string Mobile { get; set; }
 
         [EmailAddress(ErrorMessage = "The Email field is not a valid e-mail address.")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [DisplayFormat(NullDisplayText = "No Image")]
@@ -79,7 +81,7 @@ namespace Rovers4.Models
         [DisplayFormat(NullDisplayText = "No Image")]
         public string Image { get; set; }
 
-        [Display(Name = "Biography")]
+        [Display(Name = "Biography"), StringLength(1280, MinimumLength = 0, ErrorMessage = "Team Bio cannot be longer than 1280 characters")]
         public string PersonBio { get; set; }
 
         [ForeignKey("TeamID")]
