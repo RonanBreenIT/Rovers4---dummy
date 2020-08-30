@@ -4,22 +4,25 @@
     ViewData["Title"] = "Team Player List";
 }
 
-<h1>Rovers Players</h1>
-<h4>Here are all the Rovers Players</h4>
+<h1>@Model.CurrentTeam</h1>
+
 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
 {
-<p>
-    <a asp-controller="People" asp-action="Create">Add Player</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
-    <a asp-controller="People" asp-action="CreateMgmt">Add Management</a>
-    @foreach (var team in @Model.Teams)
-    {
-        if (team.Name == Model.CurrentTeam)
+    <p>
+        <a asp-controller="People" asp-action="Create">Add Player</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+        <a asp-controller="People" asp-action="CreateMgmt">Add Management</a>
+        @foreach (var team in @Model.Teams)
         {
-            <span>&nbsp; &nbsp;| &nbsp; &nbsp;</span><a asp-controller="Team" asp-action="sendGridEmail" asp-route-id="@team.TeamID">Send Fixture Alert</a><span>&nbsp; &nbsp;&nbsp; &nbsp;</span>
+            if (team.Name == Model.CurrentTeam)
+            {
+                <span>&nbsp; &nbsp;| &nbsp; &nbsp;</span><a asp-controller="Team" asp-action="sendGridEmail" asp-route-id="@team.TeamID">Send Fixture Alert</a><span>&nbsp; &nbsp;&nbsp; &nbsp;</span>
+            }
         }
-    }
-</p>
+    </p>
 }
+
+@if (Model.Goalkeepers.Count() > 0)
+{
     <section>
         <header>
             <h3>
@@ -31,17 +34,17 @@
             <figure>
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
-                        <img src="@staff.ThumbnailImage" alt="">
+                        <img src="~/images/@staff.ThumbnailImage" alt="">
                         <div class="caption">
                             <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
                             <label>
-                                <a asp-controller="PlayerStat"
+                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
                                    asp-action="PlayerStatList"
                                    asp-route-id="@staff.PersonID">@staff.FullName</a>
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
 
@@ -52,7 +55,10 @@
             </figure>
         }
     </section>
+}
 
+@if (Model.Defenders.Count() > 0)
+{
     <section>
         <header>
             <h3>
@@ -64,17 +70,17 @@
             <figure>
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
-                        <img src="@staff.Image" alt="">
+                        <img src="~/images/@staff.ThumbnailImage" alt="">
                         <div class="caption">
                             <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
                             <label>
-                                <a asp-controller="PlayerStat"
+                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
                                    asp-action="PlayerStatList"
                                    asp-route-id="@staff.PersonID">@staff.FullName</a>
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
 
@@ -85,7 +91,10 @@
             </figure>
         }
     </section>
+}
 
+@if (Model.Midfielders.Count() > 0)
+{
     <section>
         <header>
             <h3>
@@ -97,17 +106,17 @@
             <figure>
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
-                        <img src="@staff.ThumbnailImage" alt="">
+                        <img src="~/images/@staff.ThumbnailImage" alt="">
                         <div class="caption">
                             <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
                             <label>
-                                <a asp-controller="PlayerStat"
+                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
                                    asp-action="PlayerStatList"
                                    asp-route-id="@staff.PersonID">@staff.FullName</a>
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
 
@@ -118,7 +127,10 @@
             </figure>
         }
     </section>
+}
 
+@if (Model.Forwards.Count() > 0)
+{
     <section>
         <header>
             <h3>
@@ -130,17 +142,17 @@
             <figure>
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
-                        <img src="@staff.ThumbnailImage" alt="">
+                        <img src="~/images/@staff.ThumbnailImage" alt="">
                         <div class="caption">
                             <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
                             <label>
-                                <a asp-controller="PlayerStat"
+                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
                                    asp-action="PlayerStatList"
                                    asp-route-id="@staff.PersonID">@staff.FullName</a>
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
 
@@ -151,7 +163,10 @@
             </figure>
         }
     </section>
+}
 
+@if (Model.Mgmt.Count() > 0)
+{
     <section>
         <header>
             <h3>
@@ -163,19 +178,20 @@
             <figure>
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
-                        <img src="@staff.ThumbnailImage" alt="">
+                        <img src="~/images/@staff.ThumbnailImage" alt="">
                         <div class="caption">
                             <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.MgmtRole)</h6>
                             <label>
-                                <a asp-controller="PlayerStat"
+                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
                                    asp-action="PlayerStatList"
                                    asp-route-id="@staff.PersonID">@staff.FullName</a>
                                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                                 {
                                     <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp; &nbsp;|&nbsp; &nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
+                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                                     </div>
                                 }
+
                             </label>
                         </div>
                     </div>
@@ -183,3 +199,6 @@
             </figure>
         }
     </section>
+}
+
+<p class="font-weight-bold">Total Players:  @ViewBag.TeamNumbers</p>

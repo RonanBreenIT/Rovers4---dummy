@@ -28,10 +28,6 @@ namespace Rovers4.Models
         [Column(Order = 0)]
         public int FixtureID { get; set; }
 
-        // Reference to Team
-        //[Column(Order = 1)]
-        //public string TeamName { get; set; } // Do I need to add the ID also - good to find out (failing on updating DB)
-
         [ForeignKey("TeamID")]
         public int TeamID { get; set; }
         public Team Team { get; set; }
@@ -53,6 +49,14 @@ namespace Rovers4.Models
         [Display(Name = "Home/Away")]
         [Column(Order = 5)]
         public HomeOrAway HomeOrAway { get; set; }
+
+        public string HomeOrAwayToShortString
+        {
+            get
+            {
+                return HomeOrAway.ToString()[0].ToString();
+            }
+        }
 
         // May get rid of meet times and location - these are for events
         [Display(Name = "Meet Time")]
@@ -78,8 +82,6 @@ namespace Rovers4.Models
         [Column(Order = 10)]
         public int? OpponentScore { get; set; }
 
-        //[DisplayFormat(NullDisplayText = "TBC")]
-        //private string result;
 
         [Column(Order = 11)]
         [DisplayFormat(NullDisplayText = "TBC")]
@@ -104,8 +106,6 @@ namespace Rovers4.Models
         [Column(Order = 13)]
         public string MatchReport { get; set; } = null;
 
-        
-        //[DisplayFormat(DataFormatString = "{0:dd-MMM}", ApplyFormatInEditMode = true)]
         public string FullDatesText
         {
             get
@@ -114,25 +114,15 @@ namespace Rovers4.Models
                 StringBuilder sb = new StringBuilder("");
                 string DatesMonth = FixtureDate.ToString("d ddd");
                 string DatesTime = FixtureDate.ToString("hh:mm");
-                sb.Append(DatesMonth + " " + DatesTime + "\t- " + FixtureType.ToString());
+                sb.Append(DatesMonth + " - " + DatesTime + "\t- " + FixtureType.ToString());
                 return sb.ToString(); 
             }
         }
 
 
-        public string ResultText
-        {
-            get
-            {
-                StringBuilder sb = new StringBuilder("");
-                sb.Append("Rathfarnham Rovers" + " " + FinalScore + " " + Opponent);
-                return sb.ToString();
-            }
-        }
 
 
-
-        // ------- Section Reference to Update Player Stats -------- //
+        // ------- Section Reference to Update Player Stats ** needs to be looked at -------- //
 
 
 

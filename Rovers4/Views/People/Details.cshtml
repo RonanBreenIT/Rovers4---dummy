@@ -1,4 +1,4 @@
-﻿@model Rovers4.Models.Person
+﻿@model Person
 
 @{
     ViewData["Title"] = "Details";
@@ -7,7 +7,6 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Person</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -28,18 +27,6 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PlayerPosition)
         </dd>
-        @*<dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.FirstName)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.FirstName)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Surname)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Surname)
-            </dd>*@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FullName)
         </dt>
@@ -52,37 +39,12 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DOB)
         </dd>
-        @*<dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Mobile)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Mobile)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Email)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Email)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Image)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Image)
-            </dd>*@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Team)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Team.Name)
         </dd>
-        @*<dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PlayerStat.GamesPlayed)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PlayerStat.GamesPlayed)
-        </dd>*@
-
     </dl>
 </div>
 

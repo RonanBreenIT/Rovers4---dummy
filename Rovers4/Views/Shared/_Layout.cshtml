@@ -6,14 +6,14 @@
     <title>@ViewData["Title"] - Rathfarnham Rovers</title>
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-lumen.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    @*<link rel="stylesheet" href="~/css/customRovers.css" />*@
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
+    <link rel="stylesheet" href="~/css/RoversCustom.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Rathfarnham Rovers</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Rovers</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,31 +24,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        </li>*@
                         @if (this.User.IsInRole("Super Admin"))
                         {
-                            <li class="nav-item">
-                                @await Component.InvokeAsync("TeamMenu")
-                            </li>
-                            <li class="nav-item">
-                                @await Component.InvokeAsync("FixtureMenu")
-                            </li>
-                            <li class="nav-item">
-                                @await Component.InvokeAsync("AdminMenu")
-                            </li>
+                            @await Component.InvokeAsync("TeamMenu")
+                            @await Component.InvokeAsync("FixtureMenu")
+                            @await Component.InvokeAsync("AdminMenu")
                         }
-                        else if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole("First Team")) || (this.User.IsInRole("Under 21s")) || (this.User.IsInRole("Under 19s")) || (this.User.IsInRole("Under 17s")) || (this.User.IsInRole("Under 15s")) || (this.User.IsInRole("Under 13s")) || (this.User.IsInRole("Under 11s")))
+                        else if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
                         {
-                            <li class="nav-item">
-                                @await Component.InvokeAsync("TeamMenu")
-                            </li>
-                            <li class="nav-item">
-                                @await Component.InvokeAsync("FixtureMenu")
-                            </li>
+                            @await Component.InvokeAsync("TeamMenu")
+                            @await Component.InvokeAsync("FixtureMenu")
                         }
-
 
                     </ul>
                 </div>

@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
+using Rovers4.ViewModels;
 
 namespace Rovers4.Controllers
 {
@@ -15,21 +18,14 @@ namespace Rovers4.Controllers
     public class PeopleController : Controller
     {
         private readonly ClubContext _context;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
-        public PeopleController(ClubContext context)
+        public PeopleController(ClubContext context, IWebHostEnvironment _hostingEnvironment)
         {
             _context = context;
+            hostingEnvironment = _hostingEnvironment;
         }
 
-        //// GET: People
-        //[Authorize(Roles = "Super Admin, Team Admin, Member")]
-        //public async Task<IActionResult> Index()
-        //{
-        //    var clubContext = _context.Persons.Include(p => p.Team);
-        //    return View(await clubContext.ToListAsync());
-        //}
-
-        // GET: People/Details/5
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public async Task<IActionResult> Details(int? id)
         {
@@ -49,7 +45,6 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
-        // GET: People/Create
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public IActionResult Create()
         {
@@ -57,52 +52,121 @@ namespace Rovers4.Controllers
             return View();
         }
 
-        // POST: People/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        private string UploadedThumbnailImage(PersonViewModel model)
+        {
+            string uniqueFileName = null;
+
+            if (model.ProfileThumbnailImage != null)
+            {
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfileThumbnailImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileThumbnailImage.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
+
+        private string UploadedImage(PersonViewModel model)
+        {
+            string uniqueFileName = null;
+
+            if (model.ProfileImage != null)
+            {
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileImage.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
+
         [HttpPost]
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID,ThumbnailImage,PersonBio")] Person person)
+        public async Task<IActionResult> Create([Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] PersonViewModel model)
         {
             if (ModelState.IsValid)
             {
+                string thumnailImage = UploadedThumbnailImage(model);
+                string image = UploadedImage(model);
+
+                Person person = new Person
+                {
+                    PersonID = model.PersonID,
+                    PersonType = model.PersonType,
+                    MgmtRole = model.MgmtRole,
+                    PlayerPosition = model.PlayerPosition,
+                    FirstName = model.FirstName,
+                    Surname = model.Surname,
+                    DOB = model.DOB,
+                    Mobile = model.Mobile,
+                    Email = model.Email,
+                    PersonBio = model.PersonBio,
+                    TeamID = model.TeamID,
+                    PlayerStatID = model.PlayerStatID,
+                    Image = image,
+                    ThumbnailImage = thumnailImage
+                };
+
                 _context.Add(person);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Team");
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);
-            return View(person);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", model.TeamID);
+            return View();
         }
 
         // GET: People/Create
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public IActionResult CreateMgmt()
         {
             ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name");
             return View();
         }
 
-        // POST: People/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateMgmt([Bind("PersonID,PersonType,MgmtRole,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID,ThumbnailImage,PersonBio")] Person person)
+        public async Task<IActionResult> CreateMgmt([Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] PersonViewModel model)
         {
             if (ModelState.IsValid)
             {
+                string thumnailImage = UploadedThumbnailImage(model);
+                string image = UploadedImage(model);
+
+                Person person = new Person
+                {
+                    PersonID = model.PersonID,
+                    PersonType = model.PersonType,
+                    MgmtRole = model.MgmtRole,
+                    PlayerPosition = model.PlayerPosition,
+                    FirstName = model.FirstName,
+                    Surname = model.Surname,
+                    DOB = model.DOB,
+                    Mobile = model.Mobile,
+                    Email = model.Email,
+                    PersonBio = model.PersonBio,
+                    TeamID = model.TeamID,
+                    PlayerStatID = model.PlayerStatID,
+                    Image = image,
+                    ThumbnailImage = thumnailImage
+                };
+
                 _context.Add(person);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Team");
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);// Might just be person.TeamName
-            return View(person);
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", model.TeamID);
+            return View();
         }
 
-        // GET: People/Edit/5
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -119,11 +183,8 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
-        // POST: People/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID, ThumbnailImage,PersonBio")] Person person)
         {
@@ -156,8 +217,67 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
+        // This is for Editing Photos with PersonViewModel. Wont work tho as TeamPlayerList passes in a Person Model. Need a way around.
+        // POST: People/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[Authorize(Roles = "Super Admin, Team Admin")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] PersonViewModel model)
+        //{
+        //    if (id != model.PersonID)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        string thumnailImage = UploadedThumbnailImage(model);
+        //        string image = UploadedImage(model);
+
+        //        Person person = new Person
+        //        {
+        //            PersonID = model.PersonID,
+        //            PersonType = model.PersonType,
+        //            MgmtRole = model.MgmtRole,
+        //            PlayerPosition = model.PlayerPosition,
+        //            FirstName = model.FirstName,
+        //            Surname = model.Surname,
+        //            DOB = model.DOB,
+        //            Mobile = model.Mobile,
+        //            Email = model.Email,
+        //            PersonBio = model.PersonBio,
+        //            TeamID = model.TeamID,
+        //            PlayerStatID = model.PlayerStatID,
+        //            Image = image,
+        //            ThumbnailImage = thumnailImage
+        //        };
+
+        //        try
+        //        {
+        //            _context.Update(person);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!PersonExists(person.PersonID))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction("Index", "Team");
+        //    }
+        //    ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", model.TeamID);
+        //    return View();
+        //}
+
         // GET: People/Edit/5
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> EditMgmt(int? id)
         {
             if (id == null)
@@ -174,11 +294,8 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
-        // POST: People/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditMgmt(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID, ThumbnailImage,PersonBio")] Person person)
         {
@@ -211,8 +328,7 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
-        // GET: People/Delete/5
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -231,9 +347,8 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
-        // POST: People/Delete/5
         [HttpPost, ActionName("Delete")]
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
