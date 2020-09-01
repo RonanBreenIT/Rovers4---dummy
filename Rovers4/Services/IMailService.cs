@@ -26,7 +26,6 @@ namespace Rovers4.Services
         {
             var apiKey = _configuration["SendGridAPIKey"];
             var client = new SendGridClient(apiKey);
-            //var sendGridClient = new SendGridClient(apiKey);
             var sendGridMessage = new SendGridMessage();
             sendGridMessage.SetFrom("X00152190@mytudublin.ie", "Rathfarnham Rovers");
             sendGridMessage.AddTo(toEmail);
