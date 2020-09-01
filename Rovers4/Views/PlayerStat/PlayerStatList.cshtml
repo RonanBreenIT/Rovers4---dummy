@@ -46,8 +46,8 @@
 
         @foreach (var staff in Model.Staff)
         {
-            <section>
-                <h5 class="font-weight-bold">
+            <section >
+                <h5 class="font-weight-bold" style="padding-top: 2em">
                     Player Biography
                 </h5>
                 <p>@Html.DisplayFor(modelItem => staff.PersonBio)</p>
@@ -59,7 +59,7 @@
         {
             if (staff.PersonType == PersonType.Player)
             {
-                <h5 class="font-weight-bold">Player Statistics</h5>
+                <h5 class="font-weight-bold" style="padding-top: 2em">Player Statistics</h5>
                 if (!Model.HasStats)
                 {
                     <a asp-controller="PlayerStat" asp-action="Create">Add Stats</a>
