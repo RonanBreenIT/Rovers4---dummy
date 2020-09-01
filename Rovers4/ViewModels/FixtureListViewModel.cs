@@ -25,5 +25,15 @@ namespace Rovers4.ViewModels
         public IEnumerable<Fixture> OctoberFixtures { get; set; }
         public IEnumerable<Fixture> NovemberFixtures { get; set; }
         public IEnumerable<Fixture> DecemberFixtures { get; set; }
+
+        public int TotalWins { get; set; }
+
+        public int TotalDraws { get; set; }
+
+        public int TotalLosses { get; set; }
+
+        public int GoalsFor { get; set; }
+
+        public int GoalsAgainst { get; set; }
     }
 }

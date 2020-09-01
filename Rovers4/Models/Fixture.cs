@@ -15,7 +15,7 @@ namespace Rovers4.Models
 
     public enum ResultDescription
     {
-        Win, Loss, Draw
+        TBC, Win, Loss, Draw
     }
 
     public enum HomeOrAway

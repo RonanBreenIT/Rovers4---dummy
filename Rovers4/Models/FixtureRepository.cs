@@ -118,5 +118,60 @@ namespace Rovers4.Models
                 return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 12).Where(s => s.FixtureType != FixtureType.Training);
             }
         }
+
+        
+
+        public int TotalWins(int? teamID)
+        {
+            int wins = 0;
+            foreach (var item in _appDbContext.Fixtures.Where(t => t.TeamID == teamID).Where(s => s.ResultDescription == ResultDescription.Win))
+            {
+                wins += 1;
+            }
+            return wins;
+        }
+
+        public int TotalDraws(int? teamID)
+        {
+            int draws = 0;
+            foreach (var item in _appDbContext.Fixtures.Where(t => t.TeamID == teamID).Where(s => s.ResultDescription == ResultDescription.Draw))
+            {
+                draws += 1;
+            }
+            return draws;
+        }
+
+        public int TotalLosses(int? teamID)
+        {
+            int losses = 0;
+            foreach (var item in _appDbContext.Fixtures.Where(t => t.TeamID == teamID).Where(s => s.ResultDescription == ResultDescription.Loss))
+            {
+                losses += 1;
+            }
+            return losses;
+        }
+
+        public int GoalsAgainst(int? teamID)
+        {
+            int against = 0;
+            foreach (var item in _appDbContext.Fixtures.Where(t => t.TeamID == teamID))
+            {
+                against += item.OpponentScore.GetValueOrDefault();
+            }
+            return against;
+        }
+
+        public int GoalsFor(int? teamID)
+        {
+            int goalsfor = 0;
+            foreach (var item in _appDbContext.Fixtures.Where(t => t.TeamID == teamID))
+            {
+                goalsfor += item.OurScore.GetValueOrDefault();
+            }
+            return goalsfor;
+        }
+
+        
+
     }
 }
