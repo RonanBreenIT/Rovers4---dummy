@@ -54,6 +54,7 @@ namespace Rovers4.Controllers
             int totalLosses;
             int goalsFor;
             int goalsAgainst;
+            int gamesPlayed;
 
             if (id == null)
             {
@@ -76,6 +77,7 @@ namespace Rovers4.Controllers
                 totalLosses = 0;
                 goalsFor = 0;
                 goalsAgainst = 0;
+                gamesPlayed = 0;
             }
             else
             {
@@ -111,6 +113,7 @@ namespace Rovers4.Controllers
                 totalLosses = _fixtureRepository.TotalLosses(id);
                 goalsFor = _fixtureRepository.GoalsFor(id);
                 goalsAgainst = _fixtureRepository.GoalsAgainst(id);
+                gamesPlayed = (totalWins + totalDraws + totalLosses);
             }
 
             //ViewData["TotalWins"] = currentTeam.
@@ -135,7 +138,8 @@ namespace Rovers4.Controllers
                 TotalDraws = totalDraws,
                 TotalLosses = totalLosses,
                 GoalsFor = goalsFor,
-                GoalsAgainst = goalsAgainst  
+                GoalsAgainst = goalsAgainst,
+                GamesPlayed = gamesPlayed
             });
         }
 

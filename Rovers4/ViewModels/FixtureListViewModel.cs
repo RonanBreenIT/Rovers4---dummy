@@ -35,5 +35,7 @@ namespace Rovers4.ViewModels
         public int GoalsFor { get; set; }
 
         public int GoalsAgainst { get; set; }
+
+        public int GamesPlayed { get; set; }
     }
 }
