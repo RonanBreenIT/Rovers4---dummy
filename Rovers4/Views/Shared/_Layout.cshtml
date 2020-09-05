@@ -52,9 +52,14 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - Rathfarnham Rovers - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            - <a asp-area="" asp-controller="Club" asp-action="Index">Clubs</a>
-            - <a asp-area="" asp-controller="Home" asp-action="Contact                                                                                                                                          ">Contact</a>
+            &copy; 2020 - Rathfarnham Rovers 
+            @if (this.User.IsInRole("Super Admin"))
+            {
+                
+                <a asp-area="" asp-controller="Club" asp-action="Index">Club</a> 
+            }
+            - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            - <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>                   
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
