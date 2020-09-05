@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Club>
+
+@{
+    ViewData["Title"] = "Contact";
+}
+    <head>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVW5DD7OSbk79UswEMKJLPZ6DMi1zAKw0"></script>
+    </head>
+
+<h1>Contact</h1>
+
+@foreach (var item in Model)
+{
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.Address)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.Email)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Number)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.Number)
+            </dd>
+        </dl>
+    </div>
+}
+
+<html>
+
+<body>
+    <input type="button" value="Click to Display Map" onclick="DisplayGoogleMap()" />
+    <div id="myDiv" style="width:100%;height:400px;"></div>
+
+    <script type="text/javascript">
+        function DisplayGoogleMap() {
+
+            //Set the Latitude and Longitude of the Map
+            var myAddress = new google.maps.LatLng(53.3053754,-6.2976638);
+
+            //Create Options or set different Characteristics of Google Map
+            var mapOptions = {
+                center: myAddress,
+                zoom: 15,
+                minZoom: 15,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            //Display the Google map in the div control with the defined Options
+            var map = new google.maps.Map(document.getElementById("myDiv"), mapOptions);
+
+            //Set Marker on the Map
+            var marker = new google.maps.Marker({
+                position: myAddress,
+                animation: google.maps.Animation.BOUNCE,
+            });
+
+            marker.setMap(map);
+        }
+    </script>
+</body>
+</html>
+
