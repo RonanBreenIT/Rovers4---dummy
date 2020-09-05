@@ -9,7 +9,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form enctype="multipart/form-data" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PersonID" />
             <div class="form-group">
@@ -70,19 +70,20 @@
                 <span asp-validation-for="Mobile" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="ProfileImage" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="ProfileImage" class="custom-file-input" id="customFile" />
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ThumbnailImage" class="control-label"></label>
-                <input asp-for="ThumbnailImage" class="form-control" />
-                <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
+                <label asp-for="ProfileThumbnailImage" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="ProfileThumbnailImage" class="custom-file-input" id="customFile" />
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                    <span asp-validation-for="ProfileThumbnailImage" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="PersonBio" class="control-label"></label>
@@ -101,6 +102,14 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
 
+        <script type="text/javascript">
+            // Add the following code if you want the name of the file appear on select
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+    }
 }
