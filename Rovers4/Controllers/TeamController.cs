@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting.Internal;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.Services;
@@ -19,14 +22,16 @@ namespace Rovers4.Controllers
         private readonly IPersonRepository _personRepository;
         private readonly ITeamRepository _teamRepository;
         private IMailService _mailService;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
 
-        public TeamController(IPersonRepository personRepository, ITeamRepository teamRepository, ClubContext context, IMailService mailService)
+        public TeamController(IPersonRepository personRepository, ITeamRepository teamRepository, ClubContext context, IMailService mailService, IWebHostEnvironment _hostingEnvironment)
         {
             _personRepository = personRepository;
             _teamRepository = teamRepository;
             _context = context;
             _mailService = mailService;
+            hostingEnvironment = _hostingEnvironment;
         }
 
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
@@ -96,6 +101,23 @@ namespace Rovers4.Controllers
             return View(PlayersListViewModel);
         }
 
+        private string UploadedImage(Team model)
+        {
+            string uniqueFileName = null;
+
+            if (model.TeamImageFile != null)
+            {
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.TeamImageFile.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.TeamImageFile.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
+
         [Authorize(Roles = "Super Admin")]
         public IActionResult Create()
         {
@@ -106,10 +128,14 @@ namespace Rovers4.Controllers
         [Authorize(Roles = "Super Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TeamID,Name,ClubID, TeamBio")] Team team)
+        public async Task<IActionResult> Create([Bind("TeamID,Name,ClubID, TeamBio, TeamImageFile")] Team team)
         {
             if (ModelState.IsValid)
             {
+                string image = UploadedImage(team);
+
+                team.TeamImage = image;
+
                 _context.Add(team);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -138,7 +164,7 @@ namespace Rovers4.Controllers
         [Authorize(Roles = "Super Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TeamID,Name,ClubID,TeamBio")] Team team)
+        public async Task<IActionResult> Edit(int id, [Bind("TeamID,Name,ClubID,TeamBio, TeamImageFile")] Team team)
         {
             if (id != team.TeamID)
             {
@@ -147,6 +173,9 @@ namespace Rovers4.Controllers
 
             if (ModelState.IsValid)
             {
+                string image = UploadedImage(team);
+
+                team.TeamImage = image;
                 try
                 {
                     _context.Update(team);

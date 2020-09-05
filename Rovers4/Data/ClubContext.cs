@@ -13,14 +13,8 @@ namespace Rovers4.Data
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Team> Teams { get; set; }
 
-        //public DbSet<Management> Managements { get; set; }
-
-        //public DbSet<Player> Players { get; set; }
-        
         public DbSet<PlayerStat> PlayerStats { get; set; }
         public DbSet<Fixture> Fixtures { get; set; }
-
-        //public DbSet<FixtureResult> FixtureResults { get; set; }
 
         public DbSet<Person> Persons { get; set; }
 

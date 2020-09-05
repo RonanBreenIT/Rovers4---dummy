@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form enctype="multipart/form-data" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ClubID" />
             <div class="form-group">
@@ -34,6 +34,30 @@
                 <span asp-validation-for="Number" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="ClubImageFile1" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="ClubImageFile1" class="custom-file-input" id="customFile" />
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                    <span asp-validation-for="ClubImageFile1" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClubImageFile2" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="ClubImageFile2" class="custom-file-input" id="customFile" />
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                    <span asp-validation-for="ClubImageFile2" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClubImageFile3" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="ClubImageFile3" class="custom-file-input" id="customFile" />
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                    <span asp-validation-for="ClubImageFile3" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -45,5 +69,14 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        
+        <script type="text/javascript">
+            // Add the following code if you want the name of the file appear on select
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+        }
 }
