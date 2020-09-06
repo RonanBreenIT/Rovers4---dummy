@@ -71,14 +71,14 @@ namespace Rovers4.Controllers
         {
             string uniqueFileName = null;
 
-            if (model.ClubImageFile1 != null)
+            if (model.ClubImageFile2 != null)
             {
                 string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ClubImageFile1.FileName;
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ClubImageFile2.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    model.ClubImageFile1.CopyTo(fileStream);
+                    model.ClubImageFile2.CopyTo(fileStream);
                 }
             }
             return uniqueFileName;
@@ -89,14 +89,14 @@ namespace Rovers4.Controllers
         {
             string uniqueFileName = null;
 
-            if (model.ClubImageFile1 != null)
+            if (model.ClubImageFile3 != null)
             {
                 string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ClubImageFile1.FileName;
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ClubImageFile3.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    model.ClubImageFile1.CopyTo(fileStream);
+                    model.ClubImageFile3.CopyTo(fileStream);
                 }
             }
             return uniqueFileName;
