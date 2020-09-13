@@ -258,8 +258,12 @@ namespace Rovers4.Controllers
 
             foreach (var person in emailList)
             {
-                await _mailService.SendEmailAsync(person, emailmodel.Subject, emailmodel.FixTypeString, emailmodel.HomeOrAwayString, emailmodel.KickOffTime, emailmodel.Opponent, emailmodel.MeetLocation, emailmodel.MeetTime);
+                if (person != null)
+                {
+                    await _mailService.SendEmailAsync(person, emailmodel.Subject, emailmodel.FixTypeString, emailmodel.HomeOrAwayString, emailmodel.KickOffTime, emailmodel.Opponent, emailmodel.MeetLocation, emailmodel.MeetTime);
+                }
             }
+            
             return View("EmailSent");
         }
 
