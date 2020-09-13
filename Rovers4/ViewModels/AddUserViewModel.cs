@@ -28,9 +28,5 @@ namespace Rovers4.ViewModels
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Birthdate { get; set; }
-
-        public int TeamID { get; set; }
-
-        public Team Team { get; set; }
     }
 }
