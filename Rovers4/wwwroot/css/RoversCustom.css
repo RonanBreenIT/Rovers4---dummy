@@ -170,7 +170,18 @@ p#fixtureText.col {
     margin-bottom: 5%;
 }
 
-
+.bg {
+    /* The image used */
+    /*background-image: url("../images/RoversCrest2Rs3Small.png");*/
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%), url("../images/RoversCrest2Rs3Small.png");
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+    position: relative;
+}
 
 
 
