@@ -10788,7 +10788,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .navbar {
-  border-style: solid;
+  /*border-style: solid;*/
   border-width: 0 1px 4px 1px;
 }
 
