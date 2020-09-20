@@ -470,3 +470,58 @@
                 }
     </section>
 }
+
+<div class="justify-content-around" style="padding-top: 5em">
+    <header>
+        <h3>
+            Team Statistics
+        </h3>
+    </header>
+    <table id="fixtureTable" class="table" cellspacing="0">
+        <thead>
+            <tr>
+                <th>
+                    <p>Games Played</p>
+                </th>
+                <th>
+                    <p>Wins</p>
+                </th>
+                <th>
+                    <p>Losses</p>
+                </th>
+                <th>
+                    <p>Draws</p>
+                </th>
+                <th>
+                    <p>Goals For</p>
+                </th>
+                <th>
+                    <p>Goals Against</p>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Model.GamesPlayed
+                </td>
+                <td>
+                    @Model.TotalWins
+                </td>
+                <td>
+                    @Model.TotalDraws
+                </td>
+                <td>
+                    @Model.TotalLosses
+                </td>
+                <td>
+                    @Model.GoalsFor
+                </td>
+                <td>
+                    @Model.GoalsAgainst
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

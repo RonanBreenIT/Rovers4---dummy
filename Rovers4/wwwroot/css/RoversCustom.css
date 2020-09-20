@@ -152,3 +152,36 @@ p#fixtureText.col {
     font-weight: bold;
 }
 
+
+/* Make the image fully responsive */
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+}
+
+.hero-image {
+    background-image: url("/images/RoversCrest2Rs3Small.png");
+    /*background-color: #cccccc;*/
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+    position: relative;
+    margin-bottom: 5%;
+}
+
+.bg {
+    /* The image used */
+    /*background-image: url("../images/RoversCrest2Rs3Small.png");*/
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%), url("../images/RoversCrest2Rs3Small.png");
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+    position: relative;
+}
+
+
+

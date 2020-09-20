@@ -15,7 +15,7 @@ namespace Rovers4.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.1")
+                .HasAnnotation("ProductVersion", "3.1.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -30,6 +30,15 @@ namespace Rovers4.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
+
+                    b.Property<string>("ClubImage1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClubImage2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClubImage3")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -138,7 +147,8 @@ namespace Rovers4.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PersonBio")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(1280)")
+                        .HasMaxLength(1280);
 
                     b.Property<int>("PersonType")
                         .HasColumnType("int");
@@ -598,9 +608,15 @@ namespace Rovers4.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(80)")
+                        .HasMaxLength(80);
 
                     b.Property<string>("TeamBio")
+                        .HasColumnType("nvarchar(1280)")
+                        .HasMaxLength(1280);
+
+                    b.Property<string>("TeamImage")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TeamID");

@@ -49,6 +49,12 @@ namespace Rovers4.Controllers
             IEnumerable<Fixture> novemberFixtures;
             IEnumerable<Fixture> decemberFixtures;
             string currentTeam;
+            int totalWins;
+            int totalDraws;
+            int totalLosses;
+            int goalsFor;
+            int goalsAgainst;
+            int gamesPlayed;
 
             if (id == null)
             {
@@ -65,8 +71,13 @@ namespace Rovers4.Controllers
                 octoberFixtures = _fixtureRepository.OctoberFixtures.OrderBy(p => p.TeamID);
                 novemberFixtures = _fixtureRepository.NovemberFixtures.OrderBy(p => p.TeamID);
                 decemberFixtures = _fixtureRepository.DecemberFixtures.OrderBy(p => p.TeamID);
-
                 currentTeam = "All Teams";
+                totalWins = 0;
+                totalDraws = 0;
+                totalLosses = 0;
+                goalsFor = 0;
+                goalsAgainst = 0;
+                gamesPlayed = 0;
             }
             else
             {
@@ -97,8 +108,15 @@ namespace Rovers4.Controllers
                 decemberFixtures = _fixtureRepository.DecemberFixtures.Where(p => p.TeamID == id)
                     .OrderByDescending(p => p.FixtureDate);
                 currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
+                totalWins = _fixtureRepository.TotalWins(id);
+                totalDraws = _fixtureRepository.TotalDraws(id);
+                totalLosses = _fixtureRepository.TotalLosses(id);
+                goalsFor = _fixtureRepository.GoalsFor(id);
+                goalsAgainst = _fixtureRepository.GoalsAgainst(id);
+                gamesPlayed = (totalWins + totalDraws + totalLosses);
             }
 
+            //ViewData["TotalWins"] = currentTeam.
             return View(new FixtureListViewModel
             {
                 Fixtures = fixtures,
@@ -115,8 +133,13 @@ namespace Rovers4.Controllers
                 OctoberFixtures = octoberFixtures,
                 NovemberFixtures = novemberFixtures,
                 DecemberFixtures = decemberFixtures,
-                Teams = _teamRepository.Teams
-
+                Teams = _teamRepository.Teams,
+                TotalWins = totalWins,
+                TotalDraws = totalDraws,
+                TotalLosses = totalLosses,
+                GoalsFor = goalsFor,
+                GoalsAgainst = goalsAgainst,
+                GamesPlayed = gamesPlayed
             });
         }
 

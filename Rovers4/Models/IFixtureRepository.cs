@@ -20,6 +20,15 @@ namespace Rovers4.Models
         IEnumerable<Fixture> OctoberFixtures { get; }
         IEnumerable<Fixture> NovemberFixtures { get; }
         IEnumerable<Fixture> DecemberFixtures { get; }
+        int TotalWins(int? teamID);
+
+        int TotalDraws(int? teamID);
+
+        int TotalLosses(int? teamID);
+
+        int GoalsFor(int? teamID);
+
+        int GoalsAgainst(int? teamID);
 
     }
 }

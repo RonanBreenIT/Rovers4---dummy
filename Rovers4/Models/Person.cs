@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -80,6 +81,16 @@ namespace Rovers4.Models
 
         [DisplayFormat(NullDisplayText = "No Image")]
         public string Image { get; set; }
+
+        [NotMapped]
+        [DisplayFormat(NullDisplayText = "No Image")]
+        [Display(Name = "Thumbhnail Image")]
+        public IFormFile ProfileThumbnailImage { get; set; }
+
+        [NotMapped]
+        [DisplayFormat(NullDisplayText = "No Image")]
+        [Display(Name = "Profile Image")]
+        public IFormFile ProfileImage { get; set; }
 
         [Display(Name = "Biography"), StringLength(1280, MinimumLength = 0, ErrorMessage = "Team Bio cannot be longer than 1280 characters")]
         public string PersonBio { get; set; }

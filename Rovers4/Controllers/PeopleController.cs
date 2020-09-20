@@ -45,14 +45,7 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
-        public IActionResult Create()
-        {
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name");
-            return View();
-        }
-
-        private string UploadedThumbnailImage(PersonViewModel model)
+        private string UploadedThumbnailImage(Person model)
         {
             string uniqueFileName = null;
 
@@ -69,7 +62,7 @@ namespace Rovers4.Controllers
             return uniqueFileName;
         }
 
-        private string UploadedImage(PersonViewModel model)
+        private string UploadedImage(Person model)
         {
             string uniqueFileName = null;
 
@@ -86,35 +79,27 @@ namespace Rovers4.Controllers
             return uniqueFileName;
         }
 
+        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        public IActionResult Create()
+        {
+            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name");
+            return View();
+        }
+
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] PersonViewModel model)
+        public async Task<IActionResult> Create([Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] Person model)
         {
             if (ModelState.IsValid)
             {
                 string thumnailImage = UploadedThumbnailImage(model);
                 string image = UploadedImage(model);
 
-                Person person = new Person
-                {
-                    PersonID = model.PersonID,
-                    PersonType = model.PersonType,
-                    MgmtRole = model.MgmtRole,
-                    PlayerPosition = model.PlayerPosition,
-                    FirstName = model.FirstName,
-                    Surname = model.Surname,
-                    DOB = model.DOB,
-                    Mobile = model.Mobile,
-                    Email = model.Email,
-                    PersonBio = model.PersonBio,
-                    TeamID = model.TeamID,
-                    PlayerStatID = model.PlayerStatID,
-                    Image = image,
-                    ThumbnailImage = thumnailImage
-                };
+                model.Image = image;
+                model.ThumbnailImage = thumnailImage;
 
-                _context.Add(person);
+                _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Team");
             }
@@ -133,32 +118,17 @@ namespace Rovers4.Controllers
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateMgmt([Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] PersonViewModel model)
+        public async Task<IActionResult> CreateMgmt([Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] Person model)
         {
             if (ModelState.IsValid)
             {
                 string thumnailImage = UploadedThumbnailImage(model);
                 string image = UploadedImage(model);
 
-                Person person = new Person
-                {
-                    PersonID = model.PersonID,
-                    PersonType = model.PersonType,
-                    MgmtRole = model.MgmtRole,
-                    PlayerPosition = model.PlayerPosition,
-                    FirstName = model.FirstName,
-                    Surname = model.Surname,
-                    DOB = model.DOB,
-                    Mobile = model.Mobile,
-                    Email = model.Email,
-                    PersonBio = model.PersonBio,
-                    TeamID = model.TeamID,
-                    PlayerStatID = model.PlayerStatID,
-                    Image = image,
-                    ThumbnailImage = thumnailImage
-                };
+                model.Image = image;
+                model.ThumbnailImage = thumnailImage;
 
-                _context.Add(person);
+                _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Team");
             }
@@ -186,7 +156,7 @@ namespace Rovers4.Controllers
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID, ThumbnailImage,PersonBio")] Person person)
+        public async Task<IActionResult> Edit(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] Person person)
         {
             if (id != person.PersonID)
             {
@@ -195,6 +165,12 @@ namespace Rovers4.Controllers
 
             if (ModelState.IsValid)
             {
+                string thumnailImage = UploadedThumbnailImage(person);
+                string image = UploadedImage(person);
+
+                person.Image = image;
+                person.ThumbnailImage = thumnailImage;
+
                 try
                 {
                     _context.Update(person);

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,5 +30,30 @@ namespace Rovers4.Models
         [Display(Name = "Club Number"), StringLength(20, MinimumLength = 1, ErrorMessage = "Contact Number cannot be longer than 20 characters or null.")]
         [DataType(DataType.PhoneNumber)]
         public string Number { get; set; }
+
+        [DisplayFormat(NullDisplayText = "No Image")]
+        public string ClubImage1 { get; set; }
+
+        [NotMapped]
+        [DisplayFormat(NullDisplayText = "No Image")]
+        [Display(Name = "Club Image 1")]
+        public IFormFile ClubImageFile1 { get; set; }
+
+        [DisplayFormat(NullDisplayText = "No Image")]
+        public string ClubImage2 { get; set; }
+
+        [NotMapped]
+        [DisplayFormat(NullDisplayText = "No Image")]
+        [Display(Name = "Club Image 2")]
+        public IFormFile ClubImageFile2 { get; set; }
+
+        [DisplayFormat(NullDisplayText = "No Image")]
+        public string ClubImage3 { get; set; }
+
+        [NotMapped]
+        [DisplayFormat(NullDisplayText = "No Image")]
+        [Display(Name = "Club Image 3")]
+        public IFormFile ClubImageFile3 { get; set; }
+
     }
 }
