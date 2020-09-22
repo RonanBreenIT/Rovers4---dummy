@@ -145,19 +145,6 @@ namespace Rovers4.Tests
             Assert.Equal(2, sut.GetClubs().Count());
         }
 
-
-        private IClubRepository GetInMemoryClubRepository()
-        {
-            //DbContextOptions<ClubContext> options;
-            var builder = new DbContextOptionsBuilder<ClubContext>().UseInMemoryDatabase(databaseName: "ClubListDb").Options;
-            //builder.UseInMemoryDatabase(ClubContext);
-            //options = builder.Options;
-            ClubContext clubDataContext = new ClubContext(builder);
-            clubDataContext.Database.EnsureDeleted();
-            clubDataContext.Database.EnsureCreated();
-            return new ClubRepository(clubDataContext);
-        }
-
         [Fact]
         public void Missing_Required_Name()
         {
@@ -210,6 +197,18 @@ namespace Rovers4.Tests
             //Assert
             var errorcount = cpv.myValidation(club).Count();
             Assert.Equal(4, errorcount);
+        }
+
+        private IClubRepository GetInMemoryClubRepository()
+        {
+            //DbContextOptions<ClubContext> options;
+            var builder = new DbContextOptionsBuilder<ClubContext>().UseInMemoryDatabase(databaseName: "ClubListDb").Options;
+            //builder.UseInMemoryDatabase(ClubContext);
+            //options = builder.Options;
+            ClubContext clubDataContext = new ClubContext(builder);
+            clubDataContext.Database.EnsureDeleted();
+            clubDataContext.Database.EnsureCreated();
+            return new ClubRepository(clubDataContext);
         }
 
         // Validator wont check string length, Email Format etc... 

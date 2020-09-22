@@ -7,7 +7,7 @@ namespace Rovers4.Models
 {
     public interface IClubRepository
     {
-        //IEnumerable<Club> Clubs { get; }
+        //For unit Testing
         ICollection<Club> GetClubs();
 
         Club GetClubById(int clubId);
