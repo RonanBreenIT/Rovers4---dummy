@@ -71,8 +71,6 @@ namespace Rovers4.Tests
                         Mobile = "111 1111111",
                         PersonBio = "test player..."
                     }
-
-
                 }
             };
 
@@ -88,6 +86,35 @@ namespace Rovers4.Tests
             Assert.Equal("Player One", savedTeam.Staff.ToList()[0].FullName);
             Assert.Equal("Player Two", savedTeam.Staff.ToList()[1].FullName);
             Assert.Equal("Manager One", savedTeam.Staff.ToList()[2].FullName);
+        }
+
+        [Fact]
+        public void GetTeamByID()
+        {
+            //Arrange
+            ITeamRepository sut = GetInMemoryTeamRepository();
+            Team team = new Team()
+            {
+                TeamID = 1,
+                Name = "first Team",
+                TeamBio = "this is the first team",
+                TeamImage = "image1.png",
+            };
+            Team team2 = new Team()
+            {
+                TeamID = 2,
+                Name = "under 17s",
+                TeamBio = "this is the 17s",
+                TeamImage = "image1.png",
+            };
+
+            //Act
+            Team savedTeam = sut.CreateTeam(team);
+            Team savedTeam2 = sut.CreateTeam(team2);
+
+            //Assert
+            var foundTeamByID = sut.GetTeamById(2);
+            Assert.Equal("under 17s", foundTeamByID.Name);
         }
 
         [Fact]
