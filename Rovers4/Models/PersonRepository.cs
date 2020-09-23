@@ -57,7 +57,6 @@ namespace Rovers4.Models
 
         }
 
-
         public IEnumerable<Person> AllMidfielders
         {
             get
@@ -80,5 +79,36 @@ namespace Rovers4.Models
         {
             return _appDbContext.Persons.FirstOrDefault(p => p.PersonID == personId);
         }
+
+        //Unit Testing
+        public ICollection<Person> GetPeople()
+        {
+            return _appDbContext.Persons.ToList();
+        }
+
+        public Person CreatePerson(Person person)
+        {
+            _appDbContext.Persons.Add(person);
+            _appDbContext.SaveChanges();
+            return person;
+        }
+
+        public Person UpdatePerson(Person person)
+        {
+            var foundPerson = _appDbContext.Persons.FirstOrDefault(i => i.PersonID == person.PersonID);
+            foundPerson.FirstName = person.FirstName;
+            foundPerson.Surname = person.Surname;
+            _appDbContext.Persons.Update(foundPerson);
+            _appDbContext.SaveChanges();
+            return foundPerson;
+        }
+
+        public Person DeletePerson(Person person)
+        {
+            var foundPerson = _appDbContext.Persons.FirstOrDefault(i => i.PersonID == person.PersonID);
+            _appDbContext.Persons.Remove(foundPerson);
+            _appDbContext.SaveChanges();
+            return foundPerson;
+        }  
     }
 }

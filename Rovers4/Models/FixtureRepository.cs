@@ -171,7 +171,29 @@ namespace Rovers4.Models
             return goalsfor;
         }
 
-        
+        //Unit Testing
+        public Fixture CreateFixture(Fixture fixture)
+        {
+            _appDbContext.Fixtures.Add(fixture);
+            _appDbContext.SaveChanges();
+            return fixture;
+        }
 
+        public Fixture UpdateFixture(Fixture fixture)
+        {
+            var foundFixture = _appDbContext.Fixtures.FirstOrDefault(i => i.FixtureID == fixture.FixtureID);
+            foundFixture.Opponent = fixture.Opponent;
+            _appDbContext.Fixtures.Update(foundFixture);
+            _appDbContext.SaveChanges();
+            return foundFixture;
+        }
+
+        public Fixture DeleteFixture(Fixture fixture)
+        {
+            var foundFixture = _appDbContext.Fixtures.FirstOrDefault(i => i.FixtureID == fixture.FixtureID);
+            _appDbContext.Fixtures.Remove(foundFixture);
+            _appDbContext.SaveChanges();
+            return foundFixture;
+        }
     }
 }

@@ -23,6 +23,15 @@ namespace Rovers4.Models
 
         Person GetPersonById(int personId);
 
+        // For Unit Testing
+        ICollection<Person> GetPeople();
+
+        Person CreatePerson(Person person);
+
+        Person UpdatePerson(Person person);
+
+        Person DeletePerson(Person person);
+
     }
 }
 

@@ -193,65 +193,6 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
-        // This is for Editing Photos with PersonViewModel. Wont work tho as TeamPlayerList passes in a Person Model. Need a way around.
-        // POST: People/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[Authorize(Roles = "Super Admin, Team Admin")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] PersonViewModel model)
-        //{
-        //    if (id != model.PersonID)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        string thumnailImage = UploadedThumbnailImage(model);
-        //        string image = UploadedImage(model);
-
-        //        Person person = new Person
-        //        {
-        //            PersonID = model.PersonID,
-        //            PersonType = model.PersonType,
-        //            MgmtRole = model.MgmtRole,
-        //            PlayerPosition = model.PlayerPosition,
-        //            FirstName = model.FirstName,
-        //            Surname = model.Surname,
-        //            DOB = model.DOB,
-        //            Mobile = model.Mobile,
-        //            Email = model.Email,
-        //            PersonBio = model.PersonBio,
-        //            TeamID = model.TeamID,
-        //            PlayerStatID = model.PlayerStatID,
-        //            Image = image,
-        //            ThumbnailImage = thumnailImage
-        //        };
-
-        //        try
-        //        {
-        //            _context.Update(person);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!PersonExists(person.PersonID))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction("Index", "Team");
-        //    }
-        //    ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", model.TeamID);
-        //    return View();
-        //}
-
         // GET: People/Edit/5
         [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> EditMgmt(int? id)

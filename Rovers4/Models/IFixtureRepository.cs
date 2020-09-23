@@ -30,5 +30,12 @@ namespace Rovers4.Models
 
         int GoalsAgainst(int? teamID);
 
+        //Unit Testing
+        Fixture CreateFixture(Fixture fixture);
+
+        Fixture UpdateFixture(Fixture fixture);
+
+        Fixture DeleteFixture(Fixture fixture);
+
     }
 }
