@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
+using Rovers4.Tests.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace Rovers4.Tests.Model
+namespace Rovers4.Tests
 {
     public class PeopleTests
     {
