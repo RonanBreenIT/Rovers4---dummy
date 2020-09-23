@@ -155,7 +155,7 @@ namespace Rovers4.Tests.Model
 
             //Act
             Person savedPerson = sut.CreatePerson(person);
-            Person UpdatedPerson2 = sut.CreatePerson(person2);
+            Person UpdatedPerson2 = sut.UpdatePerson(person2);
 
             //Assert
             Assert.Equal(2, sut.GetPeople().Count);
@@ -230,7 +230,81 @@ namespace Rovers4.Tests.Model
             Assert.Equal(2, errorcount); // 2 as for FirstName and Surname
         }
 
+        [Fact]
+        public void Index_Forwards()
+        {
+            //Arrange
+            IPersonRepository sut = GetInMemoryPersonRepository();
 
+            Person person = new Person()
+            {
+                TeamID = 1,
+                FirstName = "Test",
+                Surname = "Player",
+                Image = "image1.png",
+                ThumbnailImage = "image2.png",
+                Mobile = "111 1111111",
+                Email = "111@sss.com",
+                PersonType = PersonType.Player,
+                PlayerPosition = PlayerPosition.Goalkeeper,
+                DOB = DateTime.Parse("2000-03-02"),
+                PlayerStat = new PlayerStat()
+                {
+                    GamesPlayed = 10,
+                    CleanSheet = 6
+                }
+            };
+
+
+            Person person2 = new Person()
+            {
+                TeamID = 1,
+                FirstName = "Test",
+                Surname = "PlayerTwo",
+                Image = "image11.png",
+                ThumbnailImage = "image22.png",
+                Mobile = "111 1111111",
+                Email = "111@sss.com",
+                PersonType = PersonType.Player,
+                PlayerPosition = PlayerPosition.Forward,
+                DOB = DateTime.Parse("2000-03-02"),
+                PlayerStat = new PlayerStat()
+                {
+                    GamesPlayed = 10,
+                    Goals = 7
+                }
+            };
+
+            Person person3 = new Person()
+            {
+                TeamID = 1,
+                FirstName = "Test",
+                Surname = "PlayerThree",
+                Image = "image11.png",
+                ThumbnailImage = "image22.png",
+                Mobile = "111 1111111",
+                Email = "111@sss.com",
+                PersonType = PersonType.Player,
+                PlayerPosition = PlayerPosition.Forward,
+                DOB = DateTime.Parse("2000-03-02"),
+                PlayerStat = new PlayerStat()
+                {
+                    GamesPlayed = 10,
+                    Goals = 7
+                }
+            };
+
+            //Act
+            Person savedPerson = sut.CreatePerson(person);
+            Person savedPerson2 = sut.CreatePerson(person2);
+            Person savedPerson3 = sut.CreatePerson(person3);
+
+            //Assert
+            Assert.Equal(3, sut.GetPeople().Count);
+            Assert.Equal(2, sut.AllForwards.Count());
+            Assert.Equal("Test PlayerTwo", sut.AllForwards.ToList()[0].FullName);
+            Assert.Equal("Test PlayerThree", sut.AllForwards.ToList()[1].FullName);
+        }
 
         private IPersonRepository GetInMemoryPersonRepository()
         {
