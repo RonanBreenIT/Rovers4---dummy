@@ -117,6 +117,7 @@ namespace Rovers4.Tests
           
             Person person = new Person()
             {
+                PersonID = 1,
                 TeamID = 1,
                 FirstName = "Test",
                 Surname = "Player",
@@ -137,6 +138,7 @@ namespace Rovers4.Tests
 
             Person person2 = new Person()
             {
+                PersonID = 1,
                 TeamID = 1,
                 FirstName = "Test",
                 Surname = "PlayerTwo",
@@ -156,11 +158,11 @@ namespace Rovers4.Tests
 
             //Act
             Person savedPerson = sut.CreatePerson(person);
-            Person UpdatedPerson2 = sut.UpdatePerson(person2);
+            Person updatedPerson = sut.UpdatePerson(person2);
 
             //Assert
-            Assert.Equal(2, sut.GetPeople().Count);
-            Assert.Equal("Test PlayerTwo", UpdatedPerson2.FullName);
+            Assert.Single(sut.GetPeople());
+            Assert.Equal("Test PlayerTwo", updatedPerson.FullName);
         }
 
         [Fact]
