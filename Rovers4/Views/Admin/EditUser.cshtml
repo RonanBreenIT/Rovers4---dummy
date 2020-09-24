@@ -46,8 +46,8 @@
     </div>
 </form>
 
-@*Have no Claims at present but may add where necessary e.g. UserMustBeOver18*@
-@*<h3>Claims for this user</h3>
+@*Have no Claims at present but may add where necessary e.g. UserMustBeOver18
+<h3>Claims for this user</h3>
 <ul>
     @foreach (var claim in Model.UserClaims)
     {
@@ -58,4 +58,4 @@
 </ul>
 
 
-<a asp-action="ManageClaimsForUser" asp-route-userId="@Model.Id" class="btn btn-primary">Manage cl*@aims for this user</a>
+<a asp-action="ManageClaimsForUser" asp-route-userId="@Model.Id" class="btn btn-primary">Manage claims for this user</a>*@
