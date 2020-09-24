@@ -76,7 +76,7 @@ namespace Rovers4.Controllers
                     .ThenBy(p => p.MgmtRole == MgmtRole.SandC);
                 currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
             }
-            ViewData["TeamNumbers"] = staff.Count();
+            ViewData["TeamNumbers"] = (staff.Count() - mgmt.Count());
             return View(new PlayersListViewModel
             {
                 Staff = staff,

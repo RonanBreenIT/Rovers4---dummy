@@ -82,31 +82,31 @@ namespace Rovers4.Controllers
             else
             {
                 fixtures = _fixtureRepository.AllFixtures.Where(p => p.TeamID == id)
-                    .OrderByDescending(p => p.FixtureDate);
+                    .OrderBy(p => p.FixtureDate);
                 janFixtures = _fixtureRepository.JanuaryFixtures.Where(p => p.TeamID == id)
-                    .OrderByDescending(p => p.FixtureDate);
+                    .OrderBy(p => p.FixtureDate);
                 febFixtures = _fixtureRepository.FebruaryFixtures.Where(p => p.TeamID == id)
-                    .OrderByDescending(p => p.FixtureDate);
+                    .OrderBy(p => p.FixtureDate);
                 marchFixtures = _fixtureRepository.MarchFixtures.Where(p => p.TeamID == id)
-                    .OrderByDescending(p => p.FixtureDate);
+                    .OrderBy(p => p.FixtureDate);
                 aprilFixtures = _fixtureRepository.AprilFixtures.Where(p => p.TeamID == id)
-                    .OrderByDescending(p => p.FixtureDate);
+                    .OrderBy(p => p.FixtureDate);
                 mayFixtures = _fixtureRepository.MayFixtures.Where(p => p.TeamID == id)
-                    .OrderByDescending(p => p.FixtureDate);
+                    .OrderBy(p => p.FixtureDate);
                 juneFixtures = _fixtureRepository.JuneFixtures.Where(p => p.TeamID == id)
-                    .OrderByDescending(p => p.FixtureDate);
+                    .OrderBy(p => p.FixtureDate);
                 julyFixtures = _fixtureRepository.JulyFixtures.Where(p => p.TeamID == id)
-                    .OrderByDescending(p => p.FixtureDate);
+                    .OrderBy(p => p.FixtureDate);
                 augustFixtures = _fixtureRepository.AugustFixtures.Where(p => p.TeamID == id)
-                    .OrderByDescending(p => p.FixtureDate);
+                    .OrderBy(p => p.FixtureDate);
                 septemberFixtures = _fixtureRepository.SeptemberFixtures.Where(p => p.TeamID == id)
-                    .OrderByDescending(p => p.FixtureDate);
+                    .OrderBy(p => p.FixtureDate);
                 octoberFixtures = _fixtureRepository.OctoberFixtures.Where(p => p.TeamID == id)
-                    .OrderByDescending(p => p.FixtureDate);
+                    .OrderBy(p => p.FixtureDate);
                 novemberFixtures = _fixtureRepository.NovemberFixtures.Where(p => p.TeamID == id)
-                    .OrderByDescending(p => p.FixtureDate);
+                    .OrderBy(p => p.FixtureDate);
                 decemberFixtures = _fixtureRepository.DecemberFixtures.Where(p => p.TeamID == id)
-                    .OrderByDescending(p => p.FixtureDate);
+                    .OrderBy(p => p.FixtureDate);
                 currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
                 totalWins = _fixtureRepository.TotalWins(id);
                 totalDraws = _fixtureRepository.TotalDraws(id);
