@@ -19,11 +19,13 @@ namespace Rovers4.Controllers
     {
         private readonly ClubContext _context;
         private readonly IWebHostEnvironment hostingEnvironment;
+        private readonly IPlayerStatRepository _playerStat;
 
-        public PeopleController(ClubContext context, IWebHostEnvironment _hostingEnvironment)
+        public PeopleController(ClubContext context, IWebHostEnvironment _hostingEnvironment, IPlayerStatRepository playerStat)
         {
             _context = context;
             hostingEnvironment = _hostingEnvironment;
+            _playerStat = playerStat;
         }
 
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
@@ -101,6 +103,10 @@ namespace Rovers4.Controllers
 
                 _context.Add(model);
                 await _context.SaveChangesAsync();
+
+                // Instantiate new PlayerStat as can't leave it empty
+                _playerStat.AddPlayerStats(model.PersonID);
+
                 return RedirectToAction("Index", "Team");
             }
             ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", model.TeamID);
