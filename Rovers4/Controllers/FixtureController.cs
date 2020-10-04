@@ -413,52 +413,6 @@ namespace Rovers4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Team");
         }
-        public ActionResult FixturePlayerStats(int? id)
-        {
-            var findFixture = _fixtureRepository.AllFixtures.FirstOrDefault(i => i.FixtureID == id);
-            var playerList = _personRepository.Players.Where(i => i.TeamID == findFixture.TeamID);
-            var findTeam = _teamRepository.Teams.FirstOrDefault(i => i.TeamID == findFixture.TeamID);
-
-            var fixtureView = new FixturePlayerStatsViewModel()
-            {
-                FixtureID = findFixture.FixtureID,
-                TeamID = findFixture.TeamID,
-                Fixture = findFixture,
-                Team = findTeam
-            };
-            fixtureView.Players = new List<PersonStats>();
-
-            foreach (var player in playerList)
-            {
-                fixtureView.Players.Add(new PersonStats 
-                { PersonID = player.PersonID, 
-                  FirstName = player.FirstName,
-                  Surname = player.Surname,
-                  Played = false,
-                  Assists = 0,
-                  Goals = 0,
-                  CleanSheet = false,
-                  RedCards = false,
-                  MotmAward = false});;
-            }
-            return View(fixtureView);
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Super Admin, Team Admin")]
-        [ValidateAntiForgeryToken]
-        public ActionResult FixturePlayerStats(int? fixtureID, FixturePlayerStatsViewModel model)
-        {
-            foreach (var player in model.Players)
-            {
-                if (player.Played == true)
-                {
-                    _playerStatRepository.UpdatePlayerStats(player.PersonID, player.Played, player.Assists, player.Goals, player.CleanSheet, player.RedCards, player.MotmAward);
-                }    
-            }
-            return RedirectToAction("Index", "Team");
-            //return View();
-        }
             private bool FixtureExists(int id)
         {
             return _context.Fixtures.Any(e => e.FixtureID == id);
