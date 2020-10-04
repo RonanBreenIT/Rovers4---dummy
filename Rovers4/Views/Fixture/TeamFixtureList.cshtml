@@ -44,7 +44,14 @@
                             <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                             <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                             <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                            @if (fixture.FinalScore == null)
+                            {
+                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                            }
                         </p>
                     }
                     else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -82,7 +89,14 @@
                             <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                             <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                             <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                            @if (fixture.FinalScore == null)
+                            {
+                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                            }
                         </p>
                     }
                     else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -120,7 +134,14 @@
                             <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                             <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                             <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                            @if (fixture.FinalScore == null)
+                             {
+                                 <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                             }
+                             else
+                             {
+                                 <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                             }<a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                         </p>
                     }
                     else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -154,16 +175,22 @@
                     </p>
                     @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                     {
-                        <p class="col-sm-3">
-                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                         <p class="col-sm-3">
+                        <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
+                        <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                        <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                        @if (fixture.FinalScore == null)
+                        {
                             <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                        }
                         </p>
                     }
                     else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
                     {
-
                         <p class="col-sm-3">
                             <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
                         </p>
@@ -196,7 +223,14 @@
                             <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                             <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                             <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                            @if (fixture.FinalScore == null)
+                             {
+                                 <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                             }
+                             else
+                             {
+                                 <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                             }
                         </p>
                     }
                     else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -233,7 +267,14 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     @if (fixture.FinalScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -270,7 +311,14 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     @if (fixture.FinalScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -307,7 +355,14 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     @if (fixture.FinalScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -344,7 +399,14 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     @if (fixture.FinalScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -381,7 +443,14 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                    @if (fixture.FinalScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -418,7 +487,14 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     @if (fixture.FinalScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -455,7 +531,15 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     @if (fixture.FinalScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
+
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
