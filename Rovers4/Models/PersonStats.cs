@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
+    [NotMapped]
     public class PersonStats : Person
     {
         [NotMapped]

@@ -312,10 +312,32 @@ namespace Rovers4.Controllers
             }
 
             var fixture = await _context.Fixtures.FindAsync(id);
+
+            //var teamIDQuery = fixture.TeamID;
+            var playerList = _personRepository.Players.Where(i => i.TeamID == fixture.TeamID);
+            fixture.Players = new List<PersonStats>();
+
+            foreach (var player in playerList)
+            {
+                fixture.Players.Add(new PersonStats
+                {
+                    PersonID = player.PersonID,
+                    FirstName = player.FirstName,
+                    Surname = player.Surname,
+                    Played = false,
+                    Assists = 0,
+                    Goals = 0,
+                    CleanSheet = false,
+                    RedCards = false,
+                    MotmAward = false
+                }); ;
+            }
+
             if (fixture == null)
             {
                 return NotFound();
             }
+
             ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
             return View(fixture);
         }
@@ -323,17 +345,24 @@ namespace Rovers4.Controllers
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddResult(int id, [Bind("FixtureID,TeamID,FixtureType,FixtureDate,HomeOrAway,OurScore,Opponent,OpponentScore,Result,ResultDescription,MatchReport")] Fixture fixture)
+        public async Task<IActionResult> AddResult(int id, Fixture fixture)
         {
             if (id != fixture.FixtureID)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (id == fixture.FixtureID)
             {
                 try
                 {
+                    foreach (var player in fixture.Players)
+                    {
+                        if (player.Played == true)
+                        {
+                            _playerStatRepository.UpdatePlayerStats(player.PersonID, player.Played, player.Assists, player.Goals, player.CleanSheet, player.RedCards, player.MotmAward);
+                        }
+                    }
                     _context.Update(fixture);
                     await _context.SaveChangesAsync();
                 }

@@ -116,5 +116,7 @@ namespace Rovers4.Models
                 return sb.ToString(); 
             }
         }
+
+        public List<PersonStats> Players { get; set; }
     }
 }
