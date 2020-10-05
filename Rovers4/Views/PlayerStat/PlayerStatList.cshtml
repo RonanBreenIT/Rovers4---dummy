@@ -67,8 +67,9 @@
                 else
                 {
                     <a asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Update Stats</a>
-                    <span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
-                    <a asp-controller="PlayerStat" asp-action="Delete" asp-route-id="@staff.PersonID">Delete Stats</a>
+                    //Removed Delete as if never want to delete as then if try and add playerstats again it will fail unless player is deleted and readded
+                    @*<span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+                    <a asp-controller="PlayerStat" asp-action="Delete" asp-route-id="@staff.PersonID">Delete Stats</a>*@
                 }
             }
         }
