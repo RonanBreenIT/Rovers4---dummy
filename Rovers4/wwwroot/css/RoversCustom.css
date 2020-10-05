@@ -184,3 +184,11 @@ p#fixtureText.col {
     position: relative;
 }
 
+#fixtureRow{
+    background-color: lightgray !important;
+}
+
+h3#FixtureHeader{
+    margin-top:1.5rem;
+}
+
