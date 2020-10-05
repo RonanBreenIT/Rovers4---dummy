@@ -15,7 +15,7 @@
 
     @foreach (var team in @Model.Teams)
     {
-        <div xlass="container" id="teamCaption">
+        <div class="container" id="teamCaption">
             <h6 class="row" id="teamName">
                 <h4 class="font-weight-bold">@Html.DisplayFor(modelItem => team.Name)</h4>
                     <a asp-action="TeamPlayerList" asp-route-id="@team.TeamID">Roster</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
