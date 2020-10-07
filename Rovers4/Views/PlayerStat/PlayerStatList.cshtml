@@ -67,8 +67,9 @@
                 else
                 {
                     <a asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Update Stats</a>
-                    <span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
-                    <a asp-controller="PlayerStat" asp-action="Delete" asp-route-id="@staff.PersonID">Delete Stats</a>
+                    //Removed Delete as if never want to delete as then if try and add playerstats again it will fail unless player is deleted and readded
+                    @*<span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+                    <a asp-controller="PlayerStat" asp-action="Delete" asp-route-id="@staff.PersonID">Delete Stats</a>*@
                 }
             }
         }
@@ -89,12 +90,15 @@
                             <th>
                                 @Html.DisplayNameFor(modelItem => stat.Assists)
                             </th>
-                       
+
                             <th>
                                 @Html.DisplayNameFor(modelItem => stat.CleanSheet)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(modelItem => stat.MotmAward)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(modelItem => stat.RedCards)
                             </th>
                         </tr>
                     </thead>
@@ -115,51 +119,13 @@
                             <td>
                                 @Html.DisplayFor(modelItem => stat.MotmAward)
                             </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => stat.RedCards)
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
-
-
-            @*<dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => stat.GamesPlayed)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => stat.GamesPlayed)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => stat.Goals)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => stat.Goals)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => stat.Assists)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => stat.Assists)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => stat.CleanSheet)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => stat.CleanSheet)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => stat.MotmAward)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => stat.MotmAward)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => stat.RedCards)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => stat.RedCards)
-                </dd>
-            </dl>*@
         }
 
     </tbody>

@@ -7,32 +7,29 @@ using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
-    
-    
-    public class PlayerStat
+    [NotMapped]
+    public class PersonStats : Person
     {
-        [Key]
-        public int PlayerStatID { get; set; }
-
+        [NotMapped]
         [Display(Name = "Games Played")]
-        public int GamesPlayed { get; set; }
+        public bool Played { get; set; }
 
+        [NotMapped]
         public int Assists { get; set; }
+
+        [NotMapped]
         public int Goals { get; set; }
 
+        [NotMapped]
         [Display(Name = "Cleansheets")]
-        public int CleanSheet { get; set; }
+        public bool CleanSheet { get; set; }
 
+        [NotMapped]
         [Display(Name = "Red Cards")]
-        public int RedCards { get; set; }
+        public bool RedCards { get; set; }
 
-
+        [NotMapped]
         [Display(Name = "Man of the Match")]
-        public int MotmAward { get; set; }
-
-        [ForeignKey("PersonID")]
-        public int PersonID { get; set; }
-
-
+        public bool MotmAward { get; set; }
     }
 }

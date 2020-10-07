@@ -44,7 +44,14 @@
                             <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                             <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                             <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                            @if (fixture.OurScore == null)
+                            {
+                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                            }
                         </p>
                     }
                     else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -64,7 +71,7 @@
 {
     <section>
         <header>
-            <h3>
+            <h3 id="FixtureHeader">
                 February
             </h3>
         </header>
@@ -82,7 +89,14 @@
                             <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                             <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                             <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                            @if (fixture.OurScore == null)
+                            {
+                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                            }
                         </p>
                     }
                     else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -102,7 +116,7 @@
 {
     <section>
         <header>
-            <h3>
+            <h3 id="FixtureHeader">
                 March
             </h3>
         </header>
@@ -120,7 +134,14 @@
                             <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                             <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                             <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                            @if (fixture.OurScore == null)
+                             {
+                                 <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                             }
+                             else
+                             {
+                                 <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                             }<a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                         </p>
                     }
                     else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -140,7 +161,7 @@
 {
     <section>
         <header>
-            <h3>
+            <h3 id="FixtureHeader">
                 April
             </h3>
         </header>
@@ -154,16 +175,22 @@
                     </p>
                     @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                     {
-                        <p class="col-sm-3">
-                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                         <p class="col-sm-3">
+                        <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
+                        <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
+                        <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                        @if (fixture.OurScore == null)
+                        {
                             <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                        }
                         </p>
                     }
                     else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
                     {
-
                         <p class="col-sm-3">
                             <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
                         </p>
@@ -178,7 +205,7 @@
 {
     <section>
         <header>
-            <h3>
+            <h3 id="FixtureHeader">
                 May
             </h3>
         </header>
@@ -196,7 +223,14 @@
                             <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                             <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                             <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                            @if (fixture.OurScore == null)
+                             {
+                                 <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                             }
+                             else
+                             {
+                                 <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                             }
                         </p>
                     }
                     else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -216,7 +250,7 @@
 {
     <section>
         <header>
-            <h3>
+            <h3 id="FixtureHeader">
                 June
             </h3><header>
                 @foreach (var fixture in Model.JuneFixtures)
@@ -233,7 +267,14 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     @if (fixture.OurScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -253,7 +294,7 @@
 {
     <section>
         <header>
-            <h3>
+            <h3 id="FixtureHeader">
                 July
             </h3><header>
                 @foreach (var fixture in Model.JulyFixtures)
@@ -270,7 +311,14 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     @if (fixture.OurScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -290,7 +338,7 @@
 {
     <section>
         <header>
-            <h3>
+            <h3 id="FixtureHeader">
                 August
             </h3><header>
                 @foreach (var fixture in Model.AugustFixtures)
@@ -307,7 +355,14 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     @if (fixture.OurScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -327,7 +382,7 @@
 {
     <section>
         <header>
-            <h3>
+            <h3 id="FixtureHeader">
                 September
             </h3><header>
                 @foreach (var fixture in Model.SeptemberFixtures)
@@ -344,7 +399,14 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     @if (fixture.OurScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -364,7 +426,7 @@
 {
     <section>
         <header>
-            <h3>
+            <h3 id="FixtureHeader">
                 October
             </h3><header>
                 @foreach (var fixture in Model.OctoberFixtures)
@@ -381,7 +443,14 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                    @if (fixture.OurScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -401,7 +470,7 @@
 {
     <section>
         <header>
-            <h3>
+            <h3 id="FixtureHeader">
                 November
             </h3><header>
                 @foreach (var fixture in Model.NovemberFixtures)
@@ -418,7 +487,14 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     @if (fixture.OurScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
@@ -438,7 +514,7 @@
 {
     <section>
         <header>
-            <h3>
+            <h3 id="FixtureHeader">
                 December
             </h3><header>
                 @foreach (var fixture in Model.DecemberFixtures)
@@ -455,7 +531,15 @@
                                      <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
                                      <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
                                      <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                     <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     @if (fixture.OurScore == null)
+                                     {
+                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                     }
+                                     else
+                                     {
+                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                     }
+
                                  </p>
                              }
                              else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))

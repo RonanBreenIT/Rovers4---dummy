@@ -184,5 +184,19 @@ p#fixtureText.col {
     position: relative;
 }
 
+#fixtureRow{
+    background-color: lightgray !important;
+}
 
+h3#FixtureHeader{
+    margin-top:1.5rem;
+}
+
+#teamCaption {
+    margin-top: 2rem;
+}
+
+h1, h2, h3, h4 {
+    color:#007bff  !important;
+}
 

@@ -15,11 +15,14 @@ namespace Rovers4.Models
             _appDbContext = appDbContext;
         }
 
+        // Will only show Fixtures played within a year of Todays Date. Should Cover the Season. 
+        public DateTime PreviousYear = DateTime.Now.AddYears(-1);
+
         public IEnumerable<Fixture> AllFixtures
         {
             get
             {
-              return _appDbContext.Fixtures.Where(s => s.FixtureType != FixtureType.Training);
+                return _appDbContext.Fixtures.Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
 
@@ -27,7 +30,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 1).Where(s => s.FixtureType != FixtureType.Training);
+                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 1).Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
 
@@ -35,7 +38,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 2).Where(s => s.FixtureType != FixtureType.Training);
+                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 2).Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
 
@@ -43,7 +46,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 3).Where(s => s.FixtureType != FixtureType.Training);
+                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 3).Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
 
@@ -51,7 +54,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 4).Where(s => s.FixtureType != FixtureType.Training);
+                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 4).Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
 
@@ -59,7 +62,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 5).Where(s => s.FixtureType != FixtureType.Training);
+                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 5).Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
 
@@ -67,7 +70,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 6).Where(s => s.FixtureType != FixtureType.Training);
+                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 6).Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
 
@@ -75,7 +78,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 7).Where(s => s.FixtureType != FixtureType.Training);
+                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 7).Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
 
@@ -83,7 +86,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 8).Where(s => s.FixtureType != FixtureType.Training);
+                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 8).Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
 
@@ -91,7 +94,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 9).Where(s => s.FixtureType != FixtureType.Training);
+                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 9).Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
 
@@ -99,7 +102,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 10).Where(s => s.FixtureType != FixtureType.Training);
+                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 10).Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
 
@@ -107,7 +110,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 11).Where(s => s.FixtureType != FixtureType.Training);
+                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 11).Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
 
@@ -115,7 +118,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 12).Where(s => s.FixtureType != FixtureType.Training);
+                return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 12).Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
 

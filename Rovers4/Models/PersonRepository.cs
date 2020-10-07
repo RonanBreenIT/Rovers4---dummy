@@ -27,7 +27,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Persons.Where(p => p.PersonType == PersonType.Player);
+                return _appDbContext.Persons.Where(p => p.PersonType == PersonType.Player).OrderBy(a => a.PlayerPosition).ThenBy(b => b.Surname);
             }
         }
 
@@ -35,7 +35,7 @@ namespace Rovers4.Models
         {
             get
             {
-                return _appDbContext.Persons.Where(p => p.PersonType == PersonType.Manager);
+                return _appDbContext.Persons.Where(p => p.PersonType == PersonType.Manager).OrderBy(a => a.MgmtRole).ThenBy(b => b.Surname);
             }
         }
 
