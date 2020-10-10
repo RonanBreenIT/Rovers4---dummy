@@ -83,6 +83,18 @@ namespace Rovers4.Controllers
             return uniqueFileName;
         }
 
+        //Delete Images from Root Folder on Editing/Deleting player.
+        private void DeleteImage(string imageString)
+        {
+            string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+            string filePath = Path.Combine(uploadsFolder, imageString);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+
+        }
+
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public IActionResult Create(int TeamID)
         {
@@ -179,12 +191,14 @@ namespace Rovers4.Controllers
                 if (person.ProfileThumbnailImage != null)
                 {
                     string thumnailImage = UploadedThumbnailImage(person);
+                    DeleteImage(person.ThumbnailImage);
                     person.ThumbnailImage = thumnailImage;
                 }
 
                 if (person.ProfileImage != null)
                 {
                     string image = UploadedImage(person);
+                    DeleteImage(person.Image);
                     person.Image = image;
                 }
 
@@ -210,58 +224,6 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
-        //// GET: People/Edit/5
-        //[Authorize(Roles = "Super Admin, Team Admin")]
-        //public async Task<IActionResult> EditMgmt(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var person = await _context.Persons.FindAsync(id);
-        //    if (person == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);
-        //    return View(person);
-        //}
-
-        //[HttpPost]
-        //[Authorize(Roles = "Super Admin, Team Admin")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> EditMgmt(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID, ThumbnailImage,PersonBio")] Person person)
-        //{
-        //    if (id != person.PersonID)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(person);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!PersonExists(person.PersonID))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction("Index", "Team");
-        //    }
-        //    ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);
-        //    return View(person);
-        //}
-
         [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -286,7 +248,9 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var person = await _context.Persons.FindAsync(id);
+            var person = await _context.Persons.FindAsync(id); 
+            DeleteImage(person.Image);
+            DeleteImage(person.ThumbnailImage);
             _context.Persons.Remove(person);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Team");
