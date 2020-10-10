@@ -204,57 +204,57 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
-        // GET: People/Edit/5
-        [Authorize(Roles = "Super Admin, Team Admin")]
-        public async Task<IActionResult> EditMgmt(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: People/Edit/5
+        //[Authorize(Roles = "Super Admin, Team Admin")]
+        //public async Task<IActionResult> EditMgmt(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var person = await _context.Persons.FindAsync(id);
-            if (person == null)
-            {
-                return NotFound();
-            }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);
-            return View(person);
-        }
+        //    var person = await _context.Persons.FindAsync(id);
+        //    if (person == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);
+        //    return View(person);
+        //}
 
-        [HttpPost]
-        [Authorize(Roles = "Super Admin, Team Admin")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditMgmt(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID, ThumbnailImage,PersonBio")] Person person)
-        {
-            if (id != person.PersonID)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //[Authorize(Roles = "Super Admin, Team Admin")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> EditMgmt(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,TeamID,PlayerStatID, ThumbnailImage,PersonBio")] Person person)
+        //{
+        //    if (id != person.PersonID)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(person);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PersonExists(person.PersonID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction("Index", "Team");
-            }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);
-            return View(person);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(person);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!PersonExists(person.PersonID))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction("Index", "Team");
+        //    }
+        //    ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);
+        //    return View(person);
+        //}
 
         [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Delete(int? id)
