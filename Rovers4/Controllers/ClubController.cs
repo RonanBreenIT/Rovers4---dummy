@@ -65,8 +65,6 @@ namespace Rovers4.Controllers
             }
             return uniqueFileName;
         }
-
-
         private string UploadedImage2(Club model)
         {
             string uniqueFileName = null;
@@ -100,6 +98,16 @@ namespace Rovers4.Controllers
                 }
             }
             return uniqueFileName;
+        }
+
+        private void DeleteImage(string imageString)
+        {
+            string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+            string filePath = Path.Combine(uploadsFolder, imageString);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
         }
 
         // GET: Club/Create
@@ -147,7 +155,7 @@ namespace Rovers4.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClubID,Name,Address,Email,Number,ClubImageFile1,ClubImageFile2,ClubImageFile3")] Club club)
+        public async Task<IActionResult> Edit(int id, [Bind("ClubID,Name,Address,Email,Number,ClubImage1,ClubImage2,ClubImage3,ClubImageFile1,ClubImageFile2,ClubImageFile3")] Club club)
         {
             if (id != club.ClubID)
             {
@@ -156,13 +164,26 @@ namespace Rovers4.Controllers
 
             if (ModelState.IsValid)
             {
-                string image1 = UploadedImage1(club);
-                string image2 = UploadedImage2(club);
-                string image3 = UploadedImage3(club);
+                if (club.ClubImageFile1 != null)
+                {
+                    string clubImage = UploadedImage1(club);
+                    DeleteImage(club.ClubImage1);
+                    club.ClubImage1 = clubImage;
+                }
 
-                club.ClubImage1 = image1;
-                club.ClubImage2 = image2;
-                club.ClubImage3 = image3;
+                if (club.ClubImageFile2 != null)
+                {
+                    string clubImage = UploadedImage1(club);
+                    DeleteImage(club.ClubImage2);
+                    club.ClubImage2 = clubImage;
+                }
+
+                if (club.ClubImageFile3 != null)
+                {
+                    string clubImage = UploadedImage1(club);
+                    DeleteImage(club.ClubImage3);
+                    club.ClubImage3 = clubImage;
+                }
 
                 try
                 {
@@ -207,6 +228,9 @@ namespace Rovers4.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var club = await _context.Clubs.FindAsync(id);
+            DeleteImage(club.ClubImage1);
+            DeleteImage(club.ClubImage2);
+            DeleteImage(club.ClubImage3);
             _context.Clubs.Remove(club);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
