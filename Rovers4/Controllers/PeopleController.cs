@@ -92,7 +92,6 @@ namespace Rovers4.Controllers
             {
                 System.IO.File.Delete(filePath);
             }
-
         }
 
         [Authorize(Roles = "Super Admin, Team Admin, Member")]

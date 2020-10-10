@@ -122,6 +122,17 @@ namespace Rovers4.Controllers
             return uniqueFileName;
         }
 
+        //Delete Images from Root Folder on Editing/Deleting player.
+        private void DeleteImage(string imageString)
+        {
+            string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+            string filePath = Path.Combine(uploadsFolder, imageString);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+        }
+
         [Authorize(Roles = "Super Admin")]
         public IActionResult Create()
         {
@@ -168,7 +179,7 @@ namespace Rovers4.Controllers
         [Authorize(Roles = "Super Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TeamID,Name,ClubID,TeamBio, TeamImageFile")] Team team)
+        public async Task<IActionResult> Edit(int id, [Bind("TeamID,Name,ClubID,TeamBio,TeamImage,TeamImageFile")] Team team)
         {
             if (id != team.TeamID)
             {
@@ -177,9 +188,13 @@ namespace Rovers4.Controllers
 
             if (ModelState.IsValid)
             {
-                string image = UploadedImage(team);
+                if (team.TeamImageFile != null)
+                {
+                    string teamImage = UploadedImage(team);
+                    DeleteImage(team.TeamImage);
+                    team.TeamImage = teamImage;
+                }
 
-                team.TeamImage = image;
                 try
                 {
                     _context.Update(team);
@@ -227,6 +242,7 @@ namespace Rovers4.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var team = await _context.Teams.FindAsync(id);
+            DeleteImage(team.TeamImage);
             _context.Teams.Remove(team);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
