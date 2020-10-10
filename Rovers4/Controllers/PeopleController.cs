@@ -167,7 +167,7 @@ namespace Rovers4.Controllers
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] Person person)
+        public async Task<IActionResult> Edit(int id, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,Image,ProfileImage,TeamID,PlayerStatID,ThumbnailImage, ProfileThumbnailImage,PersonBio")] Person person)
         {
             if (id != person.PersonID)
             {
@@ -176,11 +176,17 @@ namespace Rovers4.Controllers
 
             if (ModelState.IsValid)
             {
-                string thumnailImage = UploadedThumbnailImage(person);
-                string image = UploadedImage(person);
+                if (person.ProfileThumbnailImage != null)
+                {
+                    string thumnailImage = UploadedThumbnailImage(person);
+                    person.ThumbnailImage = thumnailImage;
+                }
 
-                person.Image = image;
-                person.ThumbnailImage = thumnailImage;
+                if (person.ProfileImage != null)
+                {
+                    string image = UploadedImage(person);
+                    person.Image = image;
+                }
 
                 try
                 {
