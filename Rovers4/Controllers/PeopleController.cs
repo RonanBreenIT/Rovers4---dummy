@@ -159,7 +159,8 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);
+            ViewBag.CurrentTeam = _teamRepository.GetTeamById(person.TeamID)?.Name;
+            ViewBag.PersonType = person.PersonType.ToString();
             return View(person);
         }
 
@@ -197,9 +198,9 @@ namespace Rovers4.Controllers
                         throw;
                     }
                 }
+                ViewBag.CurrentTeam = _teamRepository.GetTeamById(person.TeamID)?.Name;
                 return RedirectToAction("Index", "Team");
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", person.TeamID);
             return View(person);
         }
 
