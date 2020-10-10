@@ -49,6 +49,7 @@ namespace Rovers4.Controllers
             IEnumerable<Fixture> novemberFixtures;
             IEnumerable<Fixture> decemberFixtures;
             string currentTeam;
+            int teamID;
             int totalWins;
             int totalDraws;
             int totalLosses;
@@ -72,6 +73,7 @@ namespace Rovers4.Controllers
                 novemberFixtures = _fixtureRepository.NovemberFixtures.OrderBy(p => p.TeamID);
                 decemberFixtures = _fixtureRepository.DecemberFixtures.OrderBy(p => p.TeamID);
                 currentTeam = "All Teams";
+                teamID = 1;
                 totalWins = 0;
                 totalDraws = 0;
                 totalLosses = 0;
@@ -108,6 +110,7 @@ namespace Rovers4.Controllers
                 decemberFixtures = _fixtureRepository.DecemberFixtures.Where(p => p.TeamID == id)
                     .OrderBy(p => p.FixtureDate);
                 currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
+                teamID = id.Value;
                 totalWins = _fixtureRepository.TotalWins(id);
                 totalDraws = _fixtureRepository.TotalDraws(id);
                 totalLosses = _fixtureRepository.TotalLosses(id);
@@ -121,6 +124,7 @@ namespace Rovers4.Controllers
             {
                 Fixtures = fixtures,
                 CurrentTeam = currentTeam,
+                TeamID = teamID,
                 JanuaryFixtures = janFixtures,
                 FebruaryFixtures = febFixtures,
                 MarchFixtures = marchFixtures, 
@@ -157,7 +161,7 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-
+            
             return View(fixture);
         }
 
@@ -180,9 +184,9 @@ namespace Rovers4.Controllers
         }
 
         [Authorize(Roles = "Super Admin, Team Admin")]
-        public IActionResult Create()
+        public IActionResult Create(int TeamID)
         {
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name");
+            ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
             return View();
         }
         
@@ -197,7 +201,6 @@ namespace Rovers4.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Team");
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
             return View(fixture);
         }
 
@@ -214,7 +217,7 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
+            ViewBag.CurrentTeam = _teamRepository.GetTeamById(fixture.TeamID)?.Name;
             return View(fixture);
         }
 
@@ -248,7 +251,6 @@ namespace Rovers4.Controllers
                 }
                 return RedirectToAction("Index", "Team");
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
             return View(fixture);
         }
 
@@ -265,7 +267,7 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
+            ViewBag.CurrentTeam = _teamRepository.GetTeamById(fixture.TeamID)?.Name;
             return View(fixture);
         }
 
@@ -299,7 +301,6 @@ namespace Rovers4.Controllers
                 }
                 return RedirectToAction("Index", "Team");
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
             return View(fixture);
         }
 
@@ -313,7 +314,6 @@ namespace Rovers4.Controllers
 
             var fixture = await _context.Fixtures.FindAsync(id);
 
-            //var teamIDQuery = fixture.TeamID;
             var playerList = _personRepository.Players.Where(i => i.TeamID == fixture.TeamID);
             fixture.Players = new List<PersonStats>();
 
@@ -338,7 +338,7 @@ namespace Rovers4.Controllers
                 return NotFound();
             }
 
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
+            ViewBag.CurrentTeam = _teamRepository.GetTeamById(fixture.TeamID)?.Name;
             return View(fixture);
         }
 
@@ -379,7 +379,6 @@ namespace Rovers4.Controllers
                 }
                 return RedirectToAction("Index", "Team");
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", fixture.TeamID);
             return View(fixture);
         }
 
