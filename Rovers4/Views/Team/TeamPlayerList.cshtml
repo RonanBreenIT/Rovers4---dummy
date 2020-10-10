@@ -9,7 +9,7 @@
 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
 {
     <p>
-        <a asp-controller="People" asp-action="Create">Add Player</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+        <a asp-controller="People" asp-action="Create" asp-route-TeamID="@Model.TeamID">Add Player</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
         <a asp-controller="People" asp-action="CreateMgmt">Add Management</a>
         @foreach (var team in @Model.Teams)
         {

@@ -44,6 +44,7 @@ namespace Rovers4.Controllers
             IEnumerable<Person> forwards;
             IEnumerable<Person> mgmt;
             string currentTeam;
+            int teamID;
 
             if (id == null)
             {
@@ -54,6 +55,7 @@ namespace Rovers4.Controllers
                 forwards = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
                 mgmt = _personRepository.Mgmt.OrderBy(p => p.PersonID);
                 currentTeam = "All Teams";
+                teamID = 1;
             }
             else
             {
@@ -75,12 +77,14 @@ namespace Rovers4.Controllers
                     .ThenBy(p => p.MgmtRole == MgmtRole.Physio)
                     .ThenBy(p => p.MgmtRole == MgmtRole.SandC);
                 currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
+                teamID = id.Value;
             }
             ViewData["TeamNumbers"] = (staff.Count() - mgmt.Count());
             return View(new PlayersListViewModel
             {
                 Staff = staff,
                 CurrentTeam = currentTeam,
+                TeamID = teamID,
                 Goalkeepers = goalkeepers,
                 Defenders = defenders,
                 Midfielders = midfielders,

@@ -82,16 +82,15 @@ namespace Rovers4.Controllers
         }
 
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
-        public IActionResult Create()
+        public IActionResult Create(int TeamID)
         {
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name");
             return View();
         }
 
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] Person model)
+        public async Task<IActionResult> Create(int TeamID, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] Person model)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +108,6 @@ namespace Rovers4.Controllers
 
                 return RedirectToAction("Index", "Team");
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", model.TeamID);
             return View();
         }
 
