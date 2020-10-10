@@ -10,7 +10,7 @@
 {
     <p>
         <a asp-controller="People" asp-action="Create" asp-route-TeamID="@Model.TeamID">Add Player</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
-        <a asp-controller="People" asp-action="CreateMgmt">Add Management</a>
+        <a asp-controller="People" asp-action="CreateMgmt" asp-route-TeamID="@Model.TeamID">Add Management</a>
         @foreach (var team in @Model.Teams)
         {
             if (team.Name == Model.CurrentTeam)

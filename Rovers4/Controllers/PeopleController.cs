@@ -20,12 +20,14 @@ namespace Rovers4.Controllers
         private readonly ClubContext _context;
         private readonly IWebHostEnvironment hostingEnvironment;
         private readonly IPlayerStatRepository _playerStat;
+        private readonly ITeamRepository _teamRepository;
 
-        public PeopleController(ClubContext context, IWebHostEnvironment _hostingEnvironment, IPlayerStatRepository playerStat)
+        public PeopleController(ClubContext context, IWebHostEnvironment _hostingEnvironment, IPlayerStatRepository playerStat, ITeamRepository teamRepository)
         {
             _context = context;
             hostingEnvironment = _hostingEnvironment;
             _playerStat = playerStat;
+            _teamRepository = teamRepository;
         }
 
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
@@ -84,6 +86,7 @@ namespace Rovers4.Controllers
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public IActionResult Create(int TeamID)
         {
+            ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
             return View();
         }
 
@@ -99,6 +102,7 @@ namespace Rovers4.Controllers
 
                 model.Image = image;
                 model.ThumbnailImage = thumnailImage;
+                model.PersonType = PersonType.Player;
 
                 _context.Add(model);
                 await _context.SaveChangesAsync();
@@ -108,21 +112,22 @@ namespace Rovers4.Controllers
 
                 return RedirectToAction("Index", "Team");
             }
+            ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
             return View();
         }
 
         // GET: People/Create
         [Authorize(Roles = "Super Admin, Team Admin")]
-        public IActionResult CreateMgmt()
+        public IActionResult CreateMgmt(int TeamID)
         {
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name");
+            ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
             return View();
         }
 
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateMgmt([Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] Person model)
+        public async Task<IActionResult> CreateMgmt(int TeamID, [Bind("PersonID,PersonType,MgmtRole,PlayerPosition,FirstName,Surname,DOB,Mobile,Email,ProfileImage,TeamID,PlayerStatID, ProfileThumbnailImage,PersonBio")] Person model)
         {
             if (ModelState.IsValid)
             {
@@ -131,12 +136,13 @@ namespace Rovers4.Controllers
 
                 model.Image = image;
                 model.ThumbnailImage = thumnailImage;
+                model.PersonType = PersonType.Manager;
 
                 _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Team");
             }
-            ViewData["TName"] = new SelectList(_context.Teams, "TeamID", "Name", model.TeamID);
+            ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
             return View();
         }
 
