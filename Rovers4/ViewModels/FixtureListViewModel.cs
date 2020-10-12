@@ -13,6 +13,7 @@ namespace Rovers4.ViewModels
         public IEnumerable<PlayerStat> Stats { get; set; }
         public IEnumerable<Team> Teams { get; set; }
         public string CurrentTeam { get; set; }
+        public int TeamID { get; set; }
         public IEnumerable<Fixture> JanuaryFixtures { get; set; }
         public IEnumerable<Fixture> FebruaryFixtures { get; set; }
         public IEnumerable<Fixture> MarchFixtures { get; set; }

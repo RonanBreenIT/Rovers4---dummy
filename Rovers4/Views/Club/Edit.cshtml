@@ -13,6 +13,9 @@
         <form enctype="multipart/form-data" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ClubID" />
+            <input type="hidden" asp-for="ClubImage1" />
+            <input type="hidden" asp-for="ClubImage2" />
+            <input type="hidden" asp-for="ClubImage3" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />

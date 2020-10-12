@@ -23,6 +23,6 @@ namespace Rovers4.ViewModels
         public IEnumerable<Team> Teams { get; set; }
         public string CurrentTeam { get; set; }
 
-        
+        public int TeamID { get; set; }
     }
 }

@@ -44,6 +44,7 @@ namespace Rovers4.Controllers
             IEnumerable<Person> forwards;
             IEnumerable<Person> mgmt;
             string currentTeam;
+            int teamID;
 
             if (id == null)
             {
@@ -54,6 +55,7 @@ namespace Rovers4.Controllers
                 forwards = _personRepository.AllGoalkeepers.OrderBy(p => p.PersonID);
                 mgmt = _personRepository.Mgmt.OrderBy(p => p.PersonID);
                 currentTeam = "All Teams";
+                teamID = 1;
             }
             else
             {
@@ -75,12 +77,14 @@ namespace Rovers4.Controllers
                     .ThenBy(p => p.MgmtRole == MgmtRole.Physio)
                     .ThenBy(p => p.MgmtRole == MgmtRole.SandC);
                 currentTeam = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
+                teamID = id.Value;
             }
             ViewData["TeamNumbers"] = (staff.Count() - mgmt.Count());
             return View(new PlayersListViewModel
             {
                 Staff = staff,
                 CurrentTeam = currentTeam,
+                TeamID = teamID,
                 Goalkeepers = goalkeepers,
                 Defenders = defenders,
                 Midfielders = midfielders,
@@ -116,6 +120,17 @@ namespace Rovers4.Controllers
                 }
             }
             return uniqueFileName;
+        }
+
+        //Delete Images from Root Folder on Editing/Deleting player.
+        private void DeleteImage(string imageString)
+        {
+            string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+            string filePath = Path.Combine(uploadsFolder, imageString);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
         }
 
         [Authorize(Roles = "Super Admin")]
@@ -164,7 +179,7 @@ namespace Rovers4.Controllers
         [Authorize(Roles = "Super Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TeamID,Name,ClubID,TeamBio, TeamImageFile")] Team team)
+        public async Task<IActionResult> Edit(int id, [Bind("TeamID,Name,ClubID,TeamBio,TeamImage,TeamImageFile")] Team team)
         {
             if (id != team.TeamID)
             {
@@ -173,9 +188,13 @@ namespace Rovers4.Controllers
 
             if (ModelState.IsValid)
             {
-                string image = UploadedImage(team);
+                if (team.TeamImageFile != null)
+                {
+                    string teamImage = UploadedImage(team);
+                    DeleteImage(team.TeamImage);
+                    team.TeamImage = teamImage;
+                }
 
-                team.TeamImage = image;
                 try
                 {
                     _context.Update(team);
@@ -223,6 +242,7 @@ namespace Rovers4.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var team = await _context.Teams.FindAsync(id);
+            DeleteImage(team.TeamImage);
             _context.Teams.Remove(team);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
