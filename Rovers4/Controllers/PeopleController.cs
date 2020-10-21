@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.ViewModels;
+using Rovers4.Services;
 
 namespace Rovers4.Controllers
 {
@@ -21,13 +22,15 @@ namespace Rovers4.Controllers
         private readonly IWebHostEnvironment hostingEnvironment;
         private readonly IPlayerStatRepository _playerStat;
         private readonly ITeamRepository _teamRepository;
+        private IBlobStorageService _blobService;
 
-        public PeopleController(ClubContext context, IWebHostEnvironment _hostingEnvironment, IPlayerStatRepository playerStat, ITeamRepository teamRepository)
+        public PeopleController(ClubContext context, IWebHostEnvironment _hostingEnvironment, IPlayerStatRepository playerStat, ITeamRepository teamRepository, IBlobStorageService storageService)
         {
             _context = context;
             hostingEnvironment = _hostingEnvironment;
             _playerStat = playerStat;
             _teamRepository = teamRepository;
+            _blobService = storageService;
         }
 
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
@@ -51,47 +54,36 @@ namespace Rovers4.Controllers
 
         private string UploadedThumbnailImage(Person model)
         {
-            string uniqueFileName = null;
-
             if (model.ProfileThumbnailImage != null)
             {
-                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfileThumbnailImage.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                string mimeType = model.ProfileThumbnailImage.ContentType;
+                byte[] dataFiles;
+
+                using (var target = new MemoryStream())
                 {
-                    model.ProfileThumbnailImage.CopyTo(fileStream);
+                    model.ProfileThumbnailImage.CopyTo(target);
+                    dataFiles = target.ToArray();
                 }
+                model.ThumbnailImage = _blobService.UploadFileToBlob(model.ProfileThumbnailImage.FileName, dataFiles, mimeType);
             }
-            return uniqueFileName;
+            return model.ThumbnailImage;
         }
 
         private string UploadedImage(Person model)
         {
-            string uniqueFileName = null;
-
             if (model.ProfileImage != null)
             {
-                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    model.ProfileImage.CopyTo(fileStream);
-                }
-            }
-            return uniqueFileName;
-        }
+                string mimeType = model.ProfileImage.ContentType;
+                byte[] dataFiles;
 
-        //Delete Images from Root Folder on Editing/Deleting player.
-        private void DeleteImage(string imageString)
-        {
-            string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-            string filePath = Path.Combine(uploadsFolder, imageString);
-            if (System.IO.File.Exists(filePath))
-            {
-                System.IO.File.Delete(filePath);
+                using (var target = new MemoryStream())
+                {
+                    model.ProfileImage.CopyTo(target);
+                    dataFiles = target.ToArray();
+                }
+                model.Image = _blobService.UploadFileToBlob(model.ProfileImage.FileName, dataFiles, mimeType);
             }
+            return model.Image;
         }
 
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
@@ -189,15 +181,15 @@ namespace Rovers4.Controllers
             {
                 if (person.ProfileThumbnailImage != null)
                 {
+                    _blobService.DeleteBlobData(person.ThumbnailImage);
                     string thumnailImage = UploadedThumbnailImage(person);
-                    DeleteImage(person.ThumbnailImage);
                     person.ThumbnailImage = thumnailImage;
                 }
 
                 if (person.ProfileImage != null)
                 {
+                    _blobService.DeleteBlobData(person.Image);
                     string image = UploadedImage(person);
-                    DeleteImage(person.Image);
                     person.Image = image;
                 }
 
@@ -247,9 +239,9 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var person = await _context.Persons.FindAsync(id); 
-            DeleteImage(person.Image);
-            DeleteImage(person.ThumbnailImage);
+            var person = await _context.Persons.FindAsync(id);
+            _blobService.DeleteBlobData(person.ThumbnailImage);
+            _blobService.DeleteBlobData(person.Image);
             _context.Persons.Remove(person);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Team");
