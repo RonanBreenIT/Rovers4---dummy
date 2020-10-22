@@ -19,7 +19,7 @@ namespace Rovers4.Controllers
     {
         private readonly ClubContext _context;
         private readonly IWebHostEnvironment hostingEnvironment;
-        private IBlobStorageService _blobService;
+        private readonly IBlobStorageService _blobService;
 
         public ClubController(ClubContext context, IWebHostEnvironment _hostingEnvironment, IBlobStorageService storageService)
         {
