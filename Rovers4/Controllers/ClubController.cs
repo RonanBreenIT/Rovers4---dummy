@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
+using Rovers4.Services;
 
 namespace Rovers4.Controllers
 {
@@ -18,11 +19,13 @@ namespace Rovers4.Controllers
     {
         private readonly ClubContext _context;
         private readonly IWebHostEnvironment hostingEnvironment;
+        private IBlobStorageService _blobService;
 
-        public ClubController(ClubContext context, IWebHostEnvironment _hostingEnvironment)
+        public ClubController(ClubContext context, IWebHostEnvironment _hostingEnvironment, IBlobStorageService storageService)
         {
             _context = context;
             hostingEnvironment = _hostingEnvironment;
+            _blobService = storageService;
         }
 
         // GET: Club
@@ -51,53 +54,53 @@ namespace Rovers4.Controllers
 
         private string UploadedImage1(Club model)
         {
-            string uniqueFileName = null;
-
             if (model.ClubImageFile1 != null)
             {
-                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ClubImageFile1.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                string mimeType = model.ClubImageFile1.ContentType;
+                byte[] dataFiles;
+
+                using (var target = new MemoryStream())
                 {
-                    model.ClubImageFile1.CopyTo(fileStream);
+                    model.ClubImageFile1.CopyTo(target);
+                    dataFiles = target.ToArray();
                 }
+                model.ClubImage1 = _blobService.UploadFileToBlob(model.ClubImageFile1.FileName, dataFiles, mimeType);
             }
-            return uniqueFileName;
+            return model.ClubImage1;
         }
         private string UploadedImage2(Club model)
         {
-            string uniqueFileName = null;
-
             if (model.ClubImageFile2 != null)
             {
-                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ClubImageFile2.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                string mimeType = model.ClubImageFile2.ContentType;
+                byte[] dataFiles;
+
+                using (var target = new MemoryStream())
                 {
-                    model.ClubImageFile2.CopyTo(fileStream);
+                    model.ClubImageFile2.CopyTo(target);
+                    dataFiles = target.ToArray();
                 }
+                model.ClubImage2 = _blobService.UploadFileToBlob(model.ClubImageFile2.FileName, dataFiles, mimeType);
             }
-            return uniqueFileName;
+            return model.ClubImage2;
         }
 
 
         private string UploadedImage3(Club model)
         {
-            string uniqueFileName = null;
-
             if (model.ClubImageFile3 != null)
             {
-                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ClubImageFile3.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                string mimeType = model.ClubImageFile2.ContentType;
+                byte[] dataFiles;
+
+                using (var target = new MemoryStream())
                 {
-                    model.ClubImageFile3.CopyTo(fileStream);
+                    model.ClubImageFile3.CopyTo(target);
+                    dataFiles = target.ToArray();
                 }
+                model.ClubImage3 = _blobService.UploadFileToBlob(model.ClubImageFile3.FileName, dataFiles, mimeType);
             }
-            return uniqueFileName;
+            return model.ClubImage3;
         }
 
         private void DeleteImage(string imageString)
@@ -166,23 +169,23 @@ namespace Rovers4.Controllers
             {
                 if (club.ClubImageFile1 != null)
                 {
-                    string clubImage = UploadedImage1(club);
-                    DeleteImage(club.ClubImage1);
-                    club.ClubImage1 = clubImage;
+                    _blobService.DeleteBlobData(club.ClubImage1);
+                    string image = UploadedImage1(club);
+                    club.ClubImage1 = image;
                 }
 
                 if (club.ClubImageFile2 != null)
                 {
-                    string clubImage = UploadedImage1(club);
-                    DeleteImage(club.ClubImage2);
-                    club.ClubImage2 = clubImage;
+                    _blobService.DeleteBlobData(club.ClubImage2);
+                    string image = UploadedImage2(club);
+                    club.ClubImage2 = image;
                 }
 
                 if (club.ClubImageFile3 != null)
                 {
-                    string clubImage = UploadedImage1(club);
-                    DeleteImage(club.ClubImage3);
-                    club.ClubImage3 = clubImage;
+                    _blobService.DeleteBlobData(club.ClubImage3);
+                    string image = UploadedImage3(club);
+                    club.ClubImage3 = image;
                 }
 
                 try
@@ -228,9 +231,9 @@ namespace Rovers4.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var club = await _context.Clubs.FindAsync(id);
-            DeleteImage(club.ClubImage1);
-            DeleteImage(club.ClubImage2);
-            DeleteImage(club.ClubImage3);
+            _blobService.DeleteBlobData(club.ClubImage1);
+            _blobService.DeleteBlobData(club.ClubImage2);
+            _blobService.DeleteBlobData(club.ClubImage3);
             _context.Clubs.Remove(club);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
