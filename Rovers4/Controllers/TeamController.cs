@@ -21,17 +21,17 @@ namespace Rovers4.Controllers
         private readonly ClubContext _context;
         private readonly IPersonRepository _personRepository;
         private readonly ITeamRepository _teamRepository;
-        private IMailService _mailService;
-        private readonly IWebHostEnvironment hostingEnvironment;
+        private readonly IMailService _mailService;
+        private readonly IBlobStorageService _blobService;
 
 
-        public TeamController(IPersonRepository personRepository, ITeamRepository teamRepository, ClubContext context, IMailService mailService, IWebHostEnvironment _hostingEnvironment)
+        public TeamController(IPersonRepository personRepository, ITeamRepository teamRepository, ClubContext context, IMailService mailService, IBlobStorageService storageService)
         {
             _personRepository = personRepository;
             _teamRepository = teamRepository;
             _context = context;
             _mailService = mailService;
-            hostingEnvironment = _hostingEnvironment;
+            _blobService = storageService;
         }
 
         [Authorize(Roles = "Super Admin, Team Admin, Member")]
@@ -107,30 +107,19 @@ namespace Rovers4.Controllers
 
         private string UploadedImage(Team model)
         {
-            string uniqueFileName = null;
-
             if (model.TeamImageFile != null)
             {
-                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.TeamImageFile.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    model.TeamImageFile.CopyTo(fileStream);
-                }
-            }
-            return uniqueFileName;
-        }
+                string mimeType = model.TeamImageFile.ContentType;
+                byte[] dataFiles;
 
-        //Delete Images from Root Folder on Editing/Deleting player.
-        private void DeleteImage(string imageString)
-        {
-            string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-            string filePath = Path.Combine(uploadsFolder, imageString);
-            if (System.IO.File.Exists(filePath))
-            {
-                System.IO.File.Delete(filePath);
+                using (var target = new MemoryStream())
+                {
+                    model.TeamImageFile.CopyTo(target);
+                    dataFiles = target.ToArray();
+                }
+                model.TeamImage = _blobService.UploadFileToBlob(model.TeamImageFile.FileName, dataFiles, mimeType);
             }
+            return model.TeamImage;
         }
 
         [Authorize(Roles = "Super Admin")]
@@ -148,7 +137,6 @@ namespace Rovers4.Controllers
             if (ModelState.IsValid)
             {
                 string image = UploadedImage(team);
-
                 team.TeamImage = image;
 
                 _context.Add(team);
@@ -190,8 +178,8 @@ namespace Rovers4.Controllers
             {
                 if (team.TeamImageFile != null)
                 {
+                    _blobService.DeleteBlobData(team.TeamImage);
                     string teamImage = UploadedImage(team);
-                    DeleteImage(team.TeamImage);
                     team.TeamImage = teamImage;
                 }
 
@@ -242,7 +230,7 @@ namespace Rovers4.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var team = await _context.Teams.FindAsync(id);
-            DeleteImage(team.TeamImage);
+            _blobService.DeleteBlobData(team.TeamImage);
             _context.Teams.Remove(team);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

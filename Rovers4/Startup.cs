@@ -56,6 +56,7 @@ namespace Rovers4
             services.AddScoped<IFixtureRepository, FixtureRepository>();
 
             services.AddTransient<IMailService, SendGridMailService>(); // SendGridMail
+            services.AddTransient<IBlobStorageService, BlobStorageService>(); //Azure Storage for Images
 
             services.AddControllersWithViews();
             services.AddRazorPages();

@@ -36,11 +36,9 @@
                     </dd>
                 }
                 <dd class="col-sm-10">
-                    <img src="~/images/@staff.Image" alt="">
+                    <img src="@staff.Image" alt="">
                 </dd>
             </dl>
-
-
         }
 
 
@@ -69,7 +67,7 @@
                     <a asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Update Stats</a>
                     //Removed Delete as if never want to delete as then if try and add playerstats again it will fail unless player is deleted and readded
                     @*<span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
-                    <a asp-controller="PlayerStat" asp-action="Delete" asp-route-id="@staff.PersonID">Delete Stats</a>*@
+                        <a asp-controller="PlayerStat" asp-action="Delete" asp-route-id="@staff.PersonID">Delete Stats</a>*@
                 }
             }
         }
@@ -77,7 +75,7 @@
 
         @foreach (var stat in Model.Stats)
         {
-            <div class="justify-content-around" >
+            <div class="justify-content-around">
                 <table id="PlayerStatsTable" class="table" cellspacing="0">
                     <thead>
                         <tr>
@@ -125,11 +123,16 @@
                         </tr>
                     </tbody>
                 </table>
+                <div>
+                    <a asp-controller="Team" asp-action="Index">Back to Team List</a>
+                </div>
             </div>
         }
 
     </tbody>
 </table>
+    
 
-<a asp-controller="Team" asp-action="Index">Back to Team List</a>
+
+
 
