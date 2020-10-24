@@ -18,13 +18,11 @@ namespace Rovers4.Controllers
     public class ClubController : Controller
     {
         private readonly ClubContext _context;
-        private readonly IWebHostEnvironment hostingEnvironment;
         private readonly IBlobStorageService _blobService;
 
-        public ClubController(ClubContext context, IWebHostEnvironment _hostingEnvironment, IBlobStorageService storageService)
+        public ClubController(ClubContext context, IBlobStorageService storageService)
         {
             _context = context;
-            hostingEnvironment = _hostingEnvironment;
             _blobService = storageService;
         }
 
@@ -101,16 +99,6 @@ namespace Rovers4.Controllers
                 model.ClubImage3 = _blobService.UploadFileToBlob(model.ClubImageFile3.FileName, dataFiles, mimeType);
             }
             return model.ClubImage3;
-        }
-
-        private void DeleteImage(string imageString)
-        {
-            string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-            string filePath = Path.Combine(uploadsFolder, imageString);
-            if (System.IO.File.Exists(filePath))
-            {
-                System.IO.File.Delete(filePath);
-            }
         }
 
         // GET: Club/Create

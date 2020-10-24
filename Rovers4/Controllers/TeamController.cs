@@ -21,18 +21,16 @@ namespace Rovers4.Controllers
         private readonly ClubContext _context;
         private readonly IPersonRepository _personRepository;
         private readonly ITeamRepository _teamRepository;
-        private IMailService _mailService;
+        private readonly IMailService _mailService;
         private readonly IBlobStorageService _blobService;
-        private readonly IWebHostEnvironment hostingEnvironment;
 
 
-        public TeamController(IPersonRepository personRepository, ITeamRepository teamRepository, ClubContext context, IMailService mailService, IWebHostEnvironment _hostingEnvironment, IBlobStorageService storageService)
+        public TeamController(IPersonRepository personRepository, ITeamRepository teamRepository, ClubContext context, IMailService mailService, IBlobStorageService storageService)
         {
             _personRepository = personRepository;
             _teamRepository = teamRepository;
             _context = context;
             _mailService = mailService;
-            hostingEnvironment = _hostingEnvironment;
             _blobService = storageService;
         }
 

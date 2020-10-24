@@ -22,7 +22,7 @@ namespace Rovers4.Controllers
         private readonly IWebHostEnvironment hostingEnvironment;
         private readonly IPlayerStatRepository _playerStat;
         private readonly ITeamRepository _teamRepository;
-        private IBlobStorageService _blobService;
+        private readonly IBlobStorageService _blobService;
 
         public PeopleController(ClubContext context, IWebHostEnvironment _hostingEnvironment, IPlayerStatRepository playerStat, ITeamRepository teamRepository, IBlobStorageService storageService)
         {
