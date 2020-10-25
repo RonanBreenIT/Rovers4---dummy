@@ -1,11 +1,9 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-/*a.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
-}*/
+#navContainer{
+    background-color: lightgray;
+}
 
 .navbar {
     background-image: none;
@@ -16,34 +14,36 @@ for details on configuring this project to bundle and minify static web assets. 
     border-color: #a593c2;
 }
 
-.navbar a.dropdown-toggle{
-    color: #555555;
-}
-
-.navbar li.dropdown {
+.navbar a {
     display: inline-block;
-    padding: 0.5rem 0.5rem;
-    white-space: nowrap;
-    position: relative;
+    font-size: 16px;
+    color: #007bff;
+    text-align: left;
+    padding: .2rem 1rem 0rem 0rem;
+    text-decoration: none;
 }
 
-.navbar ul.dropdown-menu li a {
-    padding: 10px 15px;
-    border-top-width: 1px;
-    border-color: #cdcdcd !important;
+.navbar ul.dropdown-menu li {
+    padding: 5px 10px;
+    border: solid;
+    border-color: lightblue;
+    border-top-width: .1px;
+    /*border-top-style: solid;*/
+    zoom: 1;
+}
+
+.dropdown-menu {
+    padding: 0;
+    background-color: lightgray;
+}
+
+dropdown-menu > li > a {
+    color: #4a4a4a !important;
     font-size: 14px;
     letter-spacing: 0.4px;
 }
-
-.nav.navbar-nav.navbar-right li a {
-    color: white;
-    font-size: 1.2em;
-}
-
-.navbar .nav > li > a {
-    font-size: 1.2em;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    color: white;
+.navbar a.dropdown-toggle{
+    color: #555555;
 }
 
 /*/* Provide sufficient contrast against white background */
@@ -203,6 +203,7 @@ h1, h2, h3, h4 {
 /*Player Display*/
 
 .card {
+    width: 20rem;
     display: inline-block;
     padding: .75rem;
     margin-right: .75rem;
