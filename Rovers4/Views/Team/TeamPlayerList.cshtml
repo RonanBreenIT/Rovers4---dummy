@@ -9,13 +9,13 @@
 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
 {
     <p>
-        <a asp-controller="People" asp-action="Create" asp-route-TeamID="@Model.TeamID">Add Player</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
-        <a asp-controller="People" asp-action="CreateMgmt" asp-route-TeamID="@Model.TeamID">Add Management</a>
+        <a class="btn btn-outline-success" asp-controller="People" asp-action="Create" asp-route-TeamID="@Model.TeamID">Add Player</a>
+        <a class="btn btn-outline-success" asp-controller="People" asp-action="CreateMgmt" asp-route-TeamID="@Model.TeamID">Add Management</a>
         @foreach (var team in @Model.Teams)
         {
             if (team.Name == Model.CurrentTeam)
             {
-                <span>&nbsp; &nbsp;| &nbsp; &nbsp;</span><a asp-controller="Team" asp-action="sendGridEmail" asp-route-id="@team.TeamID">Send Fixture Alert</a><span>&nbsp; &nbsp;&nbsp; &nbsp;</span>
+                <a class="btn btn-outline-info" asp-controller="Team" asp-action="sendGridEmail" asp-route-id="@team.TeamID">Send Fixture Alert</a>
             }
         }
     </p>
@@ -23,38 +23,34 @@
 
 @if (Model.Goalkeepers.Count() > 0)
 {
-    <section>
-        <header>
-            <h3>
-                Goalkeepers
-            </h3>
-        </header>
-        @foreach (var staff in Model.Goalkeepers)
-        {
-            <figure>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="@staff.ThumbnailImage" alt="" />
-                        <div class="caption">
-                            <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
-                            <label>
-                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
-                                   asp-action="PlayerStatList"
-                                   asp-route-id="@staff.PersonID">@staff.FullName</a>
-                                @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                                {
-                                    <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
-                                    </div>
-                                }
-
-                            </label>
-                        </div>
+<section>
+    <header>
+        <h3>
+            Goalkeepers
+        </h3>
+    </header>
+    @foreach (var staff in Model.Goalkeepers)
+    {
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
+                       asp-action="PlayerStatList"
+                       asp-route-id="@staff.PersonID">@staff.FullName</a>
+                </h5>
+                <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                {
+                    <div>
+                        <a class="btn btn-secondary" asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a>
+                        <a class="btn btn-danger" asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                     </div>
-                </div>
-            </figure>
-        }
-    </section>
+                }
+            </div>
+        </div>
+    }
+</section>
 }
 
 @if (Model.Defenders.Count() > 0)
@@ -67,28 +63,24 @@
         </header>
         @foreach (var staff in Model.Defenders)
         {
-            <figure>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="@staff.ThumbnailImage" alt="">
-                        <div class="caption">
-                            <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
-                            <label>
-                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
-                                   asp-action="PlayerStatList"
-                                   asp-route-id="@staff.PersonID">@staff.FullName</a>
-                                @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                                {
-                                    <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
-                                    </div>
-                                }
-
-                            </label>
+            <div class="card">
+                <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
+                           asp-action="PlayerStatList"
+                           asp-route-id="@staff.PersonID">@staff.FullName</a>
+                    </h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                    {
+                        <div>
+                            <a class="btn btn-secondary" asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a>
+                            <a class="btn btn-danger" asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                         </div>
-                    </div>
+                    }
                 </div>
-            </figure>
+            </div>
         }
     </section>
 }
@@ -103,28 +95,24 @@
         </header>
         @foreach (var staff in Model.Midfielders)
         {
-            <figure>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="@staff.ThumbnailImage" alt="">
-                        <div class="caption">
-                            <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
-                            <label>
-                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
-                                   asp-action="PlayerStatList"
-                                   asp-route-id="@staff.PersonID">@staff.FullName</a>
-                                @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                                {
-                                    <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
-                                    </div>
-                                }
-
-                            </label>
+            <div class="card">
+                <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
+                           asp-action="PlayerStatList"
+                           asp-route-id="@staff.PersonID">@staff.FullName</a>
+                    </h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                    {
+                        <div>
+                            <a class="btn btn-secondary" asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a>
+                            <a class="btn btn-danger" asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                         </div>
-                    </div>
+                    }
                 </div>
-            </figure>
+            </div>
         }
     </section>
 }
@@ -139,28 +127,24 @@
         </header>
         @foreach (var staff in Model.Forwards)
         {
-            <figure>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="@staff.ThumbnailImage" alt="">
-                        <div class="caption">
-                            <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
-                            <label>
-                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
-                                   asp-action="PlayerStatList"
-                                   asp-route-id="@staff.PersonID">@staff.FullName</a>
-                                @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                                {
-                                    <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
-                                    </div>
-                                }
-
-                            </label>
+            <div class="card">
+                <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
+                           asp-action="PlayerStatList"
+                           asp-route-id="@staff.PersonID">@staff.FullName</a>
+                    </h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                    {
+                        <div>
+                            <a class="btn btn-secondary" asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a>
+                            <a class="btn btn-danger" asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                         </div>
-                    </div>
+                    }
                 </div>
-            </figure>
+            </div>
         }
     </section>
 }
@@ -175,28 +159,24 @@
         </header>
         @foreach (var staff in Model.Mgmt)
         {
-            <figure>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="@staff.ThumbnailImage" alt="">
-                        <div class="caption">
-                            <h6 class="pull-right">@Html.DisplayFor(modelItem => staff.MgmtRole)</h6>
-                            <label>
-                                <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
-                                   asp-action="PlayerStatList"
-                                   asp-route-id="@staff.PersonID">@staff.FullName</a>
-                                @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
-                                {
-                                    <div>
-                                        <a asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a><span>&nbsp;|&nbsp;</span><a asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
-                                    </div>
-                                }
-
-                            </label>
+            <div class="card">
+                <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a class="font-weight-bold" style="color:darkslategray" asp-controller="PlayerStat"
+                           asp-action="PlayerStatList"
+                           asp-route-id="@staff.PersonID">@staff.FullName</a>
+                    </h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => staff.MgmtRole)</p>
+                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+                    {
+                        <div>
+                            <a class="btn btn-secondary" asp-controller="People" asp-action="Edit" asp-route-id="@staff.PersonID">Edit</a>
+                            <a class="btn btn-danger" asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                         </div>
-                    </div>
+                    }
                 </div>
-            </figure>
+            </div>
         }
     </section>
 }

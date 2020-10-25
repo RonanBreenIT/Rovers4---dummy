@@ -200,3 +200,18 @@ h1, h2, h3, h4 {
     color:#007bff  !important;
 }
 
+/*Player Display*/
+
+.card {
+    display: inline-block;
+    padding: .75rem;
+    margin-right: .75rem;
+    margin-bottom: 2rem;
+    border: 0;
+}
+
+    .card > img {
+        margin-bottom: .75rem;
+        max-width: 100%;
+        height: auto;
+    }
