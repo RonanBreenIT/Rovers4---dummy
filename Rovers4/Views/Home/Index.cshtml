@@ -6,7 +6,7 @@
 
 <div class="text-center">
     <div class="text-primary" >
-        <h1 class="display-4" style="font-weight:bold">Rathfarnham Rovers Football Club</h1>
+        <h1 class="display-4" style="font-weight:bold">Rathfarnham Rovers F.C.</h1>
     </div>
 </div>
 
@@ -14,39 +14,49 @@
 @*<div class="hero-image">
 </div>*@
 
-        @foreach (var item in Model)
-        {
-            <div class="container" style="width:90%">
-                <div id="carouselHome" class="carousel slide" data-ride="carousel">
-
-                    @*Indicators*@
-                    <ul class="carousel-indicators">
-                        <li data-target="#carouselHome" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselHome" data-slide-to="1"></li>
-                        <li data-target="#carouselHome" data-slide-to="2"></li>
-                    </ul>
-
-                    @* The slideshow*@
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="@item.ClubImage1" alt="Image1" width="1100" height="733">
+<div id="homeCardContainer">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text><image href="https://ronansstoragecccount.blob.core.windows.net/uploads/2020-10-22/20201022T184404658.jpg" height="100%" width="100%"/></svg>
+                <div class="card-body">
+                    <p class="card-text">All the Club Details</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-outline-primary" asp-controller="Home" asp-action="Contact">View</a>
                         </div>
-                        <div class="carousel-item">
-                            <img src="@item.ClubImage2" alt="Image2" width="1100" height="733">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="@item.ClubImage3" alt="Image3" width="1100" height="733">
-                        </div>
+                        <small class="text-muted">12 Mins</small>
                     </div>
-
-                    @*Left and right controls*@
-                    <a class="carousel-control-prev" href="#carouselHome" data-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselHome" data-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </a>
-
                 </div>
             </div>
-        }
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text><image href="https://ronansstoragecccount.blob.core.windows.net/uploads/2020-10-22/20201022T184949649.jpg" height="100%" width="100%" /></svg>
+                <div class="card-body">
+                    <p class="card-text">Shop the Latest Club Products!!</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-outline-primary" asp-controller="" asp-action="">View</a>
+                        </div>
+                        <small class="text-muted">9 mins</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text><image href="https://ronansstoragecccount.blob.core.windows.net/uploads/2020-10-22/20201022T184905094.jpg" height="100%" width="100%" /></svg>
+                <div class="card-body">
+                    <p class="card-text">Find out the all the latest Club News!!</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-outline-primary" asp-controller="" asp-action="">View</a>
+                        </div>
+                        <small class="text-muted">9 mins</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
