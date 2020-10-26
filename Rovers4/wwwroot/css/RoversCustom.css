@@ -236,3 +236,19 @@ h1, h2, h3, h4 {
         max-width: 100%;
         height: auto;
     }
+
+#teamContainer {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+#teamCard {
+    border-width: thin;
+    border-style: dashed;
+    margin-top: 1rem ;
+    padding: 0 !important;
+    border-color: lightgreen;
+}
+
+#teamBtn {
+    position: relative;
+}
