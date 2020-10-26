@@ -199,8 +199,17 @@ figure {
     padding-top: 15px !important;
 }
 
-#fixtureRow{
-    background-color: lightgray !important;
+#fixtureRow {
+    background-color: #EDEDEB !important;
+}
+
+#fixtureRow p{
+    margin-top: auto;
+}
+
+#fixtureRowA a {
+    margin-top: auto;
+    line-height: 1.5rem;
 }
 
 p#fixtureText.col {
