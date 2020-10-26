@@ -9,44 +9,12 @@
 @if (this.User.IsInRole("Super Admin"))
 {
     <p>
-        <a class="btn btn-outline-success" asp-action="Create">Add Team</a>
+        <a class="btn btn-outline-success"  asp-action="Create">Add Team</a>
     </p>
 }
 
-@*@foreach (var team in @Model.Teams)
-    {
-        <div class="container" id="teamCaption">
-            <h6 class="row" id="teamName">
-                <h4 class="font-weight-bold">@Html.DisplayFor(modelItem => team.Name)</h4>
-                    <a asp-action="TeamPlayerList" asp-route-id="@team.TeamID">Roster</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
-                    <a asp-controller="Fixture" asp-action="TeamFixtureList" asp-route-id="@team.TeamID">Fixtures</a>
-                    @if (this.User.IsInRole("Super Admin"))
-                    {
-                        <span>&nbsp; &nbsp;| &nbsp; &nbsp;</span><a asp-action="Edit" asp-route-id="@team.TeamID">Edit</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
-                        <a asp-action="Delete" asp-route-id="@team.TeamID">Delete</a>
-                    }
-            </h6>
-            <p id="teamBio">@Html.DisplayFor(modelItem => team.TeamBio)</p>
-            <img src="@team.TeamImage" class="img-fluid" alt="Responsive image" width="1100" height="733">
-        </div>
-    }*@
-
 @foreach (var team in @Model.Teams)
 {
-    @*<div class="container">
-            <h2>@Html.DisplayFor(modelItem => team.Name)</h2>
-            <p>@Html.DisplayFor(modelItem => team.TeamBio)</p>
-            <div class="card">
-                <img class="card-img-top" src="@team.TeamImage" alt="Team image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">John Doe</h4>
-                    <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                    <a class="btn btn-primary stretched-link" asp-action="Edit" asp-route-id="@team.TeamID">Edit</a>
-                    <a class="btn btn-primary stretched-link" asp-action="Delete" asp-route-id="@team.TeamID">Delete</a>
-                </div>
-            </div>
-        </div>*@
-
     <div class="container" id="teamContainer">
         <div class="card" style="width: 80%" id="teamCard">
             <div class="card-img-overlay d-flex align-items-end">

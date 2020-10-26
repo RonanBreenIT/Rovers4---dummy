@@ -5,10 +5,6 @@
 }
 
 <h1>Result Details</h1>
-<p>
-    <a asp-action="FixturePlayerStats" asp-route-id="@Model.FixtureID">Add Player Stats</a>
-</p>
-
 <div>
     <hr />
     <dl class="row">
@@ -65,6 +61,6 @@
 </div>
 
 <div>
-    <a asp-action="EditResult" asp-route-id="@Model.FixtureID">Edit</a> |
-    <a asp-controller="Team" asp-action="Index">Back to Team List</a>
+    <a class="btn btn-secondary" asp-action="EditResult" asp-route-id="@Model.FixtureID">Edit</a> 
+    <a class="btn btn-dark" asp-controller="Team" asp-action="Index">Back to Team List</a>
 </div>
