@@ -1,9 +1,9 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-#navContainer{
+/*#navContainer{
     background-color: lightgray;
-}
+}*/
 
 .navbar {
     background-image: none;
@@ -147,12 +147,6 @@ figure {
         color: #333;
     }
 
-p#fixtureText.col {
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-
 /* Make the image fully responsive */
 .carousel-inner img {
     width: 100%;
@@ -184,8 +178,24 @@ p#fixtureText.col {
     position: relative;
 }
 
+/*#fixtureSection{
+    border: dashed;
+    border-width: 1px;
+    border-color: seagreen;
+    margin-top: 1rem;
+}*/
+
+#fixtureCon {
+    padding-top: 15px !important;
+}
+
 #fixtureRow{
     background-color: lightgray !important;
+}
+
+p#fixtureText.col {
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 h3#FixtureHeader{
