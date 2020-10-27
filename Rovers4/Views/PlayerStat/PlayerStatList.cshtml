@@ -68,7 +68,8 @@
     @foreach (var stat in Model.Stats)
     {
         <div class="justify-content-around" style="padding-top: 1rem">
-            <table id="PlayerStatsTable" class="table" cellspacing="0">
+            <div class="table-responsive">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>
@@ -119,6 +120,7 @@
                 <a class="btn btn-dark" asp-controller="Team" asp-action="Index">Back to Team List</a>
             </div>
         </div>
+    </div>
     }
 
 
