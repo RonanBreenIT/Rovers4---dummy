@@ -52,14 +52,14 @@
     {
         if (staff.PersonType == PersonType.Player)
         {
-            <h3 style="padding-top: 2em">Player Statistics</h3>
+            <h3 style="padding-top: 2rem" >Player Statistics</h3>
             if (!Model.HasStats)
             {
-                <a asp-controller="PlayerStat" asp-action="Create">Add Stats</a>
+                <a class="btn btn-outline-success" asp-controller="PlayerStat" asp-action="Create">Add Stats</a>
             }
             else
             {
-                <a asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Update Stats</a>
+                <a class="btn btn-secondary" asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Edit Stats</a>
             }
         }
     }
@@ -67,7 +67,7 @@
 
     @foreach (var stat in Model.Stats)
     {
-        <div class="justify-content-around">
+        <div class="justify-content-around" style="padding-top: 1rem">
             <table id="PlayerStatsTable" class="table" cellspacing="0">
                 <thead>
                     <tr>
@@ -120,8 +120,6 @@
             </div>
         </div>
     }
-    </tbody>
-    </table>
 
 
 
