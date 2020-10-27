@@ -251,12 +251,13 @@ h1, h2, h3, h4 {
     margin: 0 !important;
     padding: 0 !important;
 }
+
 #teamCard {
     border-width: thin;
     border-style: dashed;
-    margin-top: 1rem ;
+    margin-top: 1rem;
     padding: 0 !important;
-    border-color: lightgreen;
+    border-color: #007bff;
 }
 
 #teamBtn {
@@ -282,4 +283,17 @@ h1, h2, h3, h4 {
     text-align: center;
     text-decoration: none;
     margin: 5px 2px;
+}
+
+#playerStatContainer {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#playerStatCard {
+    border-width: thin;
+    border-style: dashed;
+    margin-top: 1rem;
+    padding: 0 !important;
+    border-color: #007bff;
 }
