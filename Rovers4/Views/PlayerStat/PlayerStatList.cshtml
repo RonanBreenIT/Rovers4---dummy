@@ -5,7 +5,7 @@
 }
 
 <div class="container" id="playerStatContainer">
-    <div class="card" style="width: 50%" id="playerStatCard">
+    <div class="card"  id="playerStatCard">
 
         @foreach (var staff in Model.Staff)
         {
@@ -26,8 +26,7 @@
                 }
                 <div class="card-img">
                     <h6 class="card-title text-blue" style="font-weight:bold">DOB: @Html.DisplayFor(modelItem => staff.DOB)</h6>
-                </div>
-                <p class="card-text">@Html.DisplayFor(modelItem => staff.PersonBio)</p>
+                </div>      
             </div>
         }
     </div>
