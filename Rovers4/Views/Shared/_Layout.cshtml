@@ -33,7 +33,7 @@
                             @await Component.InvokeAsync("FixtureMenu")
                             @await Component.InvokeAsync("AdminMenu")
                         }
-                        else if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                        else
                         {
                             @await Component.InvokeAsync("TeamMenu")
                             @await Component.InvokeAsync("FixtureMenu")

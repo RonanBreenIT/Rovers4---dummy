@@ -51,18 +51,21 @@
     {
         if (staff.PersonType == PersonType.Player)
         {
-            <h3 style="padding-top: 2rem" >Player Statistics</h3>
-            if (!Model.HasStats)
+            <h3 style="padding-top: 2rem">Player Statistics</h3>
+            @if ((this.User.IsInRole("Super Admin")))
             {
-                <a class="btn btn-outline-success" asp-controller="PlayerStat" asp-action="Create">Add Stats</a>
-            }
-            else
-            {
-                <a class="btn btn-secondary" asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Edit Stats</a>
+                if (!Model.HasStats)
+                {
+                    <a class="btn btn-outline-success" asp-controller="PlayerStat" asp-action="Create">Add Stats</a>
+                }
+                else
+                {
+                    <a class="btn btn-secondary" asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Edit Stats</a>
+                }
             }
         }
     }
-</div>
+    </div>
 
     @foreach (var stat in Model.Stats)
     {
