@@ -4,62 +4,26 @@
     ViewData["Title"] = "ResultDetails";
 }
 
-<h1>Result Details</h1>
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Team)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Team.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FixtureType)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FixtureType)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FixtureDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FixtureDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.HomeOrAway)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.HomeOrAway)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Opponent)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Opponent)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FinalScore)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FinalScore)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ResultDescription)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ResultDescription)
-        </dd>
 
+<h1>@Html.DisplayNameFor(model => model.MatchReport)</h1>
+
+<div class="container" id="fixtureCon">
+    <div class="row" id="fixtureRow">
+        <p id="fixtureP">
+        <p class="col-sm-3" id="datesText">@Html.DisplayFor(model => model.FullDatesText)&nbsp;@Html.DisplayFor(model => model.FixtureDate.Year)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(model => model.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(model => model.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(model => model.HomeOrAway))</p>
+        </p>
+    </div>
 </div>
 
-<div>
-    <h3>@Html.DisplayNameFor(model => model.MatchReport)</h3>
-    <p>
-        @Html.DisplayFor(model => model.MatchReport)
-    </p>
+<div class="jumbotron jumbotron-fluid" style="margin-top:1.5rem" >
+    <div>
+        <p id="matchReportText">
+            @Html.DisplayFor(model => model.MatchReport)
+        </p>
+    </div>
 </div>
-
+    
 <div>
     <a class="btn btn-dark" asp-controller="Team" asp-action="Index">Back to Team List</a>
 </div>
