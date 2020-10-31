@@ -1,0 +1,109 @@
+﻿@model IEnumerable<Club>
+
+@{
+    ViewData["Title"] = "ClubDetails";
+}
+
+<h1>Club Details</h1>
+
+<div id="clubHistory">
+    <h3>Club History</h3>
+    <p>
+        For many years a keen debate carried on over whether Rathfarnham Rovers Football Club was formed in 1899 or 1901. Most of the evidence pointed to 1901. Thanks to modern technology it has been established that the earliest known mention of the club is 1899. Research continues into the subject in an effort to establish just exactly when the club was born. What is known for sure though is that Rathfarnham Rovers were founded in Ringsend; the name of the club was taken from Rathfarnham Avenue where the committee had a facility for staging their meetings. The first honours came to the club (then playing in stripes) in 1904/05 when they won the County Dublin League and the Leinster Junior Cup. The Leinster Junior League title and Cup were won the following year but the club’s ascendency in the ranks of football was perhaps too fast and they were forced to withdraw from the Leinster Senior League before the 1906/07 season began.
+
+        <br /><br />The club had a second coming in 1914 when they won the Leinster Junior League and the IFA Junior Cup. They successfully completed the 1915/16 season in the Leinster Senior League but again withdrew from football at the end of that season.
+
+        <br /><br />The Hoops flourished during Michael O’Neill’s tenure. The Premier Division title was won in 2010 but the opportunity to clinch the double was thwarted by Sligo Rovers who beat the Hoops in the FAI Cup final at the Aviva Stadium following a dramatic penalty-shoot out. The title was won again the following season in 2011 in what proved to be one of the most historic years ever in the history of Rathfarnham Rovers. Having qualified for the qualifying rounds of the Champions League the Hoops earned themselves a play-off for qualification to the UEFA Europa League following their elimination from the CL. They went to Belgrade and recorded a dramatic away win to knock Partizan Belgrade out of Europe. Rathfarnham Rovers became the first club from Ireland to earn themselves a place in the group stages of the Europa League.
+
+        <br /><br /> Michael O’Neill departed at the end of the 2011 season to take up a full time position as manager of the Northern Ireland international team. 2012 and the seasons that followed proved to be most disappointing for the club but a new way of doing things was introduced into the club. Rovers decided to invest in their youth structures and in April 2016 the club members agreed to sell a half interest to board member Ray Wilson who offered an upfront loan to fund an ambitious plan that included the building of an all-weather pitch and other related facilities at the Roadstone club. As Rovers awaited the beginning of the 2016 season such were the changes at administrative and playing level a surge in interest by the fans followed providing renewed optimism that a return to the top would be on the cards.
+    </p>
+</div>
+
+<h3 style="margin-top:1.5rem">Management Committee 2020</h3>
+<div class="container">
+    <div class="card-columns">
+        <div class="card" style="border:none">
+            <img class="rounded-circle" src="https://ronansstoragecccount.blob.core.windows.net/uploads/2020-10-22/20201022T184949649.jpg" alt="Card image" style="width:100%">
+            <div class="card-body text-center">
+                <h5 class="card-title" style="font-weight:Bold">Tina Bloggs</h5>
+                <p class="card-text">Club President</p>
+            </div>
+        </div>
+        <div class="card" style="border:none">
+            <img class="rounded-circle" src="https://ronansstoragecccount.blob.core.windows.net/uploads/2020-10-22/20201022T184949649.jpg" alt="Card image" style="width:100%">
+            <div class="card-body text-center">
+                <h5 class="card-title" style="font-weight:Bold">Maura Bloggs</h5>
+                <p class="card-text">Club Secretary</p>
+            </div>
+        </div>
+        <div class="card" style="border:none">
+            <img class="rounded-circle" src="https://ronansstoragecccount.blob.core.windows.net/uploads/2020-10-22/20201022T184949649.jpg" alt="Card image" style="width:100%">
+            <div class="card-body text-center">
+                <h5 class="card-title" style="font-weight:Bold">Bill Bloggs</h5>
+                <p class="card-text">Honorary Treasurer</p>
+            </div>
+        </div>
+        <div class="card" style="border:none">
+            <img class="rounded-circle" src="https://ronansstoragecccount.blob.core.windows.net/uploads/2020-10-22/20201022T184949649.jpg" alt="Card image" style="width:100%">
+            <div class="card-body text-center">
+                <h5 class="card-title" style="font-weight:Bold">Tracy Bloggs</h5>
+                <p class="card-text">Chairperson</p>
+            </div>
+        </div>
+        <div class="card" style="border:none">
+            <img class="rounded-circle" src="https://ronansstoragecccount.blob.core.windows.net/uploads/2020-10-22/20201022T184949649.jpg" alt="Card image" style="width:100%">
+            <div class="card-body text-center">
+                <h5 class="card-title" style="font-weight:Bold">John Bloggs</h5>
+                <p class="card-text">Development Officer</p>
+            </div>
+        </div>
+        <div class="card" style="border:none">
+            <img class="rounded-circle" src="https://ronansstoragecccount.blob.core.windows.net/uploads/2020-10-22/20201022T184949649.jpg" alt="Card image" style="width:100%">
+            <div class="card-body text-center">
+                <h5 class="card-title" style="font-weight:Bold">Jim Bloggs</h5>
+                <p class="card-text">General Manager</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*@foreach (var item in Model)
+{
+    <div class="container" id="carouselHomeContainer">
+        <div class="carousel slide" data-ride="carousel">
+
+            Indicators
+            <ul class="carousel-indicators">
+                <li data-target="#carouselHome" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselHome" data-slide-to="1"></li>
+                <li data-target="#carouselHome" data-slide-to="2"></li>
+            </ul>
+
+             The slideshow
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="@item.ClubImage1" alt="Image1" width="1100" height="733">
+                </div>
+                <div class="carousel-item">
+                    <img src="@item.ClubImage2" alt="Image2" width="1100" height="733">
+                </div>
+                <div class="carousel-item">
+                    <img src="@item.ClubImage3" alt="Image3" width="1100" height="733">
+                </div>
+            </div>
+
+            Left and right controls
+            <a class="carousel-control-prev" href="#carouselHome" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#carouselHome" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+
+        </div>
+    </div>
+}*@
+
+
