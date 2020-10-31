@@ -238,9 +238,6 @@ h1, h2, h3, h4 {
     padding: .75rem;
     margin-right: .75rem;
     margin-bottom: 2rem;
-    border-style: dashed;
-    border-color: #007bff;
-    border-width: thin;
 }
 
     .card > img {
@@ -255,11 +252,8 @@ h1, h2, h3, h4 {
 }
 
 #teamCard {
-    border-width: thin;
-    border-style: dashed;
     margin-top: 1rem;
     padding: 0 !important;
-    border-color: #007bff;
 }
 
 #teamBtn {
@@ -293,11 +287,8 @@ h1, h2, h3, h4 {
 }
 
 #playerStatCard {
-    border-width: thin;
-    border-style: dashed;
     margin-top: 1rem;
     padding: 0 !important;
-    border-color: #007bff;
 }
 
 #matchReportText{

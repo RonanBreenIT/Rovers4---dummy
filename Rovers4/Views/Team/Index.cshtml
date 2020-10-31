@@ -16,7 +16,7 @@
 @foreach (var team in @Model.Teams)
 {
     <div class="container" id="teamContainer">
-        <div class="card" style="width: 80%" id="teamCard">
+        <div class="card shadow-sm" style="width: 80%" id="teamCard">
             <div class="card-img-overlay d-flex align-items-start">
                 <h4 class="card-title text-white" style="font-weight:bold" id="teamName">@Html.DisplayFor(modelItem => team.Name)</h4>
             </div>
