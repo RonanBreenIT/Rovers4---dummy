@@ -189,15 +189,12 @@ figure {
     position: relative;
 }
 
-/*#fixtureSection{
-    border: dashed;
-    border-width: 1px;
-    border-color: seagreen;
-    margin-top: 1rem;
-}*/
+#fixtureSection {
+    box-shadow: 0 0.125rem 0.25rem rgba(44, 130, 201, 1) !important;
+}
 
 #fixtureCon {
-    padding-top: 15px !important;
+    padding: 15px !important;
 }
 
 #fixtureRow {
