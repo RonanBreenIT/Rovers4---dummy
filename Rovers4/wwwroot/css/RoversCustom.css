@@ -227,6 +227,11 @@ h1, h2, h3, h4 {
     color:#007bff  !important;
 }
 
+    h1 {
+        font-size: 3.1875rem;
+        margin-bottom: 1rem;
+    }
+
 /*Player Display*/
 
 .card {
