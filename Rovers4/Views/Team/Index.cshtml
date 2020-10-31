@@ -23,9 +23,12 @@
             <img class="card-img-top" src="@team.TeamImage" alt="Card image cap">
             <div class="card-body">
                 <p class="card-text">@Html.DisplayFor(modelItem => team.TeamBio)</p>
-                <a class="btn btn-secondary" id="teamBtn" asp-action="Edit" asp-route-id="@team.TeamID">Edit</a>
-                <a class="btn btn-danger" id="teamBtn" asp-action="Delete" asp-route-id="@team.TeamID">Delete</a>
-            </div>
+                @if (this.User.IsInRole("Super Admin"))
+                {
+                    <a class="btn btn-secondary" id="teamBtn" asp-action="Edit" asp-route-id="@team.TeamID">Edit</a>
+                    <a class="btn btn-danger" id="teamBtn" asp-action="Delete" asp-route-id="@team.TeamID">Delete</a>
+                }
+           </div>
         </div>
     </div>
 }
