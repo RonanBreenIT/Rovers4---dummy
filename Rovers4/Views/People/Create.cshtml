@@ -11,7 +11,7 @@
     <div class="col-md-4">
         <form enctype="multipart/form-data" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="TeamID" />       
+            <input type="hidden" asp-for="TeamID" />
             <div class="form-group">
                 <label asp-for="PlayerPosition" class="control-label"></label>
                 <select asp-for="PlayerPosition"
@@ -48,14 +48,6 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProfileImage" class="control-label"></label>
-                <div class="custom-file">
-                    <input asp-for="ProfileImage" class="custom-file-input" id="customFile" />
-                    <label class="custom-file-label" for="customFile">Choose file</label>
-                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
                 <label asp-for="ProfileThumbnailImage" class="control-label"></label>
                 <div class="custom-file">
                     <input asp-for="ProfileThumbnailImage" class="custom-file-input" id="customFile" />
@@ -63,16 +55,14 @@
                     <span asp-validation-for="ProfileThumbnailImage" class="text-danger"></span>
                 </div>
             </div>
-            @*<div class="form-group">
-            <label asp-for="Image" class="control-label"></label>
-            <input asp-for="Image" class="form-control" />
-            <span asp-validation-for="Image" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="ThumbnailImage" class="control-label"></label>
-            <input asp-for="ThumbnailImage" class="form-control" />
-            <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
-        </div>*@
+            <div class="form-group">
+                <label asp-for="ProfileImage" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="ProfileImage" class="custom-file-input" id="customFile" />
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                </div>
+            </div>
             <div class="form-group">
                 <label asp-for="PersonBio" class="control-label"></label>
                 <textarea asp-for="PersonBio" class="form-control" cols="100" rows="20" placeholder="Enter Biography..."></textarea>

@@ -23,18 +23,5 @@ namespace Rovers4
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-
-        //public static void Main(string[] args)
-        //{
-        //    var host = new WebHostBuilder()
-        //        .UseApplicationInsights()
-        //        .UseKestrel()
-        //        .UseContentRoot(Directory.GetCurrentDirectory())
-        //        .UseIISIntegration()
-        //        .UseStartup<Startup>()
-        //        .Build();
-
-        //    host.Run();
-        //}
     }
 }
