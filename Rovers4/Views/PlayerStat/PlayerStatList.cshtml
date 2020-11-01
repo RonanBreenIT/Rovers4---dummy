@@ -24,9 +24,12 @@
                         <h6 class="card-title text-blue" style="font-weight:bold">Management Role: @Html.DisplayFor(modelItem => staff.MgmtRole)</h6>
                     </div>
                 }
-                <div class="card-img">
-                    <h6 class="card-title text-blue" style="font-weight:bold">DOB: @Html.DisplayFor(modelItem => staff.DOB)</h6>
-                </div>      
+                @if (DateTime.Now.AddYears(-18) > staff.DOB) // Added so wont display for under 18's //
+                {
+                    <div class="card-img">
+                        <h6 class="card-title text-blue" style="font-weight:bold">DOB: @Html.DisplayFor(modelItem => staff.DOB)</h6>
+                    </div>
+                }
             </div>
         }
     </div>
