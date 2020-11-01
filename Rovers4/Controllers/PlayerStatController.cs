@@ -12,7 +12,7 @@ using Rovers4.ViewModels;
 
 namespace Rovers4.Controllers
 {
-    [Authorize(Roles = "Super Admin, Team Admin, Member")]
+    
     public class PlayerStatController : Controller
     {
     
@@ -28,7 +28,6 @@ namespace Rovers4.Controllers
 
         }
 
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public ViewResult PlayerStatList(int? id)
         {
             IEnumerable<PlayerStat> stat;
@@ -69,6 +68,7 @@ namespace Rovers4.Controllers
             });
         }
 
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public IActionResult Create()
         {
             ViewData["Players"] = new SelectList(_context.Persons, "PersonID", "FullName");
@@ -77,6 +77,7 @@ namespace Rovers4.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Create([Bind("PlayerStatID,GamesPlayed,Assists,Goals,CleanSheet,RedCards,MotmAward,PersonID")] PlayerStat playerStat)
         {
             if (PlayerStatExists(playerStat.PersonID))
@@ -94,6 +95,7 @@ namespace Rovers4.Controllers
             return View(playerStat);
         }
 
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -113,6 +115,7 @@ namespace Rovers4.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("PlayerStatID,GamesPlayed,Assists,Goals,CleanSheet,RedCards,MotmAward,PersonID")] PlayerStat playerStat)
         {
             if (id != playerStat.PersonID)
@@ -145,6 +148,7 @@ namespace Rovers4.Controllers
             return View(playerStat);
         }
 
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -164,6 +168,7 @@ namespace Rovers4.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var playerStat = await _context.PlayerStats.FirstOrDefaultAsync(i => i.PersonID == id);

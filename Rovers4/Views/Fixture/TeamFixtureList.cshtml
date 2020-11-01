@@ -9,14 +9,13 @@
 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
 {
     <p>
-        <a asp-controller="Fixture" asp-action="Create" asp-route-TeamID="@Model.TeamID">Add Fixture</a><span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
+        <a class="btn btn-outline-success" asp-controller="Fixture" asp-action="Create" asp-route-TeamID="@Model.TeamID">Add Fixture</a>
 
         @foreach (var team in @Model.Teams)
         {
             if (team.Name == Model.CurrentTeam)
             {
-                <a asp-controller="Team" asp-action="sendGridEmail" asp-route-id="@team.TeamID">Send Fixture Alert</a><span>&nbsp; &nbsp;&nbsp; &nbsp;</span>
-
+                <a class="btn btn-outline-info" asp-controller="Team" asp-action="sendGridEmail" asp-route-id="@team.TeamID">Send Fixture Alert</a>
             }
         }
     </p>
@@ -24,7 +23,7 @@
 
 @if (Model.JanuaryFixtures.Count() > 0)
 {
-    <section>
+    <section id="fixtureSection">
         <header>
             <h3>
                 January
@@ -35,31 +34,30 @@
             <div class="container" id="fixtureCon">
                 <div class="row" id="fixtureRow">
                     <p id="fixtureP">
-                    <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+                        <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
                     </p>
                     @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                     {
-                        <p class="col-sm-3">
-                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                        <div class="col-sm-4" id="fixtureRowA">
+                            <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                            <a class="btn btn-secondary" asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a>
+                            <a class="btn btn-danger" asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
                             @if (fixture.OurScore == null)
                             {
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                <a class="btn btn-outline-success" asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                             }
                             else
                             {
-                                <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                <a class="btn btn-secondary" asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
                             }
-                        </p>
+                        </div>
                     }
-                    else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                    else 
                     {
-
-                        <p class="col-sm-3">
-                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
-                        </p>
+                        <div class="col-sm-4" id="fixtureRowA">
+                            <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                        </div>
                     }
                 </div>
             </div>
@@ -69,7 +67,7 @@
 
 @if (Model.FebruaryFixtures.Count() > 0)
 {
-    <section>
+    <section id="fixtureSection">
         <header>
             <h3 id="FixtureHeader">
                 February
@@ -77,44 +75,43 @@
         </header>
         @foreach (var fixture in Model.FebruaryFixtures)
         {
-            <div class="container" id="fixtureCon">
-                <div class="row" id="fixtureRow">
-                    <p id="fixtureP">
-                    <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
-                    </p>
-                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+    <div class="container" id="fixtureCon">
+        <div class="row" id="fixtureRow">
+            <p id="fixtureP">
+            <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+            </p>
+            @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+            {
+                <div class="col-sm-4" id="fixtureRowA">
+                    <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                    <a class="btn btn-secondary" asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a>
+                    <a class="btn btn-danger" asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                    @if (fixture.OurScore == null)
                     {
-                        <p class="col-sm-3">
-                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                            @if (fixture.OurScore == null)
-                            {
-                                <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                            }
-                            else
-                            {
-                                <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
-                            }
-                        </p>
+                        <a class="btn btn-outline-success" asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                     }
-                    else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                    else
                     {
-
-                        <p class="col-sm-3">
-                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
-                        </p>
+                        <a class="btn btn-secondary" asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
                     }
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="col-sm-4" id="fixtureRowA">
+                    <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                </div>
+            }
+        </div>
+    </div>
         }
     </section>
 }
 
 @if (Model.MarchFixtures.Count() > 0)
 {
-    <section>
+    <section id="fixtureSection">
         <header>
             <h3 id="FixtureHeader">
                 March
@@ -122,44 +119,43 @@
         </header>
         @foreach (var fixture in Model.MarchFixtures)
         {
-            <div class="container" id="fixtureCon">
-                <div class="row" id="fixtureRow">
-                    <p id="fixtureP">
-                    <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
-                    </p>
-                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+    <div class="container" id="fixtureCon">
+        <div class="row" id="fixtureRow">
+            <p id="fixtureP">
+            <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+            </p>
+            @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+            {
+                <div class="col-sm-4" id="fixtureRowA">
+                    <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                    <a class="btn btn-secondary" asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a>
+                    <a class="btn btn-danger" asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                    @if (fixture.OurScore == null)
                     {
-                        <p class="col-sm-3">
-                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                            @if (fixture.OurScore == null)
-                             {
-                                 <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                             }
-                             else
-                             {
-                                 <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
-                             }<a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                        </p>
+                        <a class="btn btn-outline-success" asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                     }
-                    else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                    else
                     {
-
-                        <p class="col-sm-3">
-                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
-                        </p>
+                        <a class="btn btn-secondary" asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
                     }
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="col-sm-4" id="fixtureRowA">
+                    <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                </div>
+            }
+        </div>
+    </div>
         }
     </section>
 }
 
 @if (Model.AprilFixtures.Count() > 0)
 {
-    <section>
+    <section id="fixtureSection">
         <header>
             <h3 id="FixtureHeader">
                 April
@@ -167,43 +163,43 @@
         </header>
         @foreach (var fixture in Model.AprilFixtures)
         {
-            <div class="container" id="fixtureCon">
-                <div class="row" id="fixtureRow">
-                    <p id="fixtureP">
-                    <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
-                    </p>
-                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+    <div class="container" id="fixtureCon">
+        <div class="row" id="fixtureRow">
+            <p id="fixtureP">
+            <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+            </p>
+            @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+            {
+                <div class="col-sm-4" id="fixtureRowA">
+                    <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                    <a class="btn btn-secondary" asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a>
+                    <a class="btn btn-danger" asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                    @if (fixture.OurScore == null)
                     {
-                         <p class="col-sm-3">
-                        <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                        <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                        <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                        @if (fixture.OurScore == null)
-                        {
-                            <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                        }
-                        else
-                        {
-                            <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
-                        }
-                        </p>
+                        <a class="btn btn-outline-success" asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                     }
-                    else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                    else
                     {
-                        <p class="col-sm-3">
-                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
-                        </p>
+                        <a class="btn btn-secondary" asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
                     }
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="col-sm-4" id="fixtureRowA">
+                    <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                </div>
+            }
+        </div>
+    </div>
         }
     </section>
 }
 
 @if (Model.MayFixtures.Count() > 0)
 {
-    <section>
+    <section id="fixtureSection">
         <header>
             <h3 id="FixtureHeader">
                 May
@@ -211,44 +207,43 @@
         </header>
         @foreach (var fixture in Model.MayFixtures)
         {
-            <div class="container" id="fixtureCon">
-                <div class="row" id="fixtureRow">
-                    <p id="fixtureP">
-                    <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
-                    </p>
-                    @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+    <div class="container" id="fixtureCon">
+        <div class="row" id="fixtureRow">
+            <p id="fixtureP">
+            <p class="col-sm-3" id="datesText">@Html.DisplayFor(modelItem => fixture.FullDatesText)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <p class="col" id="fixtureText">Rathfarnham Rovers&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.FinalScore)&nbsp;&nbsp;@Html.DisplayFor(modelItem => fixture.Opponent)&nbsp;&nbsp;(@Html.DisplayFor(modelItem => fixture.HomeOrAwayToShortString))</p>
+            </p>
+            @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
+            {
+                <div class="col-sm-4" id="fixtureRowA">
+                    <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                    <a class="btn btn-secondary" asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a>
+                    <a class="btn btn-danger" asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                    @if (fixture.OurScore == null)
                     {
-                        <p class="col-sm-3">
-                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                            <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                            <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                            @if (fixture.OurScore == null)
-                             {
-                                 <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
-                             }
-                             else
-                             {
-                                 <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
-                             }
-                        </p>
+                        <a class="btn btn-outline-success" asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                     }
-                    else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                    else
                     {
-
-                        <p class="col-sm-3">
-                            <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
-                        </p>
+                        <a class="btn btn-secondary" asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
                     }
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="col-sm-4" id="fixtureRowA">
+                    <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                </div>
+            }
+        </div>
+    </div>
         }
     </section>
 }
 
 @if (Model.JuneFixtures.Count() > 0)
 {
-    <section>
+    <section id="fixtureSection">
         <header>
             <h3 id="FixtureHeader">
                 June
@@ -263,26 +258,25 @@
                              </p>
                              @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                              {
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                     <a class="btn btn-secondary" asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a>
+                                     <a class="btn btn-danger" asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
                                      @if (fixture.OurScore == null)
                                      {
-                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                         <a class="btn btn-outline-success" asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                                      }
                                      else
                                      {
-                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                         <a class="btn btn-secondary" asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
                                      }
-                                 </p>
+                                 </div>
                              }
-                             else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                             else
                              {
-
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
-                                 </p>
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                 </div>
                              }
                          </div>
                      </div>
@@ -292,7 +286,7 @@
 
 @if (Model.JulyFixtures.Count() > 0)
 {
-    <section>
+    <section id="fixtureSection">
         <header>
             <h3 id="FixtureHeader">
                 July
@@ -307,26 +301,25 @@
                              </p>
                              @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                              {
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                     <a class="btn btn-secondary" asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a>
+                                     <a class="btn btn-danger" asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
                                      @if (fixture.OurScore == null)
                                      {
-                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                         <a class="btn btn-outline-success" asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                                      }
                                      else
                                      {
-                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                         <a class="btn btn-secondary" asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
                                      }
-                                 </p>
+                                 </div>
                              }
-                             else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                             else
                              {
-
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
-                                 </p>
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                 </div>
                              }
                          </div>
                      </div>
@@ -336,7 +329,7 @@
 
 @if (Model.AugustFixtures.Count() > 0)
 {
-    <section>
+    <section id="fixtureSection">
         <header>
             <h3 id="FixtureHeader">
                 August
@@ -351,26 +344,25 @@
                              </p>
                              @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                              {
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                     <a class="btn btn-secondary" asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a>
+                                     <a class="btn btn-danger" asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
                                      @if (fixture.OurScore == null)
                                      {
-                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                         <a class="btn btn-outline-success" asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                                      }
                                      else
                                      {
-                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                         <a class="btn btn-secondary" asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
                                      }
-                                 </p>
+                                 </div>
                              }
-                             else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                             else
                              {
-
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
-                                 </p>
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                 </div>
                              }
                          </div>
                      </div>
@@ -380,7 +372,7 @@
 
 @if (Model.SeptemberFixtures.Count() > 0)
 {
-    <section>
+    <section id="fixtureSection">
         <header>
             <h3 id="FixtureHeader">
                 September
@@ -395,26 +387,25 @@
                              </p>
                              @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                              {
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                     <a class="btn btn-secondary" asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a>
+                                     <a class="btn btn-danger" asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
                                      @if (fixture.OurScore == null)
                                      {
-                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                         <a class="btn btn-outline-success" asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                                      }
                                      else
                                      {
-                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                         <a class="btn btn-secondary" asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
                                      }
-                                 </p>
+                                 </div>
                              }
-                             else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                             else
                              {
-
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
-                                 </p>
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                 </div>
                              }
                          </div>
                      </div>
@@ -424,7 +415,7 @@
 
 @if (Model.OctoberFixtures.Count() > 0)
 {
-    <section>
+    <section id="fixtureSection">
         <header>
             <h3 id="FixtureHeader">
                 October
@@ -439,26 +430,25 @@
                              </p>
                              @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                              {
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
-                                    @if (fixture.OurScore == null)
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                     <a class="btn btn-secondary" asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a>
+                                     <a class="btn btn-danger" asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
+                                     @if (fixture.OurScore == null)
                                      {
-                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                         <a class="btn btn-outline-success" asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                                      }
                                      else
                                      {
-                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                         <a class="btn btn-secondary" asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
                                      }
-                                 </p>
+                                 </div>
                              }
-                             else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                             else
                              {
-
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
-                                 </p>
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                 </div>
                              }
                          </div>
                      </div>
@@ -468,7 +458,7 @@
 
 @if (Model.NovemberFixtures.Count() > 0)
 {
-    <section>
+    <section id="fixtureSection">
         <header>
             <h3 id="FixtureHeader">
                 November
@@ -483,26 +473,25 @@
                              </p>
                              @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                              {
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                     <a class="btn btn-secondary" asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a>
+                                     <a class="btn btn-danger" asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
                                      @if (fixture.OurScore == null)
                                      {
-                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                         <a class="btn btn-outline-success" asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                                      }
                                      else
                                      {
-                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                         <a class="btn btn-secondary" asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
                                      }
-                                 </p>
+                                 </div>
                              }
-                             else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                             else
                              {
-
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
-                                 </p>
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                 </div>
                              }
                          </div>
                      </div>
@@ -512,7 +501,7 @@
 
 @if (Model.DecemberFixtures.Count() > 0)
 {
-    <section>
+    <sections id="fixtureSection">
         <header>
             <h3 id="FixtureHeader">
                 December
@@ -527,32 +516,30 @@
                              </p>
                              @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                              {
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a> |
-                                     <a asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a> |
-                                     <a asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a> |
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                     <a class="btn btn-secondary" asp-controller="fixture" asp-action="Edit" asp-route-id="@fixture.FixtureID">Edit</a>
+                                     <a class="btn btn-danger" asp-controller="fixture" asp-action="Delete" asp-route-id="@fixture.FixtureID">Delete</a>
                                      @if (fixture.OurScore == null)
                                      {
-                                         <a asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
+                                         <a class="btn btn-outline-success" asp-controller="fixture" asp-action="AddResult" asp-route-id="@fixture.FixtureID">Add Result</a>
                                      }
                                      else
                                      {
-                                         <a asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
+                                         <a class="btn btn-secondary" asp-controller="fixture" asp-action="EditResult" asp-route-id="@fixture.FixtureID">Edit Result</a>
                                      }
-
-                                 </p>
+                                 </div>
                              }
-                             else if ((this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                             else
                              {
-
-                                 <p class="col-sm-3">
-                                     <a asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
-                                 </p>
+                                 <div class="col-sm-4" id="fixtureRowA">
+                                     <a class="btn btn-outline-info" asp-controller="fixture" asp-action="ResultDetails" asp-route-id="@fixture.FixtureID">Match Report</a>
+                                 </div>
                              }
                          </div>
                      </div>
                 }
-    </section>
+    </sections>
 }
 
 <div class="justify-content-around" style="padding-top: 5em">
@@ -561,51 +548,53 @@
             Team Statistics
         </h3>
     </header>
-    <table id="fixtureTable" class="table" cellspacing="0">
-        <thead>
-            <tr>
-                <th>
-                    <p>Games Played</p>
-                </th>
-                <th>
-                    <p>Wins</p>
-                </th>
-                <th>
-                    <p>Losses</p>
-                </th>
-                <th>
-                    <p>Draws</p>
-                </th>
-                <th>
-                    <p>Goals For</p>
-                </th>
-                <th>
-                    <p>Goals Against</p>
-                </th>
+    <div class="table-responsive">
+        <table id="fixtureTable" class="table table-striped" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        <p>Games Played</p>
+                    </th>
+                    <th>
+                        <p>Wins</p>
+                    </th>
+                    <th>
+                        <p>Losses</p>
+                    </th>
+                    <th>
+                        <p>Draws</p>
+                    </th>
+                    <th>
+                        <p>Goals For</p>
+                    </th>
+                    <th>
+                        <p>Goals Against</p>
+                    </th>
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    @Model.GamesPlayed
-                </td>
-                <td>
-                    @Model.TotalWins
-                </td>
-                <td>
-                    @Model.TotalDraws
-                </td>
-                <td>
-                    @Model.TotalLosses
-                </td>
-                <td>
-                    @Model.GoalsFor
-                </td>
-                <td>
-                    @Model.GoalsAgainst
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Model.GamesPlayed
+                    </td>
+                    <td>
+                        @Model.TotalWins
+                    </td>
+                    <td>
+                        @Model.TotalDraws
+                    </td>
+                    <td>
+                        @Model.TotalLosses
+                    </td>
+                    <td>
+                        @Model.GoalsFor
+                    </td>
+                    <td>
+                        @Model.GoalsAgainst
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -34,7 +34,6 @@ namespace Rovers4.Controllers
             _blobService = storageService;
         }
 
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public ViewResult TeamPlayerList(int? id)
         {
             IEnumerable<Person> staff;
@@ -94,7 +93,6 @@ namespace Rovers4.Controllers
             });
         }
 
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public IActionResult Index()
         {
             var PlayersListViewModel = new PlayersListViewModel
@@ -105,6 +103,7 @@ namespace Rovers4.Controllers
             return View(PlayersListViewModel);
         }
 
+        [Authorize(Roles = "Super Admin")]
         private string UploadedImage(Team model)
         {
             if (model.TeamImageFile != null)
@@ -237,6 +236,7 @@ namespace Rovers4.Controllers
         }
 
         // Below all for our Email Service
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task <IActionResult> SendgridEmail(int? id)
         {
             if (id == null)
@@ -255,6 +255,7 @@ namespace Rovers4.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> SendgridEmail(EmailModel emailmodel, int? id)
         {
             ViewData["Message"] = "Notification Sent for Fixture!!!...";
@@ -275,6 +276,7 @@ namespace Rovers4.Controllers
             return View("EmailSent");
         }
 
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public IActionResult EmailSent()
         {
             return View();

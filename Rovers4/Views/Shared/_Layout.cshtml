@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Rathfarnham Rovers</title>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-lumen.css" />
     @*<link rel="stylesheet" href="~/css/site.css" />*@
@@ -14,8 +15,8 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/RoversCrestNav1.png" width="70" height="70" /></a>
+            <div class="container" id="navContainer">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://ronansstoragecccount.blob.core.windows.net/images/RoversCrestNav1.png" width="70" height="70" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,19 +24,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <li>
+                            <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>*@
                         @if (this.User.IsInRole("Super Admin"))
                         {
                             @await Component.InvokeAsync("TeamMenu")
                             @await Component.InvokeAsync("FixtureMenu")
                             @await Component.InvokeAsync("AdminMenu")
                         }
-                        else if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole("Team Admin")) || (this.User.IsInRole("Member")))
+                        else
                         {
                             @await Component.InvokeAsync("TeamMenu")
                             @await Component.InvokeAsync("FixtureMenu")
@@ -54,15 +52,63 @@
         </div>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top page-footer font-small indigo" id="layoutFooter">
         <div class="container">
-            &copy; 2020 - Rathfarnham Rovers
-            @if (this.User.IsInRole("Super Admin"))
-            {
+            <div class="row text-center d-flex justify-content-center pt-5 mb-3">
+                @if (this.User.IsInRole("Super Admin"))
+                {
+                    <div class="col-md-2 mb-3">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <a asp-area="" asp-controller="Club" asp-action="Index">Club</a>
+                        </h6>
+                    </div>
+                }
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a href="#!">Products</a>
+                    </h6>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a href="#!">Awards</a>
+                    </h6>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a href="#!">Help</a>
+                    </h6>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a asp-controller="Home" asp-action="Contact">Contact</a>
+                    </h6>
+                </div>
+            </div>
 
-                <a asp-area="" asp-controller="Club" asp-action="Index">Club</a>
-            }
-            - <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+            <hr class="rgba-white-light" style="margin: 0 15%;">
+            <div class="row d-flex text-center justify-content-center mb-md-0 mb-4">
+                <div class="col-md-8 col-12 mt-5">
+                    <p style="line-height: 1.7rem">
+                        Rathfarnham Rovers is a South Dublin Football Club Establised in 2000.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row d-flex text-center justify-content-center mb-md-0 mb-4">
+                <!-- Facebook -->
+                <a href="#" class="fa fa-facebook"> </a>
+                <!-- Twitter -->
+                <a href="#" class="fa fa-twitter"> </a>
+                <!--Linkedin -->
+                <a href="#" class="fa fa-linkedin"> </a>
+                <!--Instagram-->
+                <a href="#" class="fa fa-instagram"> </a>
+                <!--Pinterest-->
+                <a href="#" class="fa fa-pinterest"> </a>
+            </div>
+        <div class="footer-copyright text-center text-muted" style="margin-bottom:1.5rem">
+            <span href="#"> © 2020 Copyright:RathfarnhamRovers.com</span>
+        </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

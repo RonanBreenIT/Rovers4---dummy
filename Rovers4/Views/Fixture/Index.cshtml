@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Add New Fixture</a>
+    <a class="btn btn-outline-success" asp-action="Create">Add New Fixture</a>
 </p>
 <table class="table">
     <thead>
@@ -64,11 +64,11 @@
                 @Html.DisplayFor(modelItem => item.MatchReport)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.FixtureID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FixtureID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FixtureID">Delete</a> |
-                <a asp-action="AddResult" asp-route-id="@item.FixtureID">Add Result</a> |
-                <a asp-action="ResultDetails" asp-route-id="@item.FixtureID">Result Details</a>
+                <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.FixtureID">Edit</a> 
+                <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.FixtureID">Details</a> 
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FixtureID">Delete</a> 
+                <a class="btn btn-outline-success" asp-action="AddResult" asp-route-id="@item.FixtureID">Add Result</a> 
+                <a class="btn btn-outline-info" asp-action="ResultDetails" asp-route-id="@item.FixtureID">Result Details</a>
             </td>
         </tr>
 }

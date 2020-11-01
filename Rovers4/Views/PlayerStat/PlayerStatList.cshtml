@@ -4,134 +4,130 @@
     ViewData["Title"] = "PlayerStatList";
 }
 
-<h3>@Model.CurrentPlayer</h3>
+<div class="container" id="playerStatContainer">
+    <div class="card shadow-sm"  id="playerStatCard">
 
-<table class="table">
-    <tbody>
         @foreach (var staff in Model.Staff)
         {
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => staff.DOB)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => staff.DOB)
-                </dd>
+            <img class="card-img-top" src="@staff.Image" alt="Card image cap">
+            <div class="card-body">
+                <h3>@Model.CurrentPlayer</h3>
                 @if (staff.PlayerPosition != null)
                 {
-                    <dt class="col-sm-2">
-                        @Html.DisplayNameFor(modelItem => staff.PlayerPosition)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @Html.DisplayFor(modelItem => staff.PlayerPosition)
-                    </dd>
+                    <div class="card-img">
+                        <h6 class="card-title text-blue" style="font-weight:bold">Position: @Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
+                    </div>
                 }
                 else
                 {
-                    <dt class="col-sm-2">
-                        @Html.DisplayNameFor(modelItem => staff.MgmtRole)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @Html.DisplayFor(modelItem => staff.MgmtRole)
-                    </dd>
+                    <div class="card-img">
+                        <h6 class="card-title text-blue" style="font-weight:bold">Management Role: @Html.DisplayFor(modelItem => staff.MgmtRole)</h6>
+                    </div>
                 }
-                <dd class="col-sm-10">
-                    <img src="@staff.Image" alt="">
-                </dd>
-            </dl>
+                @if (DateTime.Now.AddYears(-18) > staff.DOB) // Added so wont display for under 18's //
+                {
+                    <div class="card-img">
+                        <h6 class="card-title text-blue" style="font-weight:bold">DOB: @Html.DisplayFor(modelItem => staff.DOB)</h6>
+                    </div>
+                }
+            </div>
         }
+    </div>
+</div>
 
 
-        @foreach (var staff in Model.Staff)
+<div class="container" id="playerStatContainer">
+    @foreach (var staff in Model.Staff)
+    {
+        <section>
+            <h3 style="padding-top: 2em">
+                Player Biography
+            </h3>
+            <p>@Html.DisplayFor(modelItem => staff.PersonBio)</p>
+        </section>
+    }
+</div>
+
+<div class="container" id="playerStatContainer">
+    @*Should only display header for players*@
+    @foreach (var staff in Model.Staff)
+    {
+        if (staff.PersonType == PersonType.Player)
         {
-            <section>
-                <h3 style="padding-top: 2em">
-                    Player Biography
-                </h3>
-                <p>@Html.DisplayFor(modelItem => staff.PersonBio)</p>
-            </section>
-        }
-
-        @*Should only display header for players*@
-        @foreach (var staff in Model.Staff)
-        {
-            if (staff.PersonType == PersonType.Player)
+            <h3 style="padding-top: 2rem">Player Statistics</h3>
+            @if ((this.User.IsInRole("Super Admin")))
             {
-                <h3 style="padding-top: 2em">Player Statistics</h3>
                 if (!Model.HasStats)
                 {
-                    <a asp-controller="PlayerStat" asp-action="Create">Add Stats</a>
+                    <a class="btn btn-outline-success" asp-controller="PlayerStat" asp-action="Create">Add Stats</a>
                 }
                 else
                 {
-                    <a asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Update Stats</a>
-                    //Removed Delete as if never want to delete as then if try and add playerstats again it will fail unless player is deleted and readded
-                    @*<span>&nbsp; &nbsp;| &nbsp; &nbsp;</span>
-                        <a asp-controller="PlayerStat" asp-action="Delete" asp-route-id="@staff.PersonID">Delete Stats</a>*@
+                    <a class="btn btn-secondary" asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Edit Stats</a>
                 }
             }
         }
+    }
+    </div>
 
+    @foreach (var stat in Model.Stats)
+    {
+        <div class="justify-content-around" style="padding-top: 1rem">
+            <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => stat.GamesPlayed)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => stat.Goals)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => stat.Assists)
+                        </th>
 
-        @foreach (var stat in Model.Stats)
-        {
-            <div class="justify-content-around">
-                <table id="PlayerStatsTable" class="table" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(modelItem => stat.GamesPlayed)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(modelItem => stat.Goals)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(modelItem => stat.Assists)
-                            </th>
-
-                            <th>
-                                @Html.DisplayNameFor(modelItem => stat.CleanSheet)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(modelItem => stat.MotmAward)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(modelItem => stat.RedCards)
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => stat.GamesPlayed)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => stat.Goals)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => stat.Assists)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => stat.CleanSheet)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => stat.MotmAward)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => stat.RedCards)
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div>
-                    <a asp-controller="Team" asp-action="Index">Back to Team List</a>
-                </div>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => stat.CleanSheet)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => stat.MotmAward)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => stat.RedCards)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => stat.GamesPlayed)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => stat.Goals)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => stat.Assists)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => stat.CleanSheet)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => stat.MotmAward)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => stat.RedCards)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <a class="btn btn-dark" asp-controller="Team" asp-action="Index">Back to Team List</a>
             </div>
-        }
+        </div>
+    </div>
+    }
 
-    </tbody>
-</table>
-    
 
 
 

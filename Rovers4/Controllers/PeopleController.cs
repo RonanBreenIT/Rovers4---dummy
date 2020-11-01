@@ -15,7 +15,6 @@ using Rovers4.Services;
 
 namespace Rovers4.Controllers
 {
-    [Authorize(Roles = "Super Admin, Team Admin, Member")]
     public class PeopleController : Controller
     {
         private readonly ClubContext _context;
@@ -33,7 +32,6 @@ namespace Rovers4.Controllers
             _blobService = storageService;
         }
 
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -52,6 +50,7 @@ namespace Rovers4.Controllers
             return View(person);
         }
 
+        [Authorize(Roles = "Super Admin, Team Admin")]
         private string UploadedThumbnailImage(Person model)
         {
             if (model.ProfileThumbnailImage != null)
@@ -69,6 +68,7 @@ namespace Rovers4.Controllers
             return model.ThumbnailImage;
         }
 
+        [Authorize(Roles = "Super Admin, Team Admin")]
         private string UploadedImage(Person model)
         {
             if (model.ProfileImage != null)
@@ -86,7 +86,7 @@ namespace Rovers4.Controllers
             return model.Image;
         }
 
-        [Authorize(Roles = "Super Admin, Team Admin, Member")]
+        [Authorize(Roles = "Super Admin, Team Admin")]
         public IActionResult Create(int TeamID)
         {
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;

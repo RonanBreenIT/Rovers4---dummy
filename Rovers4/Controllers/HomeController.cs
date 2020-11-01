@@ -37,6 +37,11 @@ namespace Rovers4.Controllers
             return View(await _context.Clubs.ToListAsync());
         }
 
+        public async Task<IActionResult> ClubDetails()
+        {
+            return View(await _context.Clubs.ToListAsync());
+        }
+
         // This is how to turn off caching
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
