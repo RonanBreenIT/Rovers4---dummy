@@ -86,13 +86,7 @@ namespace Rovers4.Services
                     PublicAccess = BlobContainerPublicAccessType.Blob
                 };
                 string fileName = this.GenerateFileName(strFileName);
-                //string fileName = strFileName;
                 await cloudBlobContainer.SetPermissionsAsync(permissions);
-
-                //if (await cloudBlobContainer.CreateIfNotExistsAsync())
-                //{
-                //    await cloudBlobContainer.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
-                //}
 
                 if (fileName != null && fileData != null)
                 {

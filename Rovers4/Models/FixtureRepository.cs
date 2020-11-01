@@ -122,8 +122,6 @@ namespace Rovers4.Models
             }
         }
 
-        
-
         public int TotalWins(int? teamID)
         {
             int wins = 0;

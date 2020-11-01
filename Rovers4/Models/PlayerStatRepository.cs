@@ -41,27 +41,27 @@ namespace Rovers4.Models
 
         public void UpdatePlayerStats(int personID, bool played, int assists, int goals, bool cleansheet, bool redcard, bool motm)
         {
-            // not set to an instance. Amended Create player to always create a new PlayerStat with same PersonID
+            // Amended Create player to always create a new PlayerStat with same PersonID
             var player = _appDbContext.PlayerStats.FirstOrDefault(i => i.PersonID == personID);
 
-            if (player != null) // Should never be null.
+            if (player != null) 
             {
                 player.PersonID = personID;
                 player.Assists += assists;
                 player.Goals += goals;
-                if (played == true)
+                if (played)
                 {
                     player.GamesPlayed += 1;
                 }
-                if (cleansheet == true)
+                if (cleansheet)
                 {
                     player.CleanSheet += 1;
                 }
-                if (redcard == true)
+                if (redcard)
                 {
                     player.RedCards += 1;
                 }
-                if (motm == true)
+                if (motm)
                 {
                     player.MotmAward += 1;
                 }

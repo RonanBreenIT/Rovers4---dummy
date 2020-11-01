@@ -36,7 +36,6 @@ namespace Rovers4.Models
         [Column(Order = 2)]
         public FixtureType FixtureType { get; set; }
 
-        //[DataType(DataType.Date)]
         [Display(Name = "Date")]
         [Column(Order = 3)]
         public DateTime FixtureDate { get; set; }

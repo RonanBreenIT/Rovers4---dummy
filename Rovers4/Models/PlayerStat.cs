@@ -6,9 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Rovers4.Models
-{
-    
-    
+{  
     public class PlayerStat
     {
         [Key]

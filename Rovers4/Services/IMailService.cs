@@ -16,7 +16,7 @@ namespace Rovers4.Services
 
     public class SendGridMailService: IMailService
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public SendGridMailService(IConfiguration configuration)
         {
