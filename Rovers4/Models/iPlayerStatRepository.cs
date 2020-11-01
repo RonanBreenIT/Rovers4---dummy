@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Rovers4.Models
 {
     public interface IPlayerStatRepository
     {
         IEnumerable<PlayerStat> AllStats { get; }
-       
+
         PlayerStat GetStatsById(int personId);
 
         public void AddPlayerStats(int personID)

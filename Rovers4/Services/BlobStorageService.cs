@@ -2,7 +2,6 @@
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -16,7 +15,7 @@ namespace Rovers4.Services
         Task<string> UploadFileToBlobAsync(string strFileName, byte[] fileData, string fileMimeType);
     }
 
-    public class BlobStorageService: IBlobStorageService
+    public class BlobStorageService : IBlobStorageService
     {
         private IConfiguration _configuration;
 
@@ -36,7 +35,7 @@ namespace Rovers4.Services
             }
             catch (Exception ex)
             {
-                throw(ex);
+                throw (ex);
             }
         }
 

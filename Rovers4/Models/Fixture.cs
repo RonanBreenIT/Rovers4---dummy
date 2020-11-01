@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
@@ -112,7 +110,7 @@ namespace Rovers4.Models
                 string DatesMonth = FixtureDate.ToString("d ddd");
                 string DatesTime = FixtureDate.ToString("hh:mm");
                 sb.Append(DatesMonth + " - " + DatesTime + "\t- " + FixtureType.ToString());
-                return sb.ToString(); 
+                return sb.ToString();
             }
         }
 

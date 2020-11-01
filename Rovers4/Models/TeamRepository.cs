@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Rovers4.Data;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Rovers4.Data;
 
 namespace Rovers4.Models
 {
@@ -21,7 +19,7 @@ namespace Rovers4.Models
         {
             return clubContext.Teams.ToList();
         }
-            
+
 
         public Team GetTeamById(int teamId)
         {

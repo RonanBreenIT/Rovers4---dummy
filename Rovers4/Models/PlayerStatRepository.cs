@@ -1,12 +1,10 @@
 ﻿using Rovers4.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
-    public class PlayerStatRepository: IPlayerStatRepository
+    public class PlayerStatRepository : IPlayerStatRepository
     {
         private readonly ClubContext _appDbContext;
 
@@ -44,7 +42,7 @@ namespace Rovers4.Models
             // Amended Create player to always create a new PlayerStat with same PersonID
             var player = _appDbContext.PlayerStats.FirstOrDefault(i => i.PersonID == personID);
 
-            if (player != null) 
+            if (player != null)
             {
                 player.PersonID = personID;
                 player.Assists += assists;
