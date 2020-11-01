@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
-    public class MockClubRepository: IClubRepository
+    public class MockClubRepository : IClubRepository
     {
         private readonly IClubRepository clubRepository = new MockClubRepository();
 

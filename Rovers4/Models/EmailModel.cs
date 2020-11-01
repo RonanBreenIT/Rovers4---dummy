@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
@@ -11,7 +7,7 @@ namespace Rovers4.Models
         public string From { get; set; }
         public string To { get; set; }
         public string Subject { get; set; }
-  
+
         public FixtureType FixtureType { get; set; }
 
         public string FixTypeString

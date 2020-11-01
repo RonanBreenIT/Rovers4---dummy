@@ -3,8 +3,6 @@ using Rovers4.Models;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Rovers4.Services
@@ -14,9 +12,9 @@ namespace Rovers4.Services
         Task SendEmailAsync(string toEmail, string subject, string fixTypeString, string homeOrAwayString, DateTime kickOff, string opponent, string meetLocation, DateTime meetTime);
     }
 
-    public class SendGridMailService: IMailService
+    public class SendGridMailService : IMailService
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public SendGridMailService(IConfiguration configuration)
         {

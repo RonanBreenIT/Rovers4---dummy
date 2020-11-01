@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Rovers4.Auth;
 using Rovers4.Data;
 using Rovers4.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rovers4.Controllers
 {
@@ -93,7 +91,7 @@ namespace Rovers4.Controllers
                 user.Email = editUserViewModel.Email;
                 user.Birthdate = editUserViewModel.Birthdate;
 
-                    var result = await _userManager.UpdateAsync(user);
+                var result = await _userManager.UpdateAsync(user);
 
                 if (result.Succeeded)
                     return RedirectToAction("UserManagement", _userManager.Users);
@@ -311,4 +309,4 @@ namespace Rovers4.Controllers
 }
 
 
-        
+

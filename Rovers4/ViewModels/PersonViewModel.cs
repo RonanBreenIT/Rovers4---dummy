@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Rovers4.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rovers4.ViewModels
 {
@@ -61,7 +58,7 @@ namespace Rovers4.ViewModels
         [Display(Name = "Biography")]
         public string PersonBio { get; set; }
 
-        
+
         [Display(Name = "Team")]
         public int TeamID { get; set; } // Do I need to add the ID also - good to find out (failing on updating DB)
 

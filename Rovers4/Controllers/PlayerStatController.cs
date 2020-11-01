@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rovers4.Controllers
 {
-    
+
     public class PlayerStatController : Controller
     {
-    
+
         private readonly IPersonRepository _personRepository;
         private readonly IPlayerStatRepository _playerStatRepository;
         private readonly ClubContext _context;
@@ -146,35 +145,6 @@ namespace Rovers4.Controllers
             }
             ViewData["CurrentPlayer"] = _personRepository.AllStaff.FirstOrDefault(c => c.PersonID == id)?.FullName;
             return View(playerStat);
-        }
-
-        [Authorize(Roles = "Super Admin, Team Admin")]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var playerStat = await _context.PlayerStats
-                .FirstOrDefaultAsync(m => m.PersonID == id);
-            if (playerStat == null)
-            {
-                return NotFound();
-            }
-            ViewData["CurrentPlayer"] = _personRepository.AllStaff.FirstOrDefault(c => c.PersonID == id)?.FullName;
-            return View(playerStat);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Super Admin, Team Admin")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var playerStat = await _context.PlayerStats.FirstOrDefaultAsync(i => i.PersonID == id);
-            _context.PlayerStats.Remove(playerStat);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Team");
         }
 
         private bool PlayerStatExists(int id)

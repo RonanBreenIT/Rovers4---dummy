@@ -1,12 +1,10 @@
 ﻿using Rovers4.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
-    public class PersonRepository: IPersonRepository
+    public class PersonRepository : IPersonRepository
     {
         private readonly ClubContext _appDbContext;
 
@@ -109,6 +107,6 @@ namespace Rovers4.Models
             _appDbContext.Persons.Remove(foundPerson);
             _appDbContext.SaveChanges();
             return foundPerson;
-        }  
+        }
     }
 }

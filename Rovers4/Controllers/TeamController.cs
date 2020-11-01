@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting.Internal;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.Services;
 using Rovers4.ViewModels;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rovers4.Controllers
 {
@@ -237,7 +234,7 @@ namespace Rovers4.Controllers
 
         // Below all for our Email Service
         [Authorize(Roles = "Super Admin, Team Admin")]
-        public async Task <IActionResult> SendgridEmail(int? id)
+        public async Task<IActionResult> SendgridEmail(int? id)
         {
             if (id == null)
             {
@@ -272,7 +269,7 @@ namespace Rovers4.Controllers
                     await _mailService.SendEmailAsync(person, emailmodel.Subject, emailmodel.FixTypeString, emailmodel.HomeOrAwayString, emailmodel.KickOffTime, emailmodel.Opponent, emailmodel.MeetLocation, emailmodel.MeetTime);
                 }
             }
-            
+
             return View("EmailSent");
         }
 

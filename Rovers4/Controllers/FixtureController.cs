@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
-using Rovers4.Services;
 using Rovers4.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rovers4.Controllers
 {
@@ -20,17 +17,17 @@ namespace Rovers4.Controllers
         private readonly ITeamRepository _teamRepository;
         private readonly IPersonRepository _personRepository;
         private readonly IPlayerStatRepository _playerStatRepository;
-        
 
 
-        public FixtureController(ClubContext context, IFixtureRepository fixtureRepository , ITeamRepository teamRepository , IPersonRepository personRepository , IPlayerStatRepository playerStatRepository)
+
+        public FixtureController(ClubContext context, IFixtureRepository fixtureRepository, ITeamRepository teamRepository, IPersonRepository personRepository, IPlayerStatRepository playerStatRepository)
         {
             _context = context;
             _fixtureRepository = fixtureRepository;
             _teamRepository = teamRepository;
             _personRepository = personRepository;
             _playerStatRepository = playerStatRepository;
-            
+
         }
 
         public ViewResult TeamFixtureList(int? id)
@@ -127,7 +124,7 @@ namespace Rovers4.Controllers
                 TeamID = teamID,
                 JanuaryFixtures = janFixtures,
                 FebruaryFixtures = febFixtures,
-                MarchFixtures = marchFixtures, 
+                MarchFixtures = marchFixtures,
                 AprilFixtures = aprilFixtures,
                 MayFixtures = mayFixtures,
                 JuneFixtures = juneFixtures,
@@ -145,24 +142,6 @@ namespace Rovers4.Controllers
                 GoalsAgainst = goalsAgainst,
                 GamesPlayed = gamesPlayed
             });
-        }
-
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var fixture = await _context.Fixtures
-                .Include(p => p.Team)
-                .FirstOrDefaultAsync(m => m.FixtureID == id);
-            if (fixture == null)
-            {
-                return NotFound();
-            }
-            
-            return View(fixture);
         }
 
         public async Task<IActionResult> ResultDetails(int? id)
@@ -189,7 +168,7 @@ namespace Rovers4.Controllers
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
             return View();
         }
-        
+
         [HttpPost]
         [Authorize(Roles = "Super Admin, Team Admin")]
         [ValidateAntiForgeryToken]
@@ -412,7 +391,7 @@ namespace Rovers4.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Team");
         }
-            private bool FixtureExists(int id)
+        private bool FixtureExists(int id)
         {
             return _context.Fixtures.Any(e => e.FixtureID == id);
         }

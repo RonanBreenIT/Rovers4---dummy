@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
@@ -97,14 +94,14 @@ namespace Rovers4.Models
 
         [ForeignKey("TeamID")]
         [Display(Name = "Team")]
-        public int TeamID { get; set; } 
+        public int TeamID { get; set; }
 
         public Team Team { get; set; }
 
         [ForeignKey("PlayerStatID")]
-        public int PlayerStatID { get; set; } 
+        public int PlayerStatID { get; set; }
 
-        public virtual PlayerStat PlayerStat { get; set; }  
+        public virtual PlayerStat PlayerStat { get; set; }
     }
 
 }

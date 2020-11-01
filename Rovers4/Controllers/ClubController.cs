@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.Services;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rovers4.Controllers
 {
@@ -116,7 +112,7 @@ namespace Rovers4.Controllers
                 string image1 = UploadedImage1(club);
                 string image2 = UploadedImage2(club);
                 string image3 = UploadedImage3(club);
-                
+
                 club.ClubImage1 = image1;
                 club.ClubImage2 = image2;
                 club.ClubImage3 = image3;

@@ -1,8 +1,6 @@
 ﻿using Rovers4.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
@@ -11,13 +9,13 @@ namespace Rovers4.Models
     {
         private readonly ClubContext clubContext;
 
-        public ClubRepository(ClubContext _clubContext )
+        public ClubRepository(ClubContext _clubContext)
         {
             clubContext = _clubContext;
         }
         public ICollection<Club> GetClubs()
         {
-                return clubContext.Clubs.ToList();
+            return clubContext.Clubs.ToList();
         }
 
         public Club GetClubById(int clubId)
@@ -32,7 +30,7 @@ namespace Rovers4.Models
             clubContext.SaveChanges();
             return club;
         }
-        
+
         public Club UpdateClub(Club club)
         {
             var foundclub = clubContext.Clubs.FirstOrDefault(i => i.ClubID == club.ClubID);

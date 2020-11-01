@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rovers4.Models
 {
@@ -121,8 +120,6 @@ namespace Rovers4.Models
                 return _appDbContext.Fixtures.Where(f => f.FixtureDate.Month == 12).Where(s => s.FixtureType != FixtureType.Training).Where(i => i.FixtureDate >= PreviousYear);
             }
         }
-
-        
 
         public int TotalWins(int? teamID)
         {

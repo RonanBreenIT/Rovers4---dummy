@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
-using Rovers4.ViewModels;
 using Rovers4.Services;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rovers4.Controllers
 {
@@ -30,24 +26,6 @@ namespace Rovers4.Controllers
             _playerStat = playerStat;
             _teamRepository = teamRepository;
             _blobService = storageService;
-        }
-
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var person = await _context.Persons
-                .Include(p => p.Team)
-                .FirstOrDefaultAsync(m => m.PersonID == id);
-            if (person == null)
-            {
-                return NotFound();
-            }
-
-            return View(person);
         }
 
         [Authorize(Roles = "Super Admin, Team Admin")]
@@ -240,8 +218,10 @@ namespace Rovers4.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var person = await _context.Persons.FindAsync(id);
+            var playerStat = await _context.PlayerStats.FirstOrDefaultAsync(i => i.PersonID == id);
             _blobService.DeleteBlobData(person.ThumbnailImage);
             _blobService.DeleteBlobData(person.Image);
+            _context.PlayerStats.Remove(playerStat); // Delete player stat record first
             _context.Persons.Remove(person);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Team");

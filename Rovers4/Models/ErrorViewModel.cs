@@ -1,5 +1,3 @@
-using System;
-
 namespace Rovers4.Models
 {
     public class ErrorViewModel

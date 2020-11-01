@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Rovers4.Data;
-using Rovers4.Models;
+﻿using System.Collections.Generic;
 
 namespace Rovers4.Models
 {
@@ -19,7 +14,7 @@ namespace Rovers4.Models
 
         IEnumerable<Person> AllMidfielders { get; }
 
-        IEnumerable<Person> AllForwards{ get; }
+        IEnumerable<Person> AllForwards { get; }
 
         Person GetPersonById(int personId);
 
