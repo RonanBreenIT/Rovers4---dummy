@@ -147,24 +147,6 @@ namespace Rovers4.Controllers
             });
         }
 
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var fixture = await _context.Fixtures
-                .Include(p => p.Team)
-                .FirstOrDefaultAsync(m => m.FixtureID == id);
-            if (fixture == null)
-            {
-                return NotFound();
-            }
-            
-            return View(fixture);
-        }
-
         public async Task<IActionResult> ResultDetails(int? id)
         {
             if (id == null)

@@ -148,35 +148,6 @@ namespace Rovers4.Controllers
             return View(playerStat);
         }
 
-        [Authorize(Roles = "Super Admin, Team Admin")]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var playerStat = await _context.PlayerStats
-                .FirstOrDefaultAsync(m => m.PersonID == id);
-            if (playerStat == null)
-            {
-                return NotFound();
-            }
-            ViewData["CurrentPlayer"] = _personRepository.AllStaff.FirstOrDefault(c => c.PersonID == id)?.FullName;
-            return View(playerStat);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Super Admin, Team Admin")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var playerStat = await _context.PlayerStats.FirstOrDefaultAsync(i => i.PersonID == id);
-            _context.PlayerStats.Remove(playerStat);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Team");
-        }
-
         private bool PlayerStatExists(int id)
         {
             return _context.PlayerStats.Any(e => e.PersonID == id);

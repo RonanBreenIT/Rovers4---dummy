@@ -32,24 +32,6 @@ namespace Rovers4.Controllers
             _blobService = storageService;
         }
 
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var person = await _context.Persons
-                .Include(p => p.Team)
-                .FirstOrDefaultAsync(m => m.PersonID == id);
-            if (person == null)
-            {
-                return NotFound();
-            }
-
-            return View(person);
-        }
-
         [Authorize(Roles = "Super Admin, Team Admin")]
         private string UploadedThumbnailImage(Person model)
         {
@@ -240,8 +222,10 @@ namespace Rovers4.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var person = await _context.Persons.FindAsync(id);
+            var playerStat = await _context.PlayerStats.FirstOrDefaultAsync(i => i.PersonID == id);
             _blobService.DeleteBlobData(person.ThumbnailImage);
             _blobService.DeleteBlobData(person.Image);
+            _context.PlayerStats.Remove(playerStat); // Delete player stat record first
             _context.Persons.Remove(person);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Team");
