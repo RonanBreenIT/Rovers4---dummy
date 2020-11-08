@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Rovers4.Auth;
 using Rovers4.Data;
+using Rovers4.Filters;
 using Rovers4.Models;
 using Rovers4.Services;
 
@@ -62,6 +64,26 @@ namespace Rovers4
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.AddMvc
+                (
+                    config =>
+                    {
+                        config.Filters.AddService(typeof(TimerActionAttribute));
+                        config.CacheProfiles.Add("Default",
+                            new CacheProfile()
+                            {
+                                Duration = 30,
+                                Location = ResponseCacheLocation.Any
+                            });
+                        config.CacheProfiles.Add("None",
+                            new CacheProfile()
+                            {
+                                Location = ResponseCacheLocation.None,
+                                NoStore = true
+                            });
+                    }
+                );
+
             //Claims-based ** Not in use **
             services.AddAuthorization(options =>
             {
@@ -69,6 +91,9 @@ namespace Rovers4
             });
 
             services.AddMemoryCache();
+
+            //Filters
+            services.AddScoped<TimerActionAttribute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

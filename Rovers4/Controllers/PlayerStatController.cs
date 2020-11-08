@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Rovers4.Controllers
 {
-
+    [ResponseCache(CacheProfileName = "None")]
     public class PlayerStatController : Controller
     {
 
