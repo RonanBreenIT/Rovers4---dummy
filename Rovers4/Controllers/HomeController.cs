@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Rovers4.Data;
 using Rovers4.Models;
+using Rovers4.Services;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -12,11 +13,13 @@ namespace Rovers4.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ClubContext _context;
+        private readonly IMapsService _mapsService;
 
-        public HomeController(ILogger<HomeController> logger, ClubContext context)
+        public HomeController(ILogger<HomeController> logger, ClubContext context, IMapsService mapsService)
         {
             _logger = logger;
             _context = context;
+            _mapsService = mapsService;
         }
 
         public async Task<IActionResult> Index()
@@ -31,6 +34,7 @@ namespace Rovers4.Controllers
 
         public async Task<IActionResult> Contact()
         {
+            ViewBag.ApiKey = _mapsService.GetApiKey();
             return View(await _context.Clubs.ToListAsync());
         }
 

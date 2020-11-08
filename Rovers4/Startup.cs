@@ -51,6 +51,7 @@ namespace Rovers4
 
             services.AddTransient<IMailService, SendGridMailService>(); // SendGridMail
             services.AddTransient<IBlobStorageService, BlobStorageService>(); //Azure Storage for Images
+            services.AddTransient<IMapsService, MapsService>(); //Google Maps
 
             services.AddControllersWithViews();
             services.AddRazorPages();
