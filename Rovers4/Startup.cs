@@ -53,6 +53,12 @@ namespace Rovers4
             services.AddTransient<IBlobStorageService, BlobStorageService>(); //Azure Storage for Images
             services.AddTransient<IMapsService, MapsService>(); //Google Maps
 
+            // Sets X-Frame Header with value as SameOrigin
+            services.AddAntiforgery(options =>
+            {
+                options.SuppressXFrameOptionsHeader = true;
+            });
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -61,6 +67,8 @@ namespace Rovers4
             {
                 options.AddPolicy("AdministratorOnly", policy => policy.RequireRole("SuperAdmin"));
             });
+
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +85,14 @@ namespace Rovers4
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // The code adds a new header named Header-Name to all responses.
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("Header-Name", "Header-Value");
+                await next();
+            });
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -84,7 +100,6 @@ namespace Rovers4
 
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.UseEndpoints(endpoints =>
             {
