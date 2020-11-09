@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -84,6 +86,22 @@ namespace Rovers4
                     }
                 );
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddSession(options =>
+            {
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.IsEssential = true;
+            });
+
+
             //Claims-based ** Not in use **
             services.AddAuthorization(options =>
             {
@@ -111,11 +129,12 @@ namespace Rovers4
                 app.UseHsts();
             }
 
-            // The code adds a new header named Header-Name to all responses, and also sets x-Frame headers as Same Origin.
+            // The code adds a new header named Header-Name to all responses, and also sets x-Frame headers as Same Origin, and X-Content options to No Sniff.
             app.Use(async (context, next) =>
             {
                 context.Response.Headers.Add("Header-Name", "Header-Value");
                 context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+                context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
                 await next();
             });
 
@@ -124,6 +143,7 @@ namespace Rovers4
 
             app.UseRouting();
 
+            app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
 
