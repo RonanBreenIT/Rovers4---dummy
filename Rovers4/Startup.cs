@@ -111,10 +111,11 @@ namespace Rovers4
                 app.UseHsts();
             }
 
-            // The code adds a new header named Header-Name to all responses.
+            // The code adds a new header named Header-Name to all responses, and also sets x-Frame headers as Same Origin.
             app.Use(async (context, next) =>
             {
                 context.Response.Headers.Add("Header-Name", "Header-Value");
+                context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
                 await next();
             });
 
