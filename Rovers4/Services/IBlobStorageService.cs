@@ -3,6 +3,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Rovers4.Services
@@ -33,9 +34,9 @@ namespace Rovers4.Services
                 string fileUrl = _task.Result;
                 return fileUrl;
             }
-            catch (Exception ex)
+            catch (TargetInvocationException tiex)
             {
-                throw (ex);
+                throw tiex.InnerException;
             }
         }
 
@@ -96,9 +97,9 @@ namespace Rovers4.Services
                 }
                 return "";
             }
-            catch (Exception ex)
+            catch (TargetInvocationException tiex)
             {
-                throw (ex);
+                throw tiex.InnerException;
             }
         }
     }
