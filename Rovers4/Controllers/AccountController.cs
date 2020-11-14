@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace Rovers4.Controllers
 {
     [Authorize]
-    [ResponseCache(CacheProfileName = "None")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
