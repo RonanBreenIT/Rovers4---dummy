@@ -13,10 +13,6 @@ namespace Rovers4.ViewModels
         public IEnumerable<Person> Defenders { get; set; }
         public IEnumerable<Person> Midfielders { get; set; }
         public IEnumerable<Person> Forwards { get; set; }
-
-
-        //public IEnumerable<PlayerStat> Stats { get; set; }
-
         public IEnumerable<Team> Teams { get; set; }
         public string CurrentTeam { get; set; }
 

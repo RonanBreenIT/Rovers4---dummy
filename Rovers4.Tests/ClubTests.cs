@@ -194,16 +194,11 @@ namespace Rovers4.Tests
 
         private IClubRepository GetInMemoryClubRepository()
         {
-            //DbContextOptions<ClubContext> options;
             var builder = new DbContextOptionsBuilder<ClubContext>().UseInMemoryDatabase(databaseName: "ClubListDb").Options;
-            //builder.UseInMemoryDatabase(ClubContext);
-            //options = builder.Options;
             ClubContext clubDataContext = new ClubContext(builder);
             clubDataContext.Database.EnsureDeleted();
             clubDataContext.Database.EnsureCreated();
             return new ClubRepository(clubDataContext);
         }
-
-        // Validator wont check string length, Email Format etc... 
     }
 }

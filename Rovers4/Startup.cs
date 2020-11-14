@@ -34,8 +34,6 @@ namespace Rovers4
             services.AddDbContext<ClubContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("ClubContext")));
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //   .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
