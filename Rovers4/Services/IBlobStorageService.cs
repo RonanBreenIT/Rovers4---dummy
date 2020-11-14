@@ -17,7 +17,7 @@ namespace Rovers4.Services
 
     public class BlobStorageService : IBlobStorageService
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public BlobStorageService(IConfiguration configuration)
         {

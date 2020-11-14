@@ -27,18 +27,18 @@
                         <li>
                             <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        <cache expires-sliding="@TimeSpan.FromSeconds(30)">
+                            @await Component.InvokeAsync("TeamMenu")
+                        </cache>
+                        <cache expires-sliding="@TimeSpan.FromSeconds(30)">
+                            @await Component.InvokeAsync("FixtureMenu")
+                        </cache>                                            
                         @if (this.User.IsInRole("Super Admin"))
                         {
-                            @await Component.InvokeAsync("TeamMenu")
-                            @await Component.InvokeAsync("FixtureMenu")
+                        <cache expires-sliding="@TimeSpan.FromSeconds(10)">
                             @await Component.InvokeAsync("AdminMenu")
+                        </cache>
                         }
-                        else
-                        {
-                            @await Component.InvokeAsync("TeamMenu")
-                            @await Component.InvokeAsync("FixtureMenu")
-                        }
-
                     </ul>
                 </div>
             </div>

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Rovers4.Controllers
 {
+    [ResponseCache(CacheProfileName = "None")]
     public class TeamController : Controller
     {
         private readonly ClubContext _context;
