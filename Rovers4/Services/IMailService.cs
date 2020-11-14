@@ -40,7 +40,7 @@ namespace Rovers4.Services
                 MeetTime = meetTime
 
             });
-            var response = await client.SendEmailAsync(sendGridMessage);
+            await client.SendEmailAsync(sendGridMessage);
         }
     }
 }

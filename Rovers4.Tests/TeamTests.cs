@@ -104,8 +104,8 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Team savedTeam = sut.CreateTeam(team);
-            Team savedTeam2 = sut.CreateTeam(team2);
+            sut.CreateTeam(team);
+            sut.CreateTeam(team2);
 
             //Assert
             var foundTeamByID = sut.GetTeamById(2);
@@ -409,7 +409,7 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Team savedTeam = sut.CreateTeam(team);
+            sut.CreateTeam(team);
             Team updatedTeam = sut.UpdateTeam(team2);
 
             //Assert
@@ -429,8 +429,8 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Team savedTeam = sut.CreateTeam(team);
-            Team deletedTeam = sut.DeleteTeam(team);
+            sut.CreateTeam(team);
+            sut.DeleteTeam(team);
 
             //Assert
             Assert.Empty(sut.GetTeams());
@@ -451,7 +451,7 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Team savedClub = sut.CreateTeam(team);
+            sut.CreateTeam(team);
 
             //Assert
             var errorcount = cpv.myValidation(team).Count();

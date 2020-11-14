@@ -81,7 +81,7 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Club savedClub = sut.CreateClub(club);
+            sut.CreateClub(club);
             Club updatedClub = sut.UpdateClub(newClub);
 
             //Assert
@@ -103,8 +103,8 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Club savedClub = sut.CreateClub(club);
-            Club deletedDlub = sut.DeleteClub(club);
+            sut.CreateClub(club);
+            sut.DeleteClub(club);
 
             //Assert
             Assert.Empty(sut.GetClubs());
@@ -131,8 +131,8 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Club savedClub = sut.CreateClub(club);
-            Club addClub2 = sut.CreateClub(club2);
+            sut.CreateClub(club);
+            sut.CreateClub(club2);
 
             //Assert
             Assert.Equal(2, sut.GetClubs().Count);
@@ -158,7 +158,7 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Club savedClub = sut.CreateClub(club);
+            sut.CreateClub(club);
 
             //Assert
             var errorcount = cpv.myValidation(club).Count();
@@ -185,7 +185,7 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Club savedClub = sut.CreateClub(club);
+            sut.CreateClub(club);
 
             //Assert
             var errorcount = cpv.myValidation(club).Count();
