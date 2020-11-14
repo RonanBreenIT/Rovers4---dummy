@@ -77,7 +77,7 @@ namespace Rovers4.Tests
             Assert.Equal("first Team", savedTeam.Name);
             Assert.Equal("this is the first team", savedTeam.TeamBio);
             Assert.Equal("image1.png", savedTeam.TeamImage);
-            Assert.Equal(3, savedTeam.Staff.Count());
+            Assert.Equal(3, savedTeam.Staff.Count);
             Assert.Equal("Player One", savedTeam.Staff.ToList()[0].FullName);
             Assert.Equal("Player Two", savedTeam.Staff.ToList()[1].FullName);
             Assert.Equal("Manager One", savedTeam.Staff.ToList()[2].FullName);
@@ -270,12 +270,12 @@ namespace Rovers4.Tests
             Team savedTeam2 = sut.CreateTeam(team2);
 
             //Assert
-            Assert.Equal(2, sut.GetTeams().Count());
+            Assert.Equal(2, sut.GetTeams().Count);
             
             Assert.Equal("first Team", savedTeam.Name);
             Assert.Equal("this is the first team", savedTeam.TeamBio);
             Assert.Equal("image1.png", savedTeam.TeamImage);
-            Assert.Equal(3, savedTeam.Staff.Count());
+            Assert.Equal(3, savedTeam.Staff.Count);
             Assert.Equal("Player One", savedTeam.Staff.ToList()[0].FullName);
             Assert.Equal("Player Two", savedTeam.Staff.ToList()[1].FullName);
             Assert.Equal("Manager One", savedTeam.Staff.ToList()[2].FullName);
@@ -286,7 +286,7 @@ namespace Rovers4.Tests
             Assert.Equal("Under 21s", savedTeam2.Name);
             Assert.Equal("this is the 21s", savedTeam2.TeamBio);
             Assert.Equal("image2.png", savedTeam2.TeamImage);
-            Assert.Equal(3, savedTeam2.Staff.Count());
+            Assert.Equal(3, savedTeam2.Staff.Count);
             Assert.Equal("Player One", savedTeam2.Staff.ToList()[0].FullName);
             Assert.Equal("Player Two", savedTeam2.Staff.ToList()[1].FullName);
             Assert.Equal("Manager One", savedTeam2.Staff.ToList()[2].FullName);

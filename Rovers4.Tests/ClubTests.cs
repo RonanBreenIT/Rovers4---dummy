@@ -135,7 +135,7 @@ namespace Rovers4.Tests
             Club addClub2 = sut.CreateClub(club2);
 
             //Assert
-            Assert.Equal(2, sut.GetClubs().Count());
+            Assert.Equal(2, sut.GetClubs().Count);
         }
 
         [Fact]
