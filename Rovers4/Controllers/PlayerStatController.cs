@@ -48,13 +48,13 @@ namespace Rovers4.Controllers
                 staff = _personRepository.AllStaff.Where(p => p.PersonID == id)
                     .OrderBy(p => p.PersonID);
                 currentPlayer = _personRepository.AllStaff.FirstOrDefault(c => c.PersonID == id)?.FullName;
-                if (stat.Count() <= 0)
+                if (stat.Any())
                 {
-                    hasStats = false;
+                    hasStats = true;
                 }
                 else
                 {
-                    hasStats = true;
+                    hasStats = false;
                 }
             }
 
