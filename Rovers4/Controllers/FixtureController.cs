@@ -338,7 +338,7 @@ namespace Rovers4.Controllers
                 {
                     foreach (var player in fixture.Players)
                     {
-                        if (player.Played == true)
+                        if (player.Played)
                         {
                             _playerStatRepository.UpdatePlayerStats(player.PersonID, player.Played, player.Assists, player.Goals, player.CleanSheet, player.RedCards, player.MotmAward);
                         }
