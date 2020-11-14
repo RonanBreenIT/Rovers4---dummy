@@ -310,7 +310,7 @@ namespace Rovers4.Controllers
                     CleanSheet = false,
                     RedCards = false,
                     MotmAward = false
-                }); ;
+                }); 
             }
 
             if (fixture == null)
