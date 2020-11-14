@@ -10,10 +10,12 @@ namespace Rovers4.Models
 
         public void AddPlayerStats(int personID)
         {
+            //Inherited Method
         }
 
         public void UpdatePlayerStats(int personID, bool played, int assists, int goals, bool cleansheet, bool redcard, bool motm)
         {
+            //Inherited Method
         }
     }
 }
