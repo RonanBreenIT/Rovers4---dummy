@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
@@ -15,15 +14,13 @@ namespace Rovers4.Controllers
     public class PeopleController : Controller
     {
         private readonly ClubContext _context;
-        private readonly IWebHostEnvironment hostingEnvironment;
         private readonly IPlayerStatRepository _playerStat;
         private readonly ITeamRepository _teamRepository;
         private readonly IBlobStorageService _blobService;
 
-        public PeopleController(ClubContext context, IWebHostEnvironment _hostingEnvironment, IPlayerStatRepository playerStat, ITeamRepository teamRepository, IBlobStorageService storageService)
+        public PeopleController(ClubContext context, IPlayerStatRepository playerStat, ITeamRepository teamRepository, IBlobStorageService storageService)
         {
             _context = context;
-            hostingEnvironment = _hostingEnvironment;
             _playerStat = playerStat;
             _teamRepository = teamRepository;
             _blobService = storageService;
