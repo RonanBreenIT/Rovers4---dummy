@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.Services;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -108,6 +109,11 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ClubID,Name,Address,Email,Number,ClubImageFile1,ClubImageFile2,ClubImageFile3")] Club club)
         {
+            if (club == null)
+            {
+                throw new ArgumentNullException(nameof(club));
+            }
+
             if (ModelState.IsValid)
             {
                 string image1 = UploadedImage1(club);
@@ -145,6 +151,11 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ClubID,Name,Address,Email,Number,ClubImage1,ClubImage2,ClubImage3,ClubImageFile1,ClubImageFile2,ClubImageFile3")] Club club)
         {
+            if (club == null)
+            {
+                throw new ArgumentNullException(nameof(club));
+            }
+
             if (id != club.ClubID)
             {
                 return NotFound();

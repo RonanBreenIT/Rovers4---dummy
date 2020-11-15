@@ -186,6 +186,10 @@ namespace Rovers4.Models
 
         public Fixture UpdateFixture(Fixture fixture)
         {
+            if (fixture == null)
+            {
+                throw new ArgumentNullException(nameof(fixture));
+            }
             var foundFixture = _appDbContext.Fixtures.FirstOrDefault(i => i.FixtureID == fixture.FixtureID);
             foundFixture.Opponent = fixture.Opponent;
             _appDbContext.Fixtures.Update(foundFixture);

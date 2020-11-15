@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -79,6 +80,11 @@ namespace Rovers4.Controllers
         [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Create([Bind("PlayerStatID,GamesPlayed,Assists,Goals,CleanSheet,RedCards,MotmAward,PersonID")] PlayerStat playerStat)
         {
+            if (playerStat == null)
+            {
+                throw new ArgumentNullException(nameof(playerStat));
+            }
+
             if (PlayerStatExists(playerStat.PersonID))
             {
                 return BadRequest("Player Stats already exists for this player");
@@ -117,6 +123,11 @@ namespace Rovers4.Controllers
         [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("PlayerStatID,GamesPlayed,Assists,Goals,CleanSheet,RedCards,MotmAward,PersonID")] PlayerStat playerStat)
         {
+            if (playerStat == null)
+            {
+                throw new ArgumentNullException(nameof(playerStat));
+            }
+
             if (id != playerStat.PersonID)
             {
                 return NotFound();

@@ -1,4 +1,5 @@
 ﻿using Rovers4.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,6 +36,10 @@ namespace Rovers4.Models
 
         public Team UpdateTeam(Team team)
         {
+            if (team == null)
+            {
+                throw new ArgumentNullException(nameof(team));
+            }
             var foundTeam = clubContext.Teams.FirstOrDefault(i => i.TeamID == team.TeamID);
             foundTeam.Name = team.Name;
             clubContext.Teams.Update(foundTeam);

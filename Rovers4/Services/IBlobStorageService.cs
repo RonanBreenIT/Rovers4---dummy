@@ -62,6 +62,10 @@ namespace Rovers4.Services
         }
         public string GenerateFileName(string fileName)
         {
+            if (fileName == null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
             string strFileName = string.Empty;
             string[] strName = fileName.Split('.');
             strFileName = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd") + "/" + DateTime.Now.ToUniversalTime().ToString("yyyyMMdd\\THHmmssfff") + "." + strName[strName.Length - 1];

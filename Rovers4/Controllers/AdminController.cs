@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Rovers4.Auth;
 using Rovers4.Data;
 using Rovers4.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,6 +47,11 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(AddUserViewModel addUserViewModel)
         {
+            if (addUserViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(addUserViewModel));
+            }
+
             if (!ModelState.IsValid) return View(addUserViewModel);
 
             var user = new ApplicationUser()
@@ -84,6 +90,11 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel editUserViewModel)
         {
+            if (editUserViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(editUserViewModel));
+            }
+
             var user = await _userManager.FindByIdAsync(editUserViewModel.Id).ConfigureAwait(false);
 
             if (user != null)
@@ -137,6 +148,10 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewRole(AddRoleViewModel addRoleViewModel)
         {
+            if (addRoleViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(addRoleViewModel));
+            }
 
             if (!ModelState.IsValid) return View(addRoleViewModel);
 
@@ -186,6 +201,11 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> EditRole(EditRoleViewModel editRoleViewModel)
         {
+            if (editRoleViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(editRoleViewModel));
+            }
+
             var role = await _roleManager.FindByIdAsync(editRoleViewModel.Id).ConfigureAwait(false);
 
             if (role != null)
@@ -248,6 +268,11 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUserToRole(UserRoleViewModel userRoleViewModel)
         {
+            if (userRoleViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(userRoleViewModel));
+            }
+
             var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId).ConfigureAwait(true);
             var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId).ConfigureAwait(true);
 
@@ -289,6 +314,11 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUserFromRole(UserRoleViewModel userRoleViewModel)
         {
+            if (userRoleViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(userRoleViewModel));
+            }
+
             var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId).ConfigureAwait(true);
             var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId).ConfigureAwait(true);
 

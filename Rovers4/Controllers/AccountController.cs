@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Rovers4.Auth;
 using Rovers4.ViewModels;
+using System;
 using System.Threading.Tasks;
 
 namespace Rovers4.Controllers
@@ -33,6 +34,11 @@ namespace Rovers4.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
+            if (loginViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(loginViewModel));
+            }
+
             if (!ModelState.IsValid)
                 return View(loginViewModel);
 
@@ -64,6 +70,11 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(LoginViewModel loginViewModel)
         {
+            if (loginViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(loginViewModel));
+            }
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser() { UserName = loginViewModel.UserName };
