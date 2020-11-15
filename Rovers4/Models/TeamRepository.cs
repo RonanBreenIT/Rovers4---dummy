@@ -7,30 +7,30 @@ namespace Rovers4.Models
 {
     public class TeamRepository : ITeamRepository
     {
-        private readonly ClubContext clubContext;
+        private readonly ClubContext _clubContext;
 
-        public TeamRepository(ClubContext _clubContext)
+        public TeamRepository(ClubContext clubContext)
         {
-            clubContext = _clubContext;
+            _clubContext = clubContext;
         }
-        public IEnumerable<Team> Teams => clubContext.Teams;
+        public IEnumerable<Team> Teams => _clubContext.Teams;
 
         // For Unit Testing
         public ICollection<Team> GetTeams()
         {
-            return clubContext.Teams.ToList();
+            return _clubContext.Teams.ToList();
         }
 
 
         public Team GetTeamById(int teamId)
         {
-            return clubContext.Teams.FirstOrDefault(i => i.TeamID == teamId);
+            return _clubContext.Teams.FirstOrDefault(i => i.TeamID == teamId);
         }
 
         public Team CreateTeam(Team team)
         {
-            clubContext.Teams.Add(team);
-            clubContext.SaveChanges();
+            _clubContext.Teams.Add(team);
+            _clubContext.SaveChanges();
             return team;
         }
 
@@ -40,18 +40,18 @@ namespace Rovers4.Models
             {
                 throw new ArgumentNullException(nameof(team));
             }
-            var foundTeam = clubContext.Teams.FirstOrDefault(i => i.TeamID == team.TeamID);
+            var foundTeam = _clubContext.Teams.FirstOrDefault(i => i.TeamID == team.TeamID);
             foundTeam.Name = team.Name;
-            clubContext.Teams.Update(foundTeam);
-            clubContext.SaveChanges();
+            _clubContext.Teams.Update(foundTeam);
+            _clubContext.SaveChanges();
             return foundTeam;
         }
 
         public Team DeleteTeam(Team team)
         {
-            var foundTeam = clubContext.Teams.FirstOrDefault(i => i.TeamID == team.TeamID);
-            clubContext.Teams.Remove(foundTeam);
-            clubContext.SaveChanges();
+            var foundTeam = _clubContext.Teams.FirstOrDefault(i => i.TeamID == team.TeamID);
+            _clubContext.Teams.Remove(foundTeam);
+            _clubContext.SaveChanges();
             return foundTeam;
         }
     }
