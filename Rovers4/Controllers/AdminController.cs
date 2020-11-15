@@ -55,7 +55,7 @@ namespace Rovers4.Controllers
                 Birthdate = addUserViewModel.Birthdate
             };
 
-            IdentityResult result = await _userManager.CreateAsync(user, addUserViewModel.Password);
+            IdentityResult result = await _userManager.CreateAsync(user, addUserViewModel.Password).ConfigureAwait(false);
 
             if (result.Succeeded)
             {
@@ -71,12 +71,12 @@ namespace Rovers4.Controllers
 
         public async Task<IActionResult> EditUser(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id).ConfigureAwait(false);
 
             if (user == null)
                 return RedirectToAction("UserManagement", _userManager.Users);
 
-            var claims = await _userManager.GetClaimsAsync(user);
+            var claims = await _userManager.GetClaimsAsync(user).ConfigureAwait(false);
             var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, UserClaims = claims.Select(c => c.Value).ToList() };
             return View(vm);
         }
@@ -84,7 +84,7 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel editUserViewModel)
         {
-            var user = await _userManager.FindByIdAsync(editUserViewModel.Id);
+            var user = await _userManager.FindByIdAsync(editUserViewModel.Id).ConfigureAwait(false);
 
             if (user != null)
             {
@@ -92,7 +92,7 @@ namespace Rovers4.Controllers
                 user.Email = editUserViewModel.Email;
                 user.Birthdate = editUserViewModel.Birthdate;
 
-                var result = await _userManager.UpdateAsync(user);
+                var result = await _userManager.UpdateAsync(user).ConfigureAwait(false);
 
                 if (result.Succeeded)
                     return RedirectToAction("UserManagement", _userManager.Users);
@@ -107,11 +107,11 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUser(string Id)
         {
-            var user = await _userManager.FindByIdAsync(Id);
+            var user = await _userManager.FindByIdAsync(Id).ConfigureAwait(false);
 
             if (user != null)
             {
-                IdentityResult result = await _userManager.DeleteAsync(user);
+                IdentityResult result = await _userManager.DeleteAsync(user).ConfigureAwait(false);
                 if (result.Succeeded)
                     return RedirectToAction("UserManagement");
                 else
@@ -145,7 +145,7 @@ namespace Rovers4.Controllers
                 Name = addRoleViewModel.RoleName
             };
 
-            IdentityResult result = await _roleManager.CreateAsync(role);
+            IdentityResult result = await _roleManager.CreateAsync(role).ConfigureAwait(false);
 
             if (result.Succeeded)
             {
@@ -161,7 +161,7 @@ namespace Rovers4.Controllers
 
         public async Task<IActionResult> EditRole(string id)
         {
-            var role = await _roleManager.FindByIdAsync(id);
+            var role = await _roleManager.FindByIdAsync(id).ConfigureAwait(false);
 
             if (role == null)
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
@@ -176,7 +176,7 @@ namespace Rovers4.Controllers
 
             foreach (var user in _userManager.Users)
             {
-                if (await _userManager.IsInRoleAsync(user, role.Name))
+                if (await _userManager.IsInRoleAsync(user, role.Name).ConfigureAwait(false))
                     editRoleViewModel.Users.Add(user.UserName);
             }
 
@@ -186,13 +186,13 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> EditRole(EditRoleViewModel editRoleViewModel)
         {
-            var role = await _roleManager.FindByIdAsync(editRoleViewModel.Id);
+            var role = await _roleManager.FindByIdAsync(editRoleViewModel.Id).ConfigureAwait(false);
 
             if (role != null)
             {
                 role.Name = editRoleViewModel.RoleName;
 
-                var result = await _roleManager.UpdateAsync(role);
+                var result = await _roleManager.UpdateAsync(role).ConfigureAwait(false);
 
                 if (result.Succeeded)
                     return RedirectToAction("RoleManagement", _roleManager.Roles);
@@ -208,10 +208,10 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteRole(string id)
         {
-            IdentityRole role = await _roleManager.FindByIdAsync(id);
+            IdentityRole role = await _roleManager.FindByIdAsync(id).ConfigureAwait(false);
             if (role != null)
             {
-                var result = await _roleManager.DeleteAsync(role);
+                var result = await _roleManager.DeleteAsync(role).ConfigureAwait(false);
                 if (result.Succeeded)
                     return RedirectToAction("RoleManagement", _roleManager.Roles);
                 ModelState.AddModelError("", "Something went wrong while deleting this role.");
@@ -227,7 +227,7 @@ namespace Rovers4.Controllers
 
         public async Task<IActionResult> AddUserToRole(string roleId)
         {
-            var role = await _roleManager.FindByIdAsync(roleId);
+            var role = await _roleManager.FindByIdAsync(roleId).ConfigureAwait(false);
 
             if (role == null)
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
@@ -236,7 +236,7 @@ namespace Rovers4.Controllers
 
             foreach (var user in _userManager.Users)
             {
-                if (!await _userManager.IsInRoleAsync(user, role.Name))
+                if (!await _userManager.IsInRoleAsync(user, role.Name).ConfigureAwait(false))
                 {
                     addUserToRoleViewModel.Users.Add(user);
                 }
@@ -248,10 +248,10 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUserToRole(UserRoleViewModel userRoleViewModel)
         {
-            var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId);
-            var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId);
+            var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId).ConfigureAwait(true);
+            var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId).ConfigureAwait(true);
 
-            var result = await _userManager.AddToRoleAsync(user, role.Name);
+            var result = await _userManager.AddToRoleAsync(user, role.Name).ConfigureAwait(true);
 
             if (result.Succeeded)
             {
@@ -268,7 +268,7 @@ namespace Rovers4.Controllers
 
         public async Task<IActionResult> DeleteUserFromRole(string roleId)
         {
-            var role = await _roleManager.FindByIdAsync(roleId);
+            var role = await _roleManager.FindByIdAsync(roleId).ConfigureAwait(true);
 
             if (role == null)
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
@@ -277,7 +277,7 @@ namespace Rovers4.Controllers
 
             foreach (var user in _userManager.Users)
             {
-                if (await _userManager.IsInRoleAsync(user, role.Name))
+                if (await _userManager.IsInRoleAsync(user, role.Name).ConfigureAwait(true))
                 {
                     addUserToRoleViewModel.Users.Add(user);
                 }
@@ -289,10 +289,10 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUserFromRole(UserRoleViewModel userRoleViewModel)
         {
-            var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId);
-            var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId);
+            var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId).ConfigureAwait(true);
+            var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId).ConfigureAwait(true);
 
-            var result = await _userManager.RemoveFromRoleAsync(user, role.Name);
+            var result = await _userManager.RemoveFromRoleAsync(user, role.Name).ConfigureAwait(true);
 
             if (result.Succeeded)
             {

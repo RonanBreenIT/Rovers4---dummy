@@ -26,7 +26,7 @@ namespace Rovers4.Controllers
         // GET: Club
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Clubs.ToListAsync());
+            return View(await _context.Clubs.ToListAsync().ConfigureAwait(false));
         }
 
         // GET: Club/Details/5
@@ -38,7 +38,7 @@ namespace Rovers4.Controllers
             }
 
             var club = await _context.Clubs
-                .FirstOrDefaultAsync(m => m.ClubID == id);
+                .FirstOrDefaultAsync(m => m.ClubID == id).ConfigureAwait(true);
             if (club == null)
             {
                 return NotFound();
@@ -119,7 +119,7 @@ namespace Rovers4.Controllers
                 club.ClubImage3 = image3;
 
                 _context.Add(club);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(true);
                 return RedirectToAction(nameof(Index));
             }
             return View(club);
@@ -133,7 +133,7 @@ namespace Rovers4.Controllers
                 return NotFound();
             }
 
-            var club = await _context.Clubs.FindAsync(id);
+            var club = await _context.Clubs.FindAsync(id).ConfigureAwait(true);
             if (club == null)
             {
                 return NotFound();
@@ -176,7 +176,7 @@ namespace Rovers4.Controllers
                 try
                 {
                     _context.Update(club);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -202,7 +202,7 @@ namespace Rovers4.Controllers
             }
 
             var club = await _context.Clubs
-                .FirstOrDefaultAsync(m => m.ClubID == id);
+                .FirstOrDefaultAsync(m => m.ClubID == id).ConfigureAwait(true);
             if (club == null)
             {
                 return NotFound();
@@ -215,12 +215,12 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var club = await _context.Clubs.FindAsync(id);
+            var club = await _context.Clubs.FindAsync(id).ConfigureAwait(true);
             _blobService.DeleteBlobData(club.ClubImage1);
             _blobService.DeleteBlobData(club.ClubImage2);
             _blobService.DeleteBlobData(club.ClubImage3);
             _context.Clubs.Remove(club);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(true);
             return RedirectToAction(nameof(Index));
         }
 

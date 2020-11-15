@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rovers4", "Rovers4\Rovers4.csproj", "{A6B0F0F2-A853-45B9-AF58-4D808C42AE34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rovers4.Tests", "Rovers4.Tests\Rovers4.Tests.csproj", "{6C4AF064-84A5-4598-BC0F-8398831C5EF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rovers4.Tests", "Rovers4.Tests\Rovers4.Tests.csproj", "{6C4AF064-84A5-4598-BC0F-8398831C5EF1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5CF7DCC7-00C7-43EA-AB0A-CC80ED2F4F52}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

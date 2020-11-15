@@ -133,7 +133,7 @@ namespace Rovers4
                 context.Response.Headers.Add("Header-Name", "Header-Value");
                 context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
                 context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
-                await next();
+                await next().ConfigureAwait(false);
             });
 
             app.UseHttpsRedirection();

@@ -58,7 +58,7 @@ namespace Rovers4.Services
             CloudBlockBlob blockBlob = blobDirectory.GetBlockBlobReference(BlobName);
 
             // delete blob from container        
-            await blockBlob.DeleteAsync();
+            await blockBlob.DeleteAsync().ConfigureAwait(true);
         }
         public string GenerateFileName(string fileName)
         {
@@ -86,13 +86,13 @@ namespace Rovers4.Services
                     PublicAccess = BlobContainerPublicAccessType.Blob
                 };
                 string fileName = this.GenerateFileName(strFileName);
-                await cloudBlobContainer.SetPermissionsAsync(permissions);
+                await cloudBlobContainer.SetPermissionsAsync(permissions).ConfigureAwait(true);
 
                 if (fileName != null && fileData != null)
                 {
                     CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(fileName);
                     cloudBlockBlob.Properties.ContentType = fileMimeType;
-                    await cloudBlockBlob.UploadFromByteArrayAsync(fileData, 0, fileData.Length);
+                    await cloudBlockBlob.UploadFromByteArrayAsync(fileData, 0, fileData.Length).ConfigureAwait(true);
                     return cloudBlockBlob.Uri.AbsoluteUri;
                 }
                 return "";

@@ -154,7 +154,7 @@ namespace Rovers4.Controllers
 
             var fixture = await _context.Fixtures
                 .Include(p => p.Team)
-                .FirstOrDefaultAsync(m => m.FixtureID == id);
+                .FirstOrDefaultAsync(m => m.FixtureID == id).ConfigureAwait(true);
             if (fixture == null)
             {
                 return NotFound();
@@ -178,7 +178,7 @@ namespace Rovers4.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(fixture);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(true);
                 return RedirectToAction("Index", "Team");
             }
             return View(fixture);
@@ -192,7 +192,7 @@ namespace Rovers4.Controllers
                 return NotFound();
             }
 
-            var fixture = await _context.Fixtures.FindAsync(id);
+            var fixture = await _context.Fixtures.FindAsync(id).ConfigureAwait(true);
             if (fixture == null)
             {
                 return NotFound();
@@ -216,7 +216,7 @@ namespace Rovers4.Controllers
                 try
                 {
                     _context.Update(fixture);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -242,7 +242,7 @@ namespace Rovers4.Controllers
                 return NotFound();
             }
 
-            var fixture = await _context.Fixtures.FindAsync(id);
+            var fixture = await _context.Fixtures.FindAsync(id).ConfigureAwait(true);
             if (fixture == null)
             {
                 return NotFound();
@@ -266,7 +266,7 @@ namespace Rovers4.Controllers
                 try
                 {
                     _context.Update(fixture);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -292,7 +292,7 @@ namespace Rovers4.Controllers
                 return NotFound();
             }
 
-            var fixture = await _context.Fixtures.FindAsync(id);
+            var fixture = await _context.Fixtures.FindAsync(id).ConfigureAwait(true);
 
             var playerList = _personRepository.Players.Where(i => i.TeamID == fixture.TeamID);
             fixture.Players = new List<PersonStats>();
@@ -344,7 +344,7 @@ namespace Rovers4.Controllers
                         }
                     }
                     _context.Update(fixture);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -373,7 +373,7 @@ namespace Rovers4.Controllers
 
             var fixture = await _context.Fixtures
                 .Include(p => p.Team)
-                .FirstOrDefaultAsync(m => m.FixtureID == id);
+                .FirstOrDefaultAsync(m => m.FixtureID == id).ConfigureAwait(true);
             if (fixture == null)
             {
                 return NotFound();
@@ -387,9 +387,9 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var fixture = await _context.Fixtures.FindAsync(id);
+            var fixture = await _context.Fixtures.FindAsync(id).ConfigureAwait(true);
             _context.Fixtures.Remove(fixture);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(true);
             return RedirectToAction("Index", "Team");
         }
         private bool FixtureExists(int id)

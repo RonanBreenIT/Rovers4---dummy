@@ -87,7 +87,7 @@ namespace Rovers4.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(playerStat);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(true);
                 return RedirectToAction("Index", "Team");
             }
             ViewData["Players"] = new SelectList(_context.Persons, "PersonID", "FullName", playerStat.PersonID);
@@ -103,7 +103,7 @@ namespace Rovers4.Controllers
             }
 
             var playerStat = await _context.PlayerStats
-                .FirstOrDefaultAsync(m => m.PersonID == id);
+                .FirstOrDefaultAsync(m => m.PersonID == id).ConfigureAwait(true);
             if (playerStat == null)
             {
                 return NotFound();
@@ -127,7 +127,7 @@ namespace Rovers4.Controllers
                 try
                 {
                     _context.Update(playerStat);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

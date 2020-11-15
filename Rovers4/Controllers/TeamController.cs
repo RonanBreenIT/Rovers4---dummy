@@ -137,7 +137,7 @@ namespace Rovers4.Controllers
                 team.TeamImage = image;
 
                 _context.Add(team);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(true);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name", team.ClubID);
@@ -152,7 +152,7 @@ namespace Rovers4.Controllers
                 return NotFound();
             }
 
-            var team = await _context.Teams.FindAsync(id);
+            var team = await _context.Teams.FindAsync(id).ConfigureAwait(true);
             if (team == null)
             {
                 return NotFound();
@@ -183,7 +183,7 @@ namespace Rovers4.Controllers
                 try
                 {
                     _context.Update(team);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -212,7 +212,7 @@ namespace Rovers4.Controllers
 
             var team = await _context.Teams
                 .Include(t => t.Club)
-                .FirstOrDefaultAsync(m => m.TeamID == id);
+                .FirstOrDefaultAsync(m => m.TeamID == id).ConfigureAwait(true);
             if (team == null)
             {
                 return NotFound();
@@ -226,10 +226,10 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var team = await _context.Teams.FindAsync(id);
+            var team = await _context.Teams.FindAsync(id).ConfigureAwait(true);
             _blobService.DeleteBlobData(team.TeamImage);
             _context.Teams.Remove(team);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(true);
             return RedirectToAction(nameof(Index));
         }
 
@@ -243,7 +243,7 @@ namespace Rovers4.Controllers
             }
 
             var team = await _context.Teams
-                .FirstOrDefaultAsync(m => m.TeamID == id);
+                .FirstOrDefaultAsync(m => m.TeamID == id).ConfigureAwait(true);
             if (team == null)
             {
                 return NotFound();
@@ -267,7 +267,7 @@ namespace Rovers4.Controllers
             {
                 if (person != null)
                 {
-                    await _mailService.SendEmailAsync(person, emailmodel.Subject, emailmodel.FixTypeString, emailmodel.HomeOrAwayString, emailmodel.KickOffTime, emailmodel.Opponent, emailmodel.MeetLocation, emailmodel.MeetTime);
+                    await _mailService.SendEmailAsync(person, emailmodel.Subject, emailmodel.FixTypeString, emailmodel.HomeOrAwayString, emailmodel.KickOffTime, emailmodel.Opponent, emailmodel.MeetLocation, emailmodel.MeetTime).ConfigureAwait(true);
                 }
             }
 

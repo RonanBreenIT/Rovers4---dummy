@@ -87,7 +87,7 @@ namespace Rovers4.Controllers
                 model.PersonType = PersonType.Player;
 
                 _context.Add(model);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(true);
 
                 // Instantiate new PlayerStat as can't leave it empty
                 _playerStat.AddPlayerStats(model.PersonID);
@@ -121,7 +121,7 @@ namespace Rovers4.Controllers
                 model.PersonType = PersonType.Manager;
 
                 _context.Add(model);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(true);
                 return RedirectToAction("Index", "Team");
             }
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
@@ -136,7 +136,7 @@ namespace Rovers4.Controllers
                 return NotFound();
             }
 
-            var person = await _context.Persons.FindAsync(id);
+            var person = await _context.Persons.FindAsync(id).ConfigureAwait(true);
             if (person == null)
             {
                 return NotFound();
@@ -175,7 +175,7 @@ namespace Rovers4.Controllers
                 try
                 {
                     _context.Update(person);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -204,7 +204,7 @@ namespace Rovers4.Controllers
 
             var person = await _context.Persons
                 .Include(p => p.Team)
-                .FirstOrDefaultAsync(m => m.PersonID == id);
+                .FirstOrDefaultAsync(m => m.PersonID == id).ConfigureAwait(true);
             if (person == null)
             {
                 return NotFound();
@@ -218,13 +218,13 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var person = await _context.Persons.FindAsync(id);
-            var playerStat = await _context.PlayerStats.FirstOrDefaultAsync(i => i.PersonID == id);
+            var person = await _context.Persons.FindAsync(id).ConfigureAwait(true);
+            var playerStat = await _context.PlayerStats.FirstOrDefaultAsync(i => i.PersonID == id).ConfigureAwait(true);
             _blobService.DeleteBlobData(person.ThumbnailImage);
             _blobService.DeleteBlobData(person.Image);
             _context.PlayerStats.Remove(playerStat); // Delete player stat record first
             _context.Persons.Remove(person);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(true);
             return RedirectToAction("Index", "Team");
         }
 
