@@ -1,5 +1,4 @@
 ﻿using Rovers4.Models;
-using System;
 using Xunit;
 
 namespace Rovers4.Tests

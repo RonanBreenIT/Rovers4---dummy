@@ -34,8 +34,6 @@ namespace Rovers4
             services.AddDbContext<ClubContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("ClubContext")));
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //   .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -135,7 +133,7 @@ namespace Rovers4
                 context.Response.Headers.Add("Header-Name", "Header-Value");
                 context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
                 context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
-                await next();
+                await next().ConfigureAwait(false);
             });
 
             app.UseHttpsRedirection();

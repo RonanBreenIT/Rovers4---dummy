@@ -22,11 +22,12 @@ namespace Rovers4.Areas.Identity.Pages.Account
 
         public void OnGet()
         {
+            //Empty Method
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
-            await _signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync().ConfigureAwait(true);
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {

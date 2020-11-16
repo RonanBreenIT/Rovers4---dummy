@@ -1,4 +1,5 @@
 ﻿using Rovers4.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -93,6 +94,10 @@ namespace Rovers4.Models
 
         public Person UpdatePerson(Person person)
         {
+            if (person == null)
+            {
+                throw new ArgumentNullException(nameof(person));
+            }
             var foundPerson = _appDbContext.Persons.FirstOrDefault(i => i.PersonID == person.PersonID);
             foundPerson.FirstName = person.FirstName;
             foundPerson.Surname = person.Surname;

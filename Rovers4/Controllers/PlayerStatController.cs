@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,13 +49,13 @@ namespace Rovers4.Controllers
                 staff = _personRepository.AllStaff.Where(p => p.PersonID == id)
                     .OrderBy(p => p.PersonID);
                 currentPlayer = _personRepository.AllStaff.FirstOrDefault(c => c.PersonID == id)?.FullName;
-                if (stat.Count() <= 0)
+                if (stat.Any())
                 {
-                    hasStats = false;
+                    hasStats = true;
                 }
                 else
                 {
-                    hasStats = true;
+                    hasStats = false;
                 }
             }
 
@@ -79,6 +80,11 @@ namespace Rovers4.Controllers
         [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Create([Bind("PlayerStatID,GamesPlayed,Assists,Goals,CleanSheet,RedCards,MotmAward,PersonID")] PlayerStat playerStat)
         {
+            if (playerStat == null)
+            {
+                throw new ArgumentNullException(nameof(playerStat));
+            }
+
             if (PlayerStatExists(playerStat.PersonID))
             {
                 return BadRequest("Player Stats already exists for this player");
@@ -87,7 +93,7 @@ namespace Rovers4.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(playerStat);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(true);
                 return RedirectToAction("Index", "Team");
             }
             ViewData["Players"] = new SelectList(_context.Persons, "PersonID", "FullName", playerStat.PersonID);
@@ -103,7 +109,7 @@ namespace Rovers4.Controllers
             }
 
             var playerStat = await _context.PlayerStats
-                .FirstOrDefaultAsync(m => m.PersonID == id);
+                .FirstOrDefaultAsync(m => m.PersonID == id).ConfigureAwait(true);
             if (playerStat == null)
             {
                 return NotFound();
@@ -117,6 +123,11 @@ namespace Rovers4.Controllers
         [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("PlayerStatID,GamesPlayed,Assists,Goals,CleanSheet,RedCards,MotmAward,PersonID")] PlayerStat playerStat)
         {
+            if (playerStat == null)
+            {
+                throw new ArgumentNullException(nameof(playerStat));
+            }
+
             if (id != playerStat.PersonID)
             {
                 return NotFound();
@@ -127,7 +138,7 @@ namespace Rovers4.Controllers
                 try
                 {
                     _context.Update(playerStat);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Moq;
-using Rovers4.Controllers;
+﻿using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.Tests.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Rovers4.Tests
@@ -82,7 +77,7 @@ namespace Rovers4.Tests
             Assert.Equal("first Team", savedTeam.Name);
             Assert.Equal("this is the first team", savedTeam.TeamBio);
             Assert.Equal("image1.png", savedTeam.TeamImage);
-            Assert.Equal(3, savedTeam.Staff.Count());
+            Assert.Equal(3, savedTeam.Staff.Count);
             Assert.Equal("Player One", savedTeam.Staff.ToList()[0].FullName);
             Assert.Equal("Player Two", savedTeam.Staff.ToList()[1].FullName);
             Assert.Equal("Manager One", savedTeam.Staff.ToList()[2].FullName);
@@ -109,8 +104,8 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Team savedTeam = sut.CreateTeam(team);
-            Team savedTeam2 = sut.CreateTeam(team2);
+            sut.CreateTeam(team);
+            sut.CreateTeam(team2);
 
             //Assert
             var foundTeamByID = sut.GetTeamById(2);
@@ -275,12 +270,12 @@ namespace Rovers4.Tests
             Team savedTeam2 = sut.CreateTeam(team2);
 
             //Assert
-            Assert.Equal(2, sut.GetTeams().Count());
+            Assert.Equal(2, sut.GetTeams().Count);
             
             Assert.Equal("first Team", savedTeam.Name);
             Assert.Equal("this is the first team", savedTeam.TeamBio);
             Assert.Equal("image1.png", savedTeam.TeamImage);
-            Assert.Equal(3, savedTeam.Staff.Count());
+            Assert.Equal(3, savedTeam.Staff.Count);
             Assert.Equal("Player One", savedTeam.Staff.ToList()[0].FullName);
             Assert.Equal("Player Two", savedTeam.Staff.ToList()[1].FullName);
             Assert.Equal("Manager One", savedTeam.Staff.ToList()[2].FullName);
@@ -291,7 +286,7 @@ namespace Rovers4.Tests
             Assert.Equal("Under 21s", savedTeam2.Name);
             Assert.Equal("this is the 21s", savedTeam2.TeamBio);
             Assert.Equal("image2.png", savedTeam2.TeamImage);
-            Assert.Equal(3, savedTeam2.Staff.Count());
+            Assert.Equal(3, savedTeam2.Staff.Count);
             Assert.Equal("Player One", savedTeam2.Staff.ToList()[0].FullName);
             Assert.Equal("Player Two", savedTeam2.Staff.ToList()[1].FullName);
             Assert.Equal("Manager One", savedTeam2.Staff.ToList()[2].FullName);
@@ -414,7 +409,7 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Team savedTeam = sut.CreateTeam(team);
+            sut.CreateTeam(team);
             Team updatedTeam = sut.UpdateTeam(team2);
 
             //Assert
@@ -434,8 +429,8 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Team savedTeam = sut.CreateTeam(team);
-            Team deletedTeam = sut.DeleteTeam(team);
+            sut.CreateTeam(team);
+            sut.DeleteTeam(team);
 
             //Assert
             Assert.Empty(sut.GetTeams());
@@ -456,7 +451,7 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Team savedClub = sut.CreateTeam(team);
+            sut.CreateTeam(team);
 
             //Assert
             var errorcount = cpv.myValidation(team).Count();

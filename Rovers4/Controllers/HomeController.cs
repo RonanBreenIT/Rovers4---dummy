@@ -28,7 +28,7 @@ namespace Rovers4.Controllers
         [ResponseCache(CacheProfileName = "Default")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Clubs.ToListAsync());
+            return View(await _context.Clubs.ToListAsync().ConfigureAwait(false));
         }
 
         public IActionResult Privacy()
@@ -39,12 +39,12 @@ namespace Rovers4.Controllers
         public async Task<IActionResult> Contact()
         {
             ViewBag.ApiKey = _mapsService.GetApiKey();
-            return View(await _context.Clubs.ToListAsync());
+            return View(await _context.Clubs.ToListAsync().ConfigureAwait(false));
         }
 
         public async Task<IActionResult> ClubDetails()
         {
-            return View(await _context.Clubs.ToListAsync());
+            return View(await _context.Clubs.ToListAsync().ConfigureAwait(false));
         }
 
 

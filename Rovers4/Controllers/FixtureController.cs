@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -154,7 +155,7 @@ namespace Rovers4.Controllers
 
             var fixture = await _context.Fixtures
                 .Include(p => p.Team)
-                .FirstOrDefaultAsync(m => m.FixtureID == id);
+                .FirstOrDefaultAsync(m => m.FixtureID == id).ConfigureAwait(true);
             if (fixture == null)
             {
                 return NotFound();
@@ -178,7 +179,7 @@ namespace Rovers4.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(fixture);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(true);
                 return RedirectToAction("Index", "Team");
             }
             return View(fixture);
@@ -192,7 +193,7 @@ namespace Rovers4.Controllers
                 return NotFound();
             }
 
-            var fixture = await _context.Fixtures.FindAsync(id);
+            var fixture = await _context.Fixtures.FindAsync(id).ConfigureAwait(true);
             if (fixture == null)
             {
                 return NotFound();
@@ -206,6 +207,11 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("FixtureID,TeamID,FixtureType,FixtureDate,HomeOrAway,OurScore,Opponent,OpponentScore,Result,ResultDescription,MatchReport")] Fixture fixture)
         {
+            if (fixture == null)
+            {
+                throw new ArgumentNullException(nameof(fixture));
+            }
+
             if (id != fixture.FixtureID)
             {
                 return NotFound();
@@ -216,7 +222,7 @@ namespace Rovers4.Controllers
                 try
                 {
                     _context.Update(fixture);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -242,7 +248,7 @@ namespace Rovers4.Controllers
                 return NotFound();
             }
 
-            var fixture = await _context.Fixtures.FindAsync(id);
+            var fixture = await _context.Fixtures.FindAsync(id).ConfigureAwait(true);
             if (fixture == null)
             {
                 return NotFound();
@@ -256,6 +262,11 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditResult(int id, [Bind("FixtureID,TeamID,FixtureType,FixtureDate,HomeOrAway,OurScore,Opponent,OpponentScore,Result,ResultDescription,MatchReport")] Fixture fixture)
         {
+            if (fixture == null)
+            {
+                throw new ArgumentNullException(nameof(fixture));
+            }
+
             if (id != fixture.FixtureID)
             {
                 return NotFound();
@@ -266,7 +277,7 @@ namespace Rovers4.Controllers
                 try
                 {
                     _context.Update(fixture);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -292,7 +303,7 @@ namespace Rovers4.Controllers
                 return NotFound();
             }
 
-            var fixture = await _context.Fixtures.FindAsync(id);
+            var fixture = await _context.Fixtures.FindAsync(id).ConfigureAwait(true);
 
             var playerList = _personRepository.Players.Where(i => i.TeamID == fixture.TeamID);
             fixture.Players = new List<PersonStats>();
@@ -310,7 +321,7 @@ namespace Rovers4.Controllers
                     CleanSheet = false,
                     RedCards = false,
                     MotmAward = false
-                }); ;
+                }); 
             }
 
             if (fixture == null)
@@ -327,6 +338,11 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddResult(int id, Fixture fixture)
         {
+            if (fixture == null)
+            {
+                throw new ArgumentNullException(nameof(fixture));
+            }
+
             if (id != fixture.FixtureID)
             {
                 return NotFound();
@@ -338,13 +354,13 @@ namespace Rovers4.Controllers
                 {
                     foreach (var player in fixture.Players)
                     {
-                        if (player.Played == true)
+                        if (player.Played)
                         {
                             _playerStatRepository.UpdatePlayerStats(player.PersonID, player.Played, player.Assists, player.Goals, player.CleanSheet, player.RedCards, player.MotmAward);
                         }
                     }
                     _context.Update(fixture);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(true);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -373,7 +389,7 @@ namespace Rovers4.Controllers
 
             var fixture = await _context.Fixtures
                 .Include(p => p.Team)
-                .FirstOrDefaultAsync(m => m.FixtureID == id);
+                .FirstOrDefaultAsync(m => m.FixtureID == id).ConfigureAwait(true);
             if (fixture == null)
             {
                 return NotFound();
@@ -387,9 +403,9 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var fixture = await _context.Fixtures.FindAsync(id);
+            var fixture = await _context.Fixtures.FindAsync(id).ConfigureAwait(true);
             _context.Fixtures.Remove(fixture);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(true);
             return RedirectToAction("Index", "Team");
         }
         private bool FixtureExists(int id)

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Rovers4.Auth;
 using Rovers4.ViewModels;
+using System;
 using System.Threading.Tasks;
 
 namespace Rovers4.Controllers
@@ -33,14 +34,19 @@ namespace Rovers4.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
+            if (loginViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(loginViewModel));
+            }
+
             if (!ModelState.IsValid)
                 return View(loginViewModel);
 
-            var user = await _userManager.FindByNameAsync(loginViewModel.UserName);
+            var user = await _userManager.FindByNameAsync(loginViewModel.UserName).ConfigureAwait(false);
 
             if (user != null)
             {
-                var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
+                var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false).ConfigureAwait(false);
                 if (result.Succeeded)
                 {
                     if (string.IsNullOrEmpty(loginViewModel.ReturnUrl))
@@ -64,10 +70,15 @@ namespace Rovers4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(LoginViewModel loginViewModel)
         {
+            if (loginViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(loginViewModel));
+            }
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser() { UserName = loginViewModel.UserName };
-                var result = await _userManager.CreateAsync(user, loginViewModel.Password);
+                var result = await _userManager.CreateAsync(user, loginViewModel.Password).ConfigureAwait(false);
 
                 if (result.Succeeded)
                 {
@@ -80,7 +91,7 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync().ConfigureAwait(false);
             return RedirectToAction("Index", "Home");
         }
 

@@ -20,11 +20,11 @@ namespace Rovers4.Models
             return _appDbContext.PlayerStats.FirstOrDefault(p => p.PersonID == personId);
         }
 
-        public void AddPlayerStats(int PersonID)
+        public void AddPlayerStats(int personID)
         {
             PlayerStat newPlayer = new PlayerStat
             {
-                PersonID = PersonID,
+                PersonID = personID,
                 GamesPlayed = 0,
                 Assists = 0,
                 Goals = 0,

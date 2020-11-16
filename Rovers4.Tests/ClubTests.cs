@@ -1,15 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Moq;
-using Rovers4.Controllers;
+﻿using Microsoft.EntityFrameworkCore;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.Tests.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Rovers4.Tests
@@ -88,7 +81,7 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Club savedClub = sut.CreateClub(club);
+            sut.CreateClub(club);
             Club updatedClub = sut.UpdateClub(newClub);
 
             //Assert
@@ -110,8 +103,8 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Club savedClub = sut.CreateClub(club);
-            Club deletedDlub = sut.DeleteClub(club);
+            sut.CreateClub(club);
+            sut.DeleteClub(club);
 
             //Assert
             Assert.Empty(sut.GetClubs());
@@ -138,11 +131,11 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Club savedClub = sut.CreateClub(club);
-            Club addClub2 = sut.CreateClub(club2);
+            sut.CreateClub(club);
+            sut.CreateClub(club2);
 
             //Assert
-            Assert.Equal(2, sut.GetClubs().Count());
+            Assert.Equal(2, sut.GetClubs().Count);
         }
 
         [Fact]
@@ -165,7 +158,7 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Club savedClub = sut.CreateClub(club);
+            sut.CreateClub(club);
 
             //Assert
             var errorcount = cpv.myValidation(club).Count();
@@ -192,7 +185,7 @@ namespace Rovers4.Tests
             };
 
             //Act
-            Club savedClub = sut.CreateClub(club);
+            sut.CreateClub(club);
 
             //Assert
             var errorcount = cpv.myValidation(club).Count();
@@ -201,16 +194,11 @@ namespace Rovers4.Tests
 
         private IClubRepository GetInMemoryClubRepository()
         {
-            //DbContextOptions<ClubContext> options;
             var builder = new DbContextOptionsBuilder<ClubContext>().UseInMemoryDatabase(databaseName: "ClubListDb").Options;
-            //builder.UseInMemoryDatabase(ClubContext);
-            //options = builder.Options;
             ClubContext clubDataContext = new ClubContext(builder);
             clubDataContext.Database.EnsureDeleted();
             clubDataContext.Database.EnsureCreated();
             return new ClubRepository(clubDataContext);
         }
-
-        // Validator wont check string length, Email Format etc... 
     }
 }
