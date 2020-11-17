@@ -352,12 +352,15 @@ namespace Rovers4.Controllers
             {
                 try
                 {
-                    foreach (var player in fixture.Players)
+                    if (fixture.Players != null)
                     {
-                        if (player.Played)
+                        foreach (var player in fixture.Players)
                         {
-                            _playerStatRepository.UpdatePlayerStats(player.PersonID, player.Played, player.Assists, player.Goals, player.CleanSheet, player.RedCards, player.MotmAward);
-                        }
+                            if (player.Played)
+                            {
+                                _playerStatRepository.UpdatePlayerStats(player.PersonID, player.Played, player.Assists, player.Goals, player.CleanSheet, player.RedCards, player.MotmAward);
+                            }
+                        }  
                     }
                     _context.Update(fixture);
                     await _context.SaveChangesAsync().ConfigureAwait(true);
