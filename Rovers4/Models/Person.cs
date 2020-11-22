@@ -57,7 +57,8 @@ namespace Rovers4.Models
         {
             get
             {
-                return FirstName + " " + Surname;
+                string str = FirstName + " " + Surname;
+                return str.Substring(0, Math.Min(29, str.Length));
             }
         }
 
