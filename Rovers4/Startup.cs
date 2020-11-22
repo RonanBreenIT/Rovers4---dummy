@@ -103,7 +103,7 @@ namespace Rovers4
             //Claims-based ** Not in use **
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("AdministratorOnly", policy => policy.RequireRole("SuperAdmin"));
+                options.AddPolicy("AdministratorOnly", policy => policy.RequireRole("Super Admin"));
             });
 
             services.AddMemoryCache();
