@@ -184,9 +184,14 @@ namespace Rovers4.Controllers
 
             if (ModelState.IsValid)
             {
-                if (team.TeamImageFile != null)
+                if (team.TeamImageFile != null && team.TeamImage != null)
                 {
                     _blobService.DeleteBlobData(team.TeamImage);
+                    string teamImage = UploadedImage(team);
+                    team.TeamImage = teamImage;
+                }
+                else if (team.TeamImageFile != null && team.TeamImage == null)
+                {
                     string teamImage = UploadedImage(team);
                     team.TeamImage = teamImage;
                 }
@@ -238,7 +243,10 @@ namespace Rovers4.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var team = await _context.Teams.FindAsync(id).ConfigureAwait(true);
-            _blobService.DeleteBlobData(team.TeamImage);
+            if (team.TeamImage != null)
+            {
+                _blobService.DeleteBlobData(team.TeamImage);
+            }
             _context.Teams.Remove(team);
             await _context.SaveChangesAsync().ConfigureAwait(true);
             return RedirectToAction(nameof(Index));

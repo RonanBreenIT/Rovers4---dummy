@@ -163,23 +163,35 @@ namespace Rovers4.Controllers
 
             if (ModelState.IsValid)
             {
-                if (club.ClubImageFile1 != null)
+                if (club.ClubImageFile1 != null && club.ClubImage1 != null)
                 {
                     _blobService.DeleteBlobData(club.ClubImage1);
                     string image = UploadedImage1(club);
                     club.ClubImage1 = image;
                 }
+                else if (club.ClubImageFile1 != null && club.ClubImage1 == null)
+                {
+                    string image = UploadedImage1(club);
+                    club.ClubImage1 = image;
+                }
 
-                if (club.ClubImageFile2 != null)
+                if (club.ClubImageFile2 != null && club.ClubImage1 != null)
                 {
                     _blobService.DeleteBlobData(club.ClubImage2);
+                }
+                else if (club.ClubImageFile2 != null && club.ClubImage2 == null)
+                {
                     string image = UploadedImage2(club);
                     club.ClubImage2 = image;
                 }
 
-                if (club.ClubImageFile3 != null)
+                if (club.ClubImageFile3 != null && club.ClubImage1 != null)
                 {
                     _blobService.DeleteBlobData(club.ClubImage3);
+
+                }
+                else if (club.ClubImageFile3 != null && club.ClubImage3 == null)
+                {
                     string image = UploadedImage3(club);
                     club.ClubImage3 = image;
                 }
@@ -227,9 +239,18 @@ namespace Rovers4.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var club = await _context.Clubs.FindAsync(id).ConfigureAwait(true);
-            _blobService.DeleteBlobData(club.ClubImage1);
-            _blobService.DeleteBlobData(club.ClubImage2);
-            _blobService.DeleteBlobData(club.ClubImage3);
+            if (club.ClubImage1 != null)
+            {
+                _blobService.DeleteBlobData(club.ClubImage1);
+            }
+            if (club.ClubImage2 != null)
+            {
+                _blobService.DeleteBlobData(club.ClubImage2);
+            }
+            if (club.ClubImage2 != null)
+            {
+                _blobService.DeleteBlobData(club.ClubImage3);
+            }
             _context.Clubs.Remove(club);
             await _context.SaveChangesAsync().ConfigureAwait(true);
             return RedirectToAction(nameof(Index));

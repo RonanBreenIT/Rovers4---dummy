@@ -171,19 +171,31 @@ namespace Rovers4.Controllers
 
             if (ModelState.IsValid)
             {
-                if (person.ProfileThumbnailImage != null)
+                if (person.ProfileThumbnailImage != null  && person.ThumbnailImage != null)
                 {
                     _blobService.DeleteBlobData(person.ThumbnailImage);
                     string thumnailImage = UploadedThumbnailImage(person);
                     person.ThumbnailImage = thumnailImage;
                 }
+                else if (person.ProfileThumbnailImage != null  && person.ThumbnailImage == null)
+                {
+                    string thumnailImage = UploadedThumbnailImage(person);
+                    person.ThumbnailImage = thumnailImage;
+                }
+                
 
-                if (person.ProfileImage != null)
+                if (person.ProfileImage != null && person.Image != null)
                 {
                     _blobService.DeleteBlobData(person.Image);
                     string image = UploadedImage(person);
                     person.Image = image;
                 }
+                else if (person.ProfileImage != null && person.Image == null)
+                {
+                    string image = UploadedImage(person);
+                    person.Image = image;
+                }
+
 
                 try
                 {
@@ -233,8 +245,14 @@ namespace Rovers4.Controllers
         {
             var person = await _context.Persons.FindAsync(id).ConfigureAwait(true);
             var playerStat = await _context.PlayerStats.FirstOrDefaultAsync(i => i.PersonID == id).ConfigureAwait(true);
-            _blobService.DeleteBlobData(person.ThumbnailImage);
-            _blobService.DeleteBlobData(person.Image);
+            if (person.ThumbnailImage != null)
+            {
+                _blobService.DeleteBlobData(person.ThumbnailImage);
+            }
+            if (person.Image != null)
+            {
+                _blobService.DeleteBlobData(person.Image);
+            }
             _context.PlayerStats.Remove(playerStat); // Delete player stat record first
             _context.Persons.Remove(person);
             await _context.SaveChangesAsync().ConfigureAwait(true);
