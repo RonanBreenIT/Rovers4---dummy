@@ -175,7 +175,7 @@ namespace Rovers4.Controllers
                     club.ClubImage1 = image;
                 }
 
-                if (club.ClubImageFile2 != null && club.ClubImage1 != null)
+                if (club.ClubImageFile2 != null && club.ClubImage2 != null)
                 {
                     _blobService.DeleteBlobData(club.ClubImage2);
                 }
@@ -185,7 +185,7 @@ namespace Rovers4.Controllers
                     club.ClubImage2 = image;
                 }
 
-                if (club.ClubImageFile3 != null && club.ClubImage1 != null)
+                if (club.ClubImageFile3 != null && club.ClubImage3 != null)
                 {
                     _blobService.DeleteBlobData(club.ClubImage3);
 
@@ -239,14 +239,17 @@ namespace Rovers4.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var club = await _context.Clubs.FindAsync(id).ConfigureAwait(true);
+
             if (club.ClubImage1 != null)
             {
                 _blobService.DeleteBlobData(club.ClubImage1);
             }
+
             if (club.ClubImage2 != null)
             {
                 _blobService.DeleteBlobData(club.ClubImage2);
             }
+
             if (club.ClubImage2 != null)
             {
                 _blobService.DeleteBlobData(club.ClubImage3);
