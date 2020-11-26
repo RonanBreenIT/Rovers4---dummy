@@ -12,7 +12,6 @@ namespace Rovers4.Services
     {
         string UploadFileToBlob(string strFileName, byte[] fileData, string fileMimeType);
         void DeleteBlobData(string fileUrl);
-        string GenerateFileName(string fileName);
         Task<string> UploadFileToBlobAsync(string strFileName, byte[] fileData, string fileMimeType);
     }
 
@@ -52,24 +51,11 @@ namespace Rovers4.Services
             string strContainerName = "uploads";
             CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(strContainerName);
 
-            string pathPrefix = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd") + "/";
-            CloudBlobDirectory blobDirectory = cloudBlobContainer.GetDirectoryReference(pathPrefix);
-            // get block blob refarence    
-            CloudBlockBlob blockBlob = blobDirectory.GetBlockBlobReference(BlobName);
+            // get block blob reference    
+            CloudBlockBlob blockBlob = cloudBlobContainer.GetBlockBlobReference(BlobName);
 
             // delete blob from container        
             await blockBlob.DeleteAsync().ConfigureAwait(true);
-        }
-        public string GenerateFileName(string fileName)
-        {
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
-            string strFileName = string.Empty;
-            string[] strName = fileName.Split('.');
-            strFileName = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd") + "/" + DateTime.Now.ToUniversalTime().ToString("yyyyMMdd\\THHmmssfff") + "." + strName[strName.Length - 1];
-            return strFileName;
         }
 
         public async Task<string> UploadFileToBlobAsync(string strFileName, byte[] fileData, string fileMimeType)
@@ -89,12 +75,11 @@ namespace Rovers4.Services
                 {
                     PublicAccess = BlobContainerPublicAccessType.Blob
                 };
-                string fileName = this.GenerateFileName(strFileName);
                 await cloudBlobContainer.SetPermissionsAsync(permissions).ConfigureAwait(true);
 
-                if (fileName != null && fileData != null)
+                if (strFileName != null && fileData != null)
                 {
-                    CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(fileName);
+                    CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(strFileName);
                     cloudBlockBlob.Properties.ContentType = fileMimeType;
                     await cloudBlockBlob.UploadFromByteArrayAsync(fileData, 0, fileData.Length).ConfigureAwait(true);
                     return cloudBlockBlob.Uri.AbsoluteUri;
