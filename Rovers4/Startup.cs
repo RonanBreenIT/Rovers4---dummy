@@ -42,6 +42,7 @@ namespace Rovers4
                 options.Password.RequireUppercase = true;
                 options.User.RequireUniqueEmail = true;
             })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders() // Added this and below DefaultUI to get Register Method to work - https://stackoverflow.com/questions/52089864/unable-to-resolve-service-for-type-iemailsender-while-attempting-to-activate-reg/52090321
                 .AddDefaultUI();
@@ -138,7 +139,7 @@ namespace Rovers4
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+      
             app.UseRouting();
 
             app.UseCookiePolicy();
