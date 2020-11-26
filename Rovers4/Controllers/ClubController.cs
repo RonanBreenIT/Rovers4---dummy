@@ -178,6 +178,8 @@ namespace Rovers4.Controllers
                 if (club.ClubImageFile2 != null && club.ClubImage2 != null)
                 {
                     _blobService.DeleteBlobData(club.ClubImage2);
+                    string image = UploadedImage2(club);
+                    club.ClubImage2 = image;
                 }
                 else if (club.ClubImageFile2 != null && club.ClubImage2 == null)
                 {
@@ -188,6 +190,8 @@ namespace Rovers4.Controllers
                 if (club.ClubImageFile3 != null && club.ClubImage3 != null)
                 {
                     _blobService.DeleteBlobData(club.ClubImage3);
+                    string image = UploadedImage3(club);
+                    club.ClubImage3 = image;
 
                 }
                 else if (club.ClubImageFile3 != null && club.ClubImage3 == null)

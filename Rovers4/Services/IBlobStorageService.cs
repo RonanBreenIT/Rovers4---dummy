@@ -55,7 +55,7 @@ namespace Rovers4.Services
             CloudBlockBlob blockBlob = cloudBlobContainer.GetBlockBlobReference(BlobName);
 
             // delete blob from container        
-            await blockBlob.DeleteAsync().ConfigureAwait(true);
+            await blockBlob.DeleteIfExistsAsync().ConfigureAwait(true);
         }
 
         public async Task<string> UploadFileToBlobAsync(string strFileName, byte[] fileData, string fileMimeType)
