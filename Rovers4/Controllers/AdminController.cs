@@ -176,7 +176,7 @@ namespace Rovers4.Controllers
 
         public async Task<IActionResult> EditRole(string id)
         {
-            var role = await _roleManager.FindByIdAsync(id).ConfigureAwait(false);
+            var role = await _roleManager.FindByIdAsync(id).ConfigureAwait(true);
 
             if (role == null)
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
@@ -189,9 +189,9 @@ namespace Rovers4.Controllers
             };
 
 
-            foreach (var user in _userManager.Users)
+            foreach (var user in _userManager.Users.ToList())
             {
-                if (await _userManager.IsInRoleAsync(user, role.Name).ConfigureAwait(false))
+                if (await _userManager.IsInRoleAsync(user, role.Name).ConfigureAwait(true))
                     editRoleViewModel.Users.Add(user.UserName);
             }
 

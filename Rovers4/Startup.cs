@@ -90,14 +90,14 @@ namespace Rovers4
             {
                 options.Cookie.SameSite = SameSiteMode.Lax;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.None;
-                options.Cookie.IsEssential = true;
+                options.Cookie.IsEssential = false;
             });
 
             services.AddSession(options =>
             {
                 options.Cookie.SameSite = SameSiteMode.Lax;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.None;
-                options.Cookie.IsEssential = true;
+                options.Cookie.IsEssential = false;
             });
 
 
@@ -141,6 +141,12 @@ namespace Rovers4
             app.UseStaticFiles();
       
             app.UseRouting();
+
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseCookiePolicy();
             app.UseAuthentication();
