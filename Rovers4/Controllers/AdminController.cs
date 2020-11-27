@@ -254,7 +254,7 @@ namespace Rovers4.Controllers
 
             var addUserToRoleViewModel = new UserRoleViewModel { RoleId = role.Id };
 
-            foreach (var user in _userManager.Users)
+            foreach (var user in _userManager.Users.ToList())
             {
                 if (!await _userManager.IsInRoleAsync(user, role.Name).ConfigureAwait(false))
                 {
@@ -300,7 +300,7 @@ namespace Rovers4.Controllers
 
             var addUserToRoleViewModel = new UserRoleViewModel { RoleId = role.Id };
 
-            foreach (var user in _userManager.Users)
+            foreach (var user in _userManager.Users.ToList())
             {
                 if (await _userManager.IsInRoleAsync(user, role.Name).ConfigureAwait(true))
                 {
