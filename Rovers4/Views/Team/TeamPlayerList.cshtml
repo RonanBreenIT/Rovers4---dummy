@@ -38,9 +38,9 @@
             <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">
-                    <p class="font-weight-bold" style="color:dodgerblue">@staff.FullName</p>
+                    <p class="font-weight-bold">@staff.FullName</p>
                 </h5>
-                <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                <p class="card-text" style="color:black">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
             </div>
             </a>
                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
@@ -72,9 +72,9 @@
                     <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">
-                            <p class="font-weight-bold" style="color:dodgerblue">@staff.FullName</p>
+                            <p class="font-weight-bold">@staff.FullName</p>
                         </h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                        <p class="card-text" style="color:black">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
                     </div>
                 </a>
                     @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
@@ -106,9 +106,9 @@
                     <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">
-                            <p class="font-weight-bold" style="color:dodgerblue">@staff.FullName</p>
+                            <p class="font-weight-bold">@staff.FullName</p>
                         </h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                        <p class="card-text" style="color:black">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
                     </div>
                 </a>
                     @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
@@ -140,9 +140,9 @@
                     <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">
-                            <p class="font-weight-bold" style="color:dodgerblue">@staff.FullName</p>
+                            <p class="font-weight-bold">@staff.FullName</p>
                         </h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                        <p class="card-text" style="color:black">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
                     </div>
                 </a>
                     @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
@@ -174,9 +174,9 @@
                     <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">
-                            <p class="font-weight-bold" style="color:dodgerblue">@staff.FullName</p>
+                            <p class="font-weight-bold">@staff.FullName</p>
                         </h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => staff.MgmtRole)</p>
+                        <p class="card-text" style="color:black">@Html.DisplayFor(modelItem => staff.MgmtRole)</p>
                     </div>
                 </a>
                     @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
