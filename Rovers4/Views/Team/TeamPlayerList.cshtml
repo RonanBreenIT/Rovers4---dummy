@@ -31,15 +31,18 @@
     </header>
     @foreach (var staff in Model.Goalkeepers)
     {
-        <div class="card shadow-sm" @*style="width: 18rem;"*@>
+        <div class="card shadow-sm" id="personCard">
+            <a asp-controller="PlayerStat"
+                       asp-action="PlayerStatList"
+                       asp-route-id="@staff.PersonID">
             <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">
-                    <a class="font-weight-bold" style="color:dodgerblue" asp-controller="PlayerStat"
-                       asp-action="PlayerStatList"
-                       asp-route-id="@staff.PersonID">@staff.FullName</a>
+                    <p class="font-weight-bold" style="color:dodgerblue">@staff.FullName</p>
                 </h5>
                 <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+            </div>
+            </a>
                 @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                 {
                     <div>
@@ -48,7 +51,6 @@
                     </div>
                 }
             </div>
-        </div>
     }
 </section>
 }
@@ -64,14 +66,17 @@
         @foreach (var staff in Model.Defenders)
         {
             <div class="card">
-                <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a class="font-weight-bold" style="color:dodgerblue" asp-controller="PlayerStat"
-                           asp-action="PlayerStatList"
-                           asp-route-id="@staff.PersonID">@staff.FullName</a>
-                    </h5>
-                    <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                <a asp-controller="PlayerStat"
+                   asp-action="PlayerStatList"
+                   asp-route-id="@staff.PersonID">
+                    <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <p class="font-weight-bold" style="color:dodgerblue">@staff.FullName</p>
+                        </h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                    </div>
+                </a>
                     @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                     {
                         <div>
@@ -79,7 +84,6 @@
                             <a class="btn btn-danger" asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                         </div>
                     }
-                </div>
             </div>
         }
     </section>
@@ -96,14 +100,17 @@
         @foreach (var staff in Model.Midfielders)
         {
             <div class="card">
-                <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a class="font-weight-bold" style="color:dodgerblue" asp-controller="PlayerStat"
-                           asp-action="PlayerStatList"
-                           asp-route-id="@staff.PersonID">@staff.FullName</a>
-                    </h5>
-                    <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                <a asp-controller="PlayerStat"
+                   asp-action="PlayerStatList"
+                   asp-route-id="@staff.PersonID">
+                    <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <p class="font-weight-bold" style="color:dodgerblue">@staff.FullName</p>
+                        </h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                    </div>
+                </a>
                     @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                     {
                         <div>
@@ -111,7 +118,6 @@
                             <a class="btn btn-danger" asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                         </div>
                     }
-                </div>
             </div>
         }
     </section>
@@ -128,14 +134,17 @@
         @foreach (var staff in Model.Forwards)
         {
             <div class="card">
-                <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a class="font-weight-bold" style="color:dodgerblue" asp-controller="PlayerStat"
-                           asp-action="PlayerStatList"
-                           asp-route-id="@staff.PersonID">@staff.FullName</a>
-                    </h5>
-                    <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                <a asp-controller="PlayerStat"
+                   asp-action="PlayerStatList"
+                   asp-route-id="@staff.PersonID">
+                    <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <p class="font-weight-bold" style="color:dodgerblue">@staff.FullName</p>
+                        </h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                    </div>
+                </a>
                     @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                     {
                         <div>
@@ -143,7 +152,6 @@
                             <a class="btn btn-danger" asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                         </div>
                     }
-                </div>
             </div>
         }
     </section>
@@ -160,14 +168,17 @@
         @foreach (var staff in Model.Mgmt)
         {
             <div class="card">
-                <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a class="font-weight-bold" style="color:dodgerblue" asp-controller="PlayerStat"
-                           asp-action="PlayerStatList"
-                           asp-route-id="@staff.PersonID">@staff.FullName</a>
-                    </h5>
-                    <p class="card-text">@Html.DisplayFor(modelItem => staff.MgmtRole)</p>
+                <a asp-controller="PlayerStat"
+                   asp-action="PlayerStatList"
+                   asp-route-id="@staff.PersonID">
+                    <img class="card-img-top" src="@staff.ThumbnailImage" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <p class="font-weight-bold" style="color:dodgerblue">@staff.FullName</p>
+                        </h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => staff.MgmtRole)</p>
+                    </div>
+                </a>
                     @if ((this.User.IsInRole("Super Admin")) || (this.User.IsInRole(Model.CurrentTeam)))
                     {
                         <div>
@@ -175,7 +186,6 @@
                             <a class="btn btn-danger" asp-controller="People" asp-action="Delete" asp-route-id="@staff.PersonID">Delete</a>
                         </div>
                     }
-                </div>
             </div>
         }
     </section>
