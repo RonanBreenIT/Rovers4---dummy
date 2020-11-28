@@ -42,11 +42,11 @@ namespace Rovers4.Controllers
             if (!ModelState.IsValid)
                 return View(loginViewModel);
 
-            var user = await _userManager.FindByNameAsync(loginViewModel.UserName).ConfigureAwait(false);
+            var user = await _userManager.FindByNameAsync(loginViewModel.UserName).ConfigureAwait(true);
 
             if (user != null)
             {
-                var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false).ConfigureAwait(false);
+                var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false).ConfigureAwait(true);
                 if (result.Succeeded)
                 {
                     if (string.IsNullOrEmpty(loginViewModel.ReturnUrl))
@@ -78,7 +78,7 @@ namespace Rovers4.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser() { UserName = loginViewModel.UserName };
-                var result = await _userManager.CreateAsync(user, loginViewModel.Password).ConfigureAwait(false);
+                var result = await _userManager.CreateAsync(user, loginViewModel.Password).ConfigureAwait(true);
 
                 if (result.Succeeded)
                 {
@@ -91,7 +91,7 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync().ConfigureAwait(false);
+            await _signInManager.SignOutAsync().ConfigureAwait(true);
             return RedirectToAction("Index", "Home");
         }
 
