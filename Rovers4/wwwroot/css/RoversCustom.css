@@ -311,6 +311,13 @@ h1, h2, h3, h4, h6 {
  #cardHome :hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
 }
+    #cardHome h5{
+        font-weight:bold;
+    }
+    #cardHome p {
+        color: #3C6478;
+    }
+
     #cardHome a :hover {
         color: initial;
         text-decoration: initial;
