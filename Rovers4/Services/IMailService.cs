@@ -38,7 +38,6 @@ namespace Rovers4.Services
                 Opponent = opponent,
                 MeetLocation = meetLocation,
                 MeetTime = meetTime
-
             });
             await client.SendEmailAsync(sendGridMessage).ConfigureAwait(true);
         }
