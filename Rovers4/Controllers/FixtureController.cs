@@ -148,6 +148,7 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
+                _logger.LogWarning("Result Details for Team not found at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -156,6 +157,7 @@ namespace Rovers4.Controllers
                 .FirstOrDefaultAsync(m => m.FixtureID == id).ConfigureAwait(true);
             if (fixture == null)
             {
+                _logger.LogWarning("Result Details for Team not found at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
             _logger.LogInformation("Fixture {id} details found at {Time}", id, DateTime.UtcNow);
@@ -212,13 +214,13 @@ namespace Rovers4.Controllers
         {
             if (fixture == null)
             {
-                _logger.LogWarning("No fixture passed to edit at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue editing fixture at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(fixture));
             }
 
             if (id != fixture.FixtureID)
             {
-                _logger.LogWarning("No fixture passed to edit at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue editing fixture at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -273,13 +275,13 @@ namespace Rovers4.Controllers
         {
             if (fixture == null)
             {
-                _logger.LogWarning("No fixture passed to edit result at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue editing result at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(fixture));
             }
 
             if (id != fixture.FixtureID)
             {
-                _logger.LogWarning("No fixture passed to edit result at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue editing result at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -354,13 +356,13 @@ namespace Rovers4.Controllers
         {
             if (fixture == null)
             {
-                _logger.LogWarning("No fixture passed to add result at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue adding result at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(fixture));
             }
 
             if (id != fixture.FixtureID)
             {
-                _logger.LogWarning("No fixture passed to add result at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue adding result at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 

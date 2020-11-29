@@ -143,14 +143,14 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
-                _logger.LogWarning("Club not found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Club not found to edit at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
             var club = await _context.Clubs.FindAsync(id).ConfigureAwait(true);
             if (club == null)
             {
-                _logger.LogWarning("Club not found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Club not found to edit at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
             return View(club);
@@ -237,7 +237,7 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
-                _logger.LogWarning("Club not found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Club not found to delete at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -245,9 +245,10 @@ namespace Rovers4.Controllers
                 .FirstOrDefaultAsync(m => m.ClubID == id).ConfigureAwait(true);
             if (club == null)
             {
-                _logger.LogWarning("Club not found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Club not found to delete at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
+            _logger.LogInformation("Club found for deletion at {Time}", DateTime.UtcNow);
             return View(club);
         }
 

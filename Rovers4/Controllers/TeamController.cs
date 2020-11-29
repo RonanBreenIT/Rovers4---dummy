@@ -118,7 +118,7 @@ namespace Rovers4.Controllers
                 }
                 model.TeamImage = _blobService.UploadFileToBlob(model.TeamImageFile.FileName, dataFiles, mimeType);
             }
-            _logger.LogInformation("Teams Image uploaded at {Time}", DateTime.UtcNow);
+            _logger.LogInformation("Team Image uploaded at {Time}", DateTime.UtcNow);
             return model.TeamImage;
         }
 
@@ -136,7 +136,7 @@ namespace Rovers4.Controllers
         {
             if (team == null)
             {
-                _logger.LogWarning("No Team found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue Creating Team at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(team));
             }
 
@@ -159,16 +159,17 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
-                _logger.LogWarning("No Team found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("No Team found to edit at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
             var team = await _context.Teams.FindAsync(id).ConfigureAwait(true);
             if (team == null)
             {
-                _logger.LogWarning("No Team found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("No Team found to edit at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
+            _logger.LogInformation("Team found at {Time} for editing", DateTime.UtcNow);
             ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name", team.ClubID);
             return View(team);
         }
@@ -180,13 +181,13 @@ namespace Rovers4.Controllers
         {
             if (team == null)
             {
-                _logger.LogWarning("No Team found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue editing Team at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(team));
             }
 
             if (id != team.TeamID)
             {
-                _logger.LogWarning("No Team found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue editing Team at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -232,7 +233,7 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
-                _logger.LogWarning("No Team found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue deleting Team at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -241,10 +242,10 @@ namespace Rovers4.Controllers
                 .FirstOrDefaultAsync(m => m.TeamID == id).ConfigureAwait(true);
             if (team == null)
             {
-                _logger.LogWarning("No Team found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue deleting Team at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
-            _logger.LogInformation("Team found at {Time}", DateTime.UtcNow);
+            _logger.LogInformation("Team found for deletion at {Time}", DateTime.UtcNow);
             return View(team);
         }
 

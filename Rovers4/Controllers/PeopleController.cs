@@ -45,7 +45,7 @@ namespace Rovers4.Controllers
                 }
                 model.ThumbnailImage = _blobService.UploadFileToBlob(model.ProfileThumbnailImage.FileName, dataFiles, mimeType);
             }
-            _logger.LogInformation("Staff Image uploaded at {Time}", DateTime.UtcNow);
+            _logger.LogInformation("Person Image uploaded at {Time}", DateTime.UtcNow);
             return model.ThumbnailImage;
         }
 
@@ -64,14 +64,14 @@ namespace Rovers4.Controllers
                 }
                 model.Image = _blobService.UploadFileToBlob(model.ProfileImage.FileName, dataFiles, mimeType);
             }
-            _logger.LogInformation("Staff Image uploaded at {Time}", DateTime.UtcNow);
+            _logger.LogInformation("Person Image uploaded at {Time}", DateTime.UtcNow);
             return model.Image;
         }
 
         [Authorize(Roles = "Super Admin, Team Admin")]
         public IActionResult Create(int TeamID)
         {
-            _logger.LogInformation("Team found at {Time}", DateTime.UtcNow);
+            _logger.LogInformation("Team found at {Time} for person creation", DateTime.UtcNow);
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
             return View();
         }
@@ -83,7 +83,7 @@ namespace Rovers4.Controllers
         {
             if (model == null)
             {
-                _logger.LogWarning("No Player found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue creating Player at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(model));
             }
 
@@ -113,7 +113,7 @@ namespace Rovers4.Controllers
         [Authorize(Roles = "Super Admin, Team Admin")]
         public IActionResult CreateMgmt(int TeamID)
         {
-            _logger.LogInformation("Team found at {Time}",DateTime.UtcNow);
+            _logger.LogInformation("Team found at {Time} for person creation",DateTime.UtcNow);
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
             return View();
         }
@@ -125,7 +125,7 @@ namespace Rovers4.Controllers
         {
             if (model == null)
             {
-                _logger.LogWarning("No Management found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue creating Management at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(model));
             }
 
@@ -152,17 +152,17 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
-                _logger.LogWarning("No Person found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("No Person found to edit at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
             var person = await _context.Persons.FindAsync(id).ConfigureAwait(true);
             if (person == null)
             {
-                _logger.LogWarning("No Person found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("No Person found to edit at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
-            _logger.LogInformation("Person found at {Time}", DateTime.UtcNow);
+            _logger.LogInformation("Person found to edit at {Time}", DateTime.UtcNow);
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(person.TeamID)?.Name;
             ViewBag.PersonType = person.PersonType.ToString();
             return View(person);
@@ -175,13 +175,13 @@ namespace Rovers4.Controllers
         {
             if (person == null)
             {
-                _logger.LogWarning("No Person found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue editing Player at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(person));
             } 
 
             if (id != person.PersonID)
             {
-                _logger.LogWarning("No Person found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("Issue editing Player at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -239,7 +239,7 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
-                _logger.LogWarning("No Person found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("No Person found to delete at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -248,10 +248,10 @@ namespace Rovers4.Controllers
                 .FirstOrDefaultAsync(m => m.PersonID == id).ConfigureAwait(true);
             if (person == null)
             {
-                _logger.LogWarning("No Person found at {Time}", DateTime.UtcNow);
+                _logger.LogWarning("No Person found to delete at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
-            _logger.LogInformation("Person found at {Time}", DateTime.UtcNow);
+            _logger.LogInformation("Person found to delete at {Time}", DateTime.UtcNow);
             return View(person);
         }
 
