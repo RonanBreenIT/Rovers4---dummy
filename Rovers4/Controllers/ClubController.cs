@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.Services;
@@ -17,11 +18,13 @@ namespace Rovers4.Controllers
     {
         private readonly ClubContext _context;
         private readonly IBlobStorageService _blobService;
+        private readonly ILogger<ClubController> _logger;
 
-        public ClubController(ClubContext context, IBlobStorageService storageService)
+        public ClubController(ClubContext context, IBlobStorageService storageService, ILogger<ClubController> logger)
         {
             _context = context;
             _blobService = storageService;
+            _logger = logger;
         }
 
         // GET: Club
@@ -44,7 +47,6 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-
             return View(club);
         }
 
@@ -62,6 +64,7 @@ namespace Rovers4.Controllers
                 }
                 model.ClubImage1 = _blobService.UploadFileToBlob(model.ClubImageFile1.FileName, dataFiles, mimeType);
             }
+            _logger.LogInformation("New Blob Image uploaded at {Time}", DateTime.UtcNow);
             return model.ClubImage1;
         }
         private string UploadedImage2(Club model)
@@ -78,6 +81,7 @@ namespace Rovers4.Controllers
                 }
                 model.ClubImage2 = _blobService.UploadFileToBlob(model.ClubImageFile2.FileName, dataFiles, mimeType);
             }
+            _logger.LogInformation("New Blob Image uploaded at {Time}", DateTime.UtcNow);
             return model.ClubImage2;
         }
 
@@ -96,6 +100,7 @@ namespace Rovers4.Controllers
                 }
                 model.ClubImage3 = _blobService.UploadFileToBlob(model.ClubImageFile3.FileName, dataFiles, mimeType);
             }
+            _logger.LogInformation("New Blob Image uploaded at {Time}", DateTime.UtcNow);
             return model.ClubImage3;
         }
 
@@ -111,7 +116,8 @@ namespace Rovers4.Controllers
         {
             if (club == null)
             {
-                throw new ArgumentNullException(nameof(club));
+                _logger.LogWarning("Issue Creating Club at {Time}", DateTime.UtcNow);
+                throw new ArgumentNullException(nameof(club)); 
             }
 
             if (ModelState.IsValid)
@@ -128,6 +134,7 @@ namespace Rovers4.Controllers
                 await _context.SaveChangesAsync().ConfigureAwait(true);
                 return RedirectToAction(nameof(Index));
             }
+            _logger.LogInformation("New Club {Name} created at {Time}", club.Name, DateTime.UtcNow);
             return View(club);
         }
 
@@ -136,12 +143,14 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
+                _logger.LogWarning("Club not found at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
             var club = await _context.Clubs.FindAsync(id).ConfigureAwait(true);
             if (club == null)
             {
+                _logger.LogWarning("Club not found at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
             return View(club);
@@ -153,11 +162,13 @@ namespace Rovers4.Controllers
         {
             if (club == null)
             {
+                _logger.LogWarning("Issue editing Club at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(club));
             }
 
             if (id != club.ClubID)
             {
+                _logger.LogWarning("Issue editing Club at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -216,6 +227,7 @@ namespace Rovers4.Controllers
                         throw;
                     }
                 }
+                _logger.LogInformation("Club {Name} edited at {Time}", club.Name, DateTime.UtcNow);
                 return RedirectToAction(nameof(Index));
             }
             return View(club);
@@ -225,6 +237,7 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
+                _logger.LogWarning("Club not found at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -232,9 +245,9 @@ namespace Rovers4.Controllers
                 .FirstOrDefaultAsync(m => m.ClubID == id).ConfigureAwait(true);
             if (club == null)
             {
+                _logger.LogWarning("Club not found at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
-
             return View(club);
         }
 
@@ -260,6 +273,7 @@ namespace Rovers4.Controllers
             }
             _context.Clubs.Remove(club);
             await _context.SaveChangesAsync().ConfigureAwait(true);
+            _logger.LogInformation("Club {id} deleted at {Time}", id, DateTime.UtcNow);
             return RedirectToAction(nameof(Index));
         }
 

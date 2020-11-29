@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.ViewModels;
@@ -19,12 +20,14 @@ namespace Rovers4.Controllers
         private readonly IPersonRepository _personRepository;
         private readonly IPlayerStatRepository _playerStatRepository;
         private readonly ClubContext _context;
+        private readonly ILogger<PlayerStatController> _logger;
 
-        public PlayerStatController(IPersonRepository personRepository, ClubContext context, IPlayerStatRepository playerStatRepository)
+        public PlayerStatController(IPersonRepository personRepository, ClubContext context, IPlayerStatRepository playerStatRepository, ILogger<PlayerStatController> logger)
         {
             _personRepository = personRepository;
             _playerStatRepository = playerStatRepository;
             _context = context;
+            _logger = logger;
 
         }
 
@@ -37,6 +40,7 @@ namespace Rovers4.Controllers
 
             if (id == null)
             {
+                _logger.LogWarning("No Player Stat found at {Time}", DateTime.UtcNow);
                 stat = _playerStatRepository.AllStats.OrderBy(p => p.PersonID);
                 staff = _personRepository.AllStaff.OrderBy(p => p.PersonID);
                 currentPlayer = "All Players";
@@ -58,7 +62,7 @@ namespace Rovers4.Controllers
                     hasStats = false;
                 }
             }
-
+            _logger.LogInformation("Player Stat found at {Time}", DateTime.UtcNow);
             return View(new PlayerStatsViewModel
             {
                 Stats = stat,
@@ -69,42 +73,11 @@ namespace Rovers4.Controllers
         }
 
         [Authorize(Roles = "Super Admin, Team Admin")]
-        public IActionResult Create()
-        {
-            ViewData["Players"] = new SelectList(_context.Persons, "PersonID", "FullName");
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Super Admin, Team Admin")]
-        public async Task<IActionResult> Create([Bind("PlayerStatID,GamesPlayed,Assists,Goals,CleanSheet,RedCards,MotmAward,PersonID")] PlayerStat playerStat)
-        {
-            if (playerStat == null)
-            {
-                throw new ArgumentNullException(nameof(playerStat));
-            }
-
-            if (PlayerStatExists(playerStat.PersonID))
-            {
-                return BadRequest("Player Stats already exists for this player");
-            }
-
-            if (ModelState.IsValid)
-            {
-                _context.Add(playerStat);
-                await _context.SaveChangesAsync().ConfigureAwait(true);
-                return RedirectToAction("Index", "Team");
-            }
-            ViewData["Players"] = new SelectList(_context.Persons, "PersonID", "FullName", playerStat.PersonID);
-            return View(playerStat);
-        }
-
-        [Authorize(Roles = "Super Admin, Team Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
+                _logger.LogWarning("No Player Stat found at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -112,8 +85,10 @@ namespace Rovers4.Controllers
                 .FirstOrDefaultAsync(m => m.PersonID == id).ConfigureAwait(true);
             if (playerStat == null)
             {
+                _logger.LogWarning("No Player Stat found at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
+            _logger.LogInformation("Player Stat found at {Time}", DateTime.UtcNow);
             ViewData["CurrentPlayer"] = _personRepository.AllStaff.FirstOrDefault(c => c.PersonID == id)?.FullName;
             return View(playerStat);
         }
@@ -151,7 +126,7 @@ namespace Rovers4.Controllers
                         throw;
                     }
                 }
-                ViewData["CurrentPlayer"] = _personRepository.AllStaff.FirstOrDefault(c => c.PersonID == id)?.FullName;
+                _logger.LogInformation("Player Stat updated for {id} at {Time}", playerStat.PersonID,  DateTime.UtcNow);
                 return RedirectToAction("Index", "Team");
             }
             ViewData["CurrentPlayer"] = _personRepository.AllStaff.FirstOrDefault(c => c.PersonID == id)?.FullName;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.ViewModels;
@@ -19,17 +20,16 @@ namespace Rovers4.Controllers
         private readonly ITeamRepository _teamRepository;
         private readonly IPersonRepository _personRepository;
         private readonly IPlayerStatRepository _playerStatRepository;
+        private readonly ILogger<FixtureController> _logger;
 
-
-
-        public FixtureController(ClubContext context, IFixtureRepository fixtureRepository, ITeamRepository teamRepository, IPersonRepository personRepository, IPlayerStatRepository playerStatRepository)
+        public FixtureController(ClubContext context, IFixtureRepository fixtureRepository, ITeamRepository teamRepository, IPersonRepository personRepository, IPlayerStatRepository playerStatRepository, ILogger<FixtureController> logger)
         {
             _context = context;
             _fixtureRepository = fixtureRepository;
             _teamRepository = teamRepository;
             _personRepository = personRepository;
             _playerStatRepository = playerStatRepository;
-
+            _logger = logger;
         }
 
         public ViewResult TeamFixtureList(int? id)
@@ -160,13 +160,14 @@ namespace Rovers4.Controllers
             {
                 return NotFound();
             }
-
+            _logger.LogInformation("Fixture {id} details found at {Time}", id, DateTime.UtcNow);
             return View(fixture);
         }
 
         [Authorize(Roles = "Super Admin, Team Admin")]
         public IActionResult Create(int TeamID)
         {
+            _logger.LogWarning("No Team found to create Fixture at {Time}", DateTime.UtcNow);
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
             return View();
         }
@@ -180,6 +181,7 @@ namespace Rovers4.Controllers
             {
                 _context.Add(fixture);
                 await _context.SaveChangesAsync().ConfigureAwait(true);
+                _logger.LogInformation("Fixture {id} created at {Time}", fixture.FixtureID, DateTime.UtcNow);
                 return RedirectToAction("Index", "Team");
             }
             return View(fixture);
@@ -190,14 +192,17 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
+                _logger.LogWarning("No fixture found to edit at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
             var fixture = await _context.Fixtures.FindAsync(id).ConfigureAwait(true);
             if (fixture == null)
             {
+                _logger.LogWarning("No fixture found to edit at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
+            _logger.LogInformation("Fixture {id} found to edit at {Time}", id, DateTime.UtcNow);
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(fixture.TeamID)?.Name;
             return View(fixture);
         }
@@ -209,11 +214,13 @@ namespace Rovers4.Controllers
         {
             if (fixture == null)
             {
+                _logger.LogWarning("No fixture passed to edit at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(fixture));
             }
 
             if (id != fixture.FixtureID)
             {
+                _logger.LogWarning("No fixture passed to edit at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -235,6 +242,7 @@ namespace Rovers4.Controllers
                         throw;
                     }
                 }
+                _logger.LogInformation("Fixture {id} edited at {Time}", id, DateTime.UtcNow);
                 return RedirectToAction("Index", "Team");
             }
             return View(fixture);
@@ -245,14 +253,17 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
+                _logger.LogWarning("No fixture found to edit result at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
             var fixture = await _context.Fixtures.FindAsync(id).ConfigureAwait(true);
             if (fixture == null)
             {
+                _logger.LogWarning("No fixture found to edit result at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
+            _logger.LogInformation("Fixture {id} found to edit result at {Time}", id, DateTime.UtcNow);
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(fixture.TeamID)?.Name;
             return View(fixture);
         }
@@ -264,11 +275,13 @@ namespace Rovers4.Controllers
         {
             if (fixture == null)
             {
+                _logger.LogWarning("No fixture passed to edit result at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(fixture));
             }
 
             if (id != fixture.FixtureID)
             {
+                _logger.LogWarning("No fixture passed to edit result at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -290,6 +303,7 @@ namespace Rovers4.Controllers
                         throw;
                     }
                 }
+                _logger.LogInformation("Fixture {id} result edited at {Time}", id, DateTime.UtcNow);
                 return RedirectToAction("Index", "Team");
             }
             return View(fixture);
@@ -300,6 +314,7 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
+                _logger.LogWarning("No fixture found to add result at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -326,9 +341,10 @@ namespace Rovers4.Controllers
 
             if (fixture == null)
             {
+                _logger.LogWarning("No fixture found to add result at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
-
+            _logger.LogInformation("Fixture {id} found to add result at {Time}", id, DateTime.UtcNow);
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(fixture.TeamID)?.Name;
             return View(fixture);
         }
@@ -340,11 +356,13 @@ namespace Rovers4.Controllers
         {
             if (fixture == null)
             {
+                _logger.LogWarning("No fixture passed to add result at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(fixture));
             }
 
             if (id != fixture.FixtureID)
             {
+                _logger.LogWarning("No fixture passed to add result at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -376,6 +394,7 @@ namespace Rovers4.Controllers
                         throw;
                     }
                 }
+                _logger.LogInformation("Fixture {id} result added at {Time}", id, DateTime.UtcNow);
                 return RedirectToAction("Index", "Team");
             }
             return View(fixture);
@@ -387,6 +406,7 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
+                _logger.LogWarning("No fixture found to delete at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -395,6 +415,7 @@ namespace Rovers4.Controllers
                 .FirstOrDefaultAsync(m => m.FixtureID == id).ConfigureAwait(true);
             if (fixture == null)
             {
+                _logger.LogWarning("No fixture found to delete at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -409,6 +430,7 @@ namespace Rovers4.Controllers
             var fixture = await _context.Fixtures.FindAsync(id).ConfigureAwait(true);
             _context.Fixtures.Remove(fixture);
             await _context.SaveChangesAsync().ConfigureAwait(true);
+            _logger.LogInformation("Fixture {id} deleted at {Time}", id, DateTime.UtcNow);
             return RedirectToAction("Index", "Team");
         }
         private bool FixtureExists(int id)
