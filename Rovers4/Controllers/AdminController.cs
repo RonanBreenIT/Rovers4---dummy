@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Rovers4.Controllers
 {
-   // [Authorize(Roles = "Super Admin")]
+    [Authorize(Roles = "Super Admin")]
     [ResponseCache(CacheProfileName = "None")]
     public class AdminController : Controller
     {
