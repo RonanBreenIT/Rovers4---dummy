@@ -117,8 +117,6 @@ namespace Rovers4.Controllers
                 goalsAgainst = _fixtureRepository.GoalsAgainst(id);
                 gamesPlayed = (totalWins + totalDraws + totalLosses);
             }
-
-            //ViewData["TotalWins"] = currentTeam.
             return View(new FixtureListViewModel
             {
                 Fixtures = fixtures,
