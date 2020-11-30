@@ -97,7 +97,7 @@ namespace Rovers4.Models
         public ResultDescription ResultDescription { get; set; }
 
         [DisplayFormat(NullDisplayText = "TBC")]
-        [Display(Name = "Match Report"), StringLength(1280, MinimumLength = 0, ErrorMessage = "Team Bio cannot be longer than 1280 characters")]
+        [Display(Name = "Match Report"), StringLength(3000, MinimumLength = 0, ErrorMessage = "Team Bio cannot be longer than 3000 characters")]
         [Column(Order = 13)]
         public string MatchReport { get; set; } = null;
 

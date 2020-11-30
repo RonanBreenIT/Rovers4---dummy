@@ -22,7 +22,7 @@
             </div>
             <img class="card-img-top" src="@team.TeamImage" alt="Card image cap">
             <div class="card-body">
-                <p class="card-text">@Html.DisplayFor(modelItem => team.TeamBio)</p>
+                <p class="card-text" style="white-space: pre-line">@Html.DisplayFor(modelItem => team.TeamBio)</p>
                 <a class="btn btn-primary" id="teamBtn" asp-action="TeamPlayerList" asp-route-id="@team.TeamID">Roster</a>
                 <a class="btn btn-success" id="teamBtn" asp-controller="Fixture" asp-action="TeamFixtureList" asp-route-id="@team.TeamID">Fixtures</a>
                 @if (this.User.IsInRole("Super Admin"))
