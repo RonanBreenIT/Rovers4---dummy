@@ -14,7 +14,7 @@ namespace Rovers4.Models
         [Display(Name = "Team Name"), StringLength(80, MinimumLength = 1, ErrorMessage = "Team Name cannot be longer than 80 characters or null.")]
         public string Name { get; set; }
 
-        [Display(Name = "Team Biography"), StringLength(1280, MinimumLength = 0, ErrorMessage = "Team Bio cannot be longer than 1280 characters")]
+        [Display(Name = "Team Biography"), StringLength(2000, MinimumLength = 0, ErrorMessage = "Team Bio cannot be longer than 2000 characters")]
         public string TeamBio { get; set; }
 
         [DisplayFormat(NullDisplayText = "No Image")]

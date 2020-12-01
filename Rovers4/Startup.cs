@@ -42,6 +42,7 @@ namespace Rovers4
                 options.Password.RequireUppercase = true;
                 options.User.RequireUniqueEmail = true;
             })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders() // Added this and below DefaultUI to get Register Method to work - https://stackoverflow.com/questions/52089864/unable-to-resolve-service-for-type-iemailsender-while-attempting-to-activate-reg/52090321
                 .AddDefaultUI();
@@ -87,23 +88,23 @@ namespace Rovers4
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
-                options.Cookie.SameSite = SameSiteMode.Strict;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.Cookie.IsEssential = true;
+                options.Cookie.SameSite = SameSiteMode.Lax;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.None;
+                options.Cookie.IsEssential = false;
             });
 
             services.AddSession(options =>
             {
-                options.Cookie.SameSite = SameSiteMode.Strict;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.Cookie.IsEssential = true;
+                options.Cookie.SameSite = SameSiteMode.Lax;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.None;
+                options.Cookie.IsEssential = false;
             });
 
 
             //Claims-based ** Not in use **
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("AdministratorOnly", policy => policy.RequireRole("SuperAdmin"));
+                options.AddPolicy("AdministratorOnly", policy => policy.RequireRole("Super Admin"));
             });
 
             services.AddMemoryCache();
@@ -138,8 +139,14 @@ namespace Rovers4
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+      
             app.UseRouting();
+
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseCookiePolicy();
             app.UseAuthentication();

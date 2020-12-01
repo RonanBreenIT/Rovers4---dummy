@@ -4,6 +4,7 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Rovers4.Services
 {
@@ -15,10 +16,11 @@ namespace Rovers4.Services
     public class SendGridMailService : IMailService
     {
         private readonly IConfiguration _configuration;
-
-        public SendGridMailService(IConfiguration configuration)
+        private readonly ILogger<SendGridMailService> _logger;
+        public SendGridMailService(IConfiguration configuration, ILogger<SendGridMailService> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
         public async Task SendEmailAsync(string toEmail, string subject, string fixTypeString, string homeOrAwayString, DateTime kickOff, string opponent, string meetLocation, DateTime meetTime)
         {
@@ -38,9 +40,9 @@ namespace Rovers4.Services
                 Opponent = opponent,
                 MeetLocation = meetLocation,
                 MeetTime = meetTime
-
-            });
+            });     
             await client.SendEmailAsync(sendGridMessage).ConfigureAwait(true);
+            _logger.LogInformation("Email successfully sent at {Time}", DateTime.UtcNow);
         }
     }
 }

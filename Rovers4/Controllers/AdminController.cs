@@ -61,7 +61,7 @@ namespace Rovers4.Controllers
                 Birthdate = addUserViewModel.Birthdate
             };
 
-            IdentityResult result = await _userManager.CreateAsync(user, addUserViewModel.Password).ConfigureAwait(false);
+            IdentityResult result = await _userManager.CreateAsync(user, addUserViewModel.Password).ConfigureAwait(true);
 
             if (result.Succeeded)
             {
@@ -77,12 +77,12 @@ namespace Rovers4.Controllers
 
         public async Task<IActionResult> EditUser(string id)
         {
-            var user = await _userManager.FindByIdAsync(id).ConfigureAwait(false);
+            var user = await _userManager.FindByIdAsync(id).ConfigureAwait(true);
 
             if (user == null)
                 return RedirectToAction("UserManagement", _userManager.Users);
 
-            var claims = await _userManager.GetClaimsAsync(user).ConfigureAwait(false);
+            var claims = await _userManager.GetClaimsAsync(user).ConfigureAwait(true);
             var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, UserClaims = claims.Select(c => c.Value).ToList() };
             return View(vm);
         }
@@ -95,7 +95,7 @@ namespace Rovers4.Controllers
                 throw new ArgumentNullException(nameof(editUserViewModel));
             }
 
-            var user = await _userManager.FindByIdAsync(editUserViewModel.Id).ConfigureAwait(false);
+            var user = await _userManager.FindByIdAsync(editUserViewModel.Id).ConfigureAwait(true);
 
             if (user != null)
             {
@@ -103,7 +103,7 @@ namespace Rovers4.Controllers
                 user.Email = editUserViewModel.Email;
                 user.Birthdate = editUserViewModel.Birthdate;
 
-                var result = await _userManager.UpdateAsync(user).ConfigureAwait(false);
+                var result = await _userManager.UpdateAsync(user).ConfigureAwait(true);
 
                 if (result.Succeeded)
                     return RedirectToAction("UserManagement", _userManager.Users);
@@ -118,11 +118,11 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUser(string Id)
         {
-            var user = await _userManager.FindByIdAsync(Id).ConfigureAwait(false);
+            var user = await _userManager.FindByIdAsync(Id).ConfigureAwait(true);
 
             if (user != null)
             {
-                IdentityResult result = await _userManager.DeleteAsync(user).ConfigureAwait(false);
+                IdentityResult result = await _userManager.DeleteAsync(user).ConfigureAwait(true);
                 if (result.Succeeded)
                     return RedirectToAction("UserManagement");
                 else
@@ -160,7 +160,7 @@ namespace Rovers4.Controllers
                 Name = addRoleViewModel.RoleName
             };
 
-            IdentityResult result = await _roleManager.CreateAsync(role).ConfigureAwait(false);
+            IdentityResult result = await _roleManager.CreateAsync(role).ConfigureAwait(true);
 
             if (result.Succeeded)
             {
@@ -176,7 +176,7 @@ namespace Rovers4.Controllers
 
         public async Task<IActionResult> EditRole(string id)
         {
-            var role = await _roleManager.FindByIdAsync(id).ConfigureAwait(false);
+            var role = await _roleManager.FindByIdAsync(id).ConfigureAwait(true);
 
             if (role == null)
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
@@ -189,9 +189,9 @@ namespace Rovers4.Controllers
             };
 
 
-            foreach (var user in _userManager.Users)
+            foreach (var user in _userManager.Users.ToList())
             {
-                if (await _userManager.IsInRoleAsync(user, role.Name).ConfigureAwait(false))
+                if (await _userManager.IsInRoleAsync(user, role.Name).ConfigureAwait(true))
                     editRoleViewModel.Users.Add(user.UserName);
             }
 
@@ -206,13 +206,13 @@ namespace Rovers4.Controllers
                 throw new ArgumentNullException(nameof(editRoleViewModel));
             }
 
-            var role = await _roleManager.FindByIdAsync(editRoleViewModel.Id).ConfigureAwait(false);
+            var role = await _roleManager.FindByIdAsync(editRoleViewModel.Id).ConfigureAwait(true);
 
             if (role != null)
             {
                 role.Name = editRoleViewModel.RoleName;
 
-                var result = await _roleManager.UpdateAsync(role).ConfigureAwait(false);
+                var result = await _roleManager.UpdateAsync(role).ConfigureAwait(true);
 
                 if (result.Succeeded)
                     return RedirectToAction("RoleManagement", _roleManager.Roles);
@@ -228,10 +228,10 @@ namespace Rovers4.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteRole(string id)
         {
-            IdentityRole role = await _roleManager.FindByIdAsync(id).ConfigureAwait(false);
+            IdentityRole role = await _roleManager.FindByIdAsync(id).ConfigureAwait(true);
             if (role != null)
             {
-                var result = await _roleManager.DeleteAsync(role).ConfigureAwait(false);
+                var result = await _roleManager.DeleteAsync(role).ConfigureAwait(true);
                 if (result.Succeeded)
                     return RedirectToAction("RoleManagement", _roleManager.Roles);
                 ModelState.AddModelError("", "Something went wrong while deleting this role.");
@@ -247,16 +247,16 @@ namespace Rovers4.Controllers
 
         public async Task<IActionResult> AddUserToRole(string roleId)
         {
-            var role = await _roleManager.FindByIdAsync(roleId).ConfigureAwait(false);
+            var role = await _roleManager.FindByIdAsync(roleId).ConfigureAwait(true);
 
             if (role == null)
                 return RedirectToAction("RoleManagement", _roleManager.Roles);
 
             var addUserToRoleViewModel = new UserRoleViewModel { RoleId = role.Id };
 
-            foreach (var user in _userManager.Users)
+            foreach (var user in _userManager.Users.ToList())
             {
-                if (!await _userManager.IsInRoleAsync(user, role.Name).ConfigureAwait(false))
+                if (!await _userManager.IsInRoleAsync(user, role.Name).ConfigureAwait(true))
                 {
                     addUserToRoleViewModel.Users.Add(user);
                 }
@@ -300,7 +300,7 @@ namespace Rovers4.Controllers
 
             var addUserToRoleViewModel = new UserRoleViewModel { RoleId = role.Id };
 
-            foreach (var user in _userManager.Users)
+            foreach (var user in _userManager.Users.ToList())
             {
                 if (await _userManager.IsInRoleAsync(user, role.Name).ConfigureAwait(true))
                 {

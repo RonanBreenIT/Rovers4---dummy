@@ -57,7 +57,8 @@ namespace Rovers4.Models
         {
             get
             {
-                return FirstName + " " + Surname;
+                string str = FirstName + " " + Surname;
+                return str.Substring(0, Math.Min(29, str.Length));
             }
         }
 
@@ -89,7 +90,7 @@ namespace Rovers4.Models
         [Display(Name = "Profile Image")]
         public IFormFile ProfileImage { get; set; }
 
-        [Display(Name = "Biography"), StringLength(1280, MinimumLength = 0, ErrorMessage = "Team Bio cannot be longer than 1280 characters")]
+        [Display(Name = "Biography"), StringLength(2000, MinimumLength = 0, ErrorMessage = "Team Bio cannot be longer than 2000 characters")]
         public string PersonBio { get; set; }
 
         [ForeignKey("TeamID")]

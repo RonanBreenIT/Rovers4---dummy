@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.Reflection;
@@ -12,17 +13,17 @@ namespace Rovers4.Services
     {
         string UploadFileToBlob(string strFileName, byte[] fileData, string fileMimeType);
         void DeleteBlobData(string fileUrl);
-        string GenerateFileName(string fileName);
         Task<string> UploadFileToBlobAsync(string strFileName, byte[] fileData, string fileMimeType);
     }
 
     public class BlobStorageService : IBlobStorageService
     {
         private readonly IConfiguration _configuration;
-
-        public BlobStorageService(IConfiguration configuration)
+        private readonly ILogger<BlobStorageService> _logger;
+        public BlobStorageService(IConfiguration configuration, ILogger<BlobStorageService> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
 
         public string UploadFileToBlob(string strFileName, byte[] fileData, string fileMimeType)
@@ -36,6 +37,7 @@ namespace Rovers4.Services
             }
             catch (TargetInvocationException tiex)
             {
+                _logger.LogWarning("Issue uploading Blob at {Time}", DateTime.UtcNow);
                 throw tiex.InnerException;
             }
         }
@@ -52,24 +54,12 @@ namespace Rovers4.Services
             string strContainerName = "uploads";
             CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(strContainerName);
 
-            string pathPrefix = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd") + "/";
-            CloudBlobDirectory blobDirectory = cloudBlobContainer.GetDirectoryReference(pathPrefix);
-            // get block blob refarence    
-            CloudBlockBlob blockBlob = blobDirectory.GetBlockBlobReference(BlobName);
+            // get block blob reference    
+            CloudBlockBlob blockBlob = cloudBlobContainer.GetBlockBlobReference(BlobName);
 
             // delete blob from container        
-            await blockBlob.DeleteAsync().ConfigureAwait(true);
-        }
-        public string GenerateFileName(string fileName)
-        {
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
-            string strFileName = string.Empty;
-            string[] strName = fileName.Split('.');
-            strFileName = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd") + "/" + DateTime.Now.ToUniversalTime().ToString("yyyyMMdd\\THHmmssfff") + "." + strName[strName.Length - 1];
-            return strFileName;
+            await blockBlob.DeleteIfExistsAsync().ConfigureAwait(true);
+            _logger.LogInformation("Blob deleted successfully at {Time}", DateTime.UtcNow);
         }
 
         public async Task<string> UploadFileToBlobAsync(string strFileName, byte[] fileData, string fileMimeType)
@@ -89,20 +79,21 @@ namespace Rovers4.Services
                 {
                     PublicAccess = BlobContainerPublicAccessType.Blob
                 };
-                string fileName = this.GenerateFileName(strFileName);
                 await cloudBlobContainer.SetPermissionsAsync(permissions).ConfigureAwait(true);
 
-                if (fileName != null && fileData != null)
+                if (strFileName != null && fileData != null)
                 {
-                    CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(fileName);
+                    CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(strFileName);
                     cloudBlockBlob.Properties.ContentType = fileMimeType;
                     await cloudBlockBlob.UploadFromByteArrayAsync(fileData, 0, fileData.Length).ConfigureAwait(true);
+                    _logger.LogInformation("Blob uploaded successfully at {Time}", DateTime.UtcNow);
                     return cloudBlockBlob.Uri.AbsoluteUri;
                 }
                 return "";
             }
             catch (TargetInvocationException tiex)
             {
+                _logger.LogWarning("Issue uploading Blob at {Time}", DateTime.UtcNow);
                 throw tiex.InnerException;
             }
         }

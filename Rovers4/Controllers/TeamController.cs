@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.Services;
@@ -22,15 +23,16 @@ namespace Rovers4.Controllers
         private readonly ITeamRepository _teamRepository;
         private readonly IMailService _mailService;
         private readonly IBlobStorageService _blobService;
+        private readonly ILogger<TeamController> _logger;
 
-
-        public TeamController(IPersonRepository personRepository, ITeamRepository teamRepository, ClubContext context, IMailService mailService, IBlobStorageService storageService)
+        public TeamController(IPersonRepository personRepository, ITeamRepository teamRepository, ClubContext context, IMailService mailService, IBlobStorageService storageService, ILogger<TeamController> logger)
         {
             _personRepository = personRepository;
             _teamRepository = teamRepository;
             _context = context;
             _mailService = mailService;
             _blobService = storageService;
+            _logger = logger;
         }
 
         public ViewResult TeamPlayerList(int? id)
@@ -98,7 +100,6 @@ namespace Rovers4.Controllers
             {
                 Teams = _teamRepository.Teams
             };
-
             return View(PlayersListViewModel);
         }
 
@@ -117,6 +118,7 @@ namespace Rovers4.Controllers
                 }
                 model.TeamImage = _blobService.UploadFileToBlob(model.TeamImageFile.FileName, dataFiles, mimeType);
             }
+            _logger.LogInformation("Team Image uploaded at {Time}", DateTime.UtcNow);
             return model.TeamImage;
         }
 
@@ -134,6 +136,7 @@ namespace Rovers4.Controllers
         {
             if (team == null)
             {
+                _logger.LogWarning("Issue Creating Team at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(team));
             }
 
@@ -146,6 +149,7 @@ namespace Rovers4.Controllers
                 await _context.SaveChangesAsync().ConfigureAwait(true);
                 return RedirectToAction(nameof(Index));
             }
+            _logger.LogInformation("Team {Name} created at at {Time}", team.Name, DateTime.UtcNow);
             ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name", team.ClubID);
             return View(team);
         }
@@ -155,14 +159,17 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
+                _logger.LogWarning("No Team found to edit at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
             var team = await _context.Teams.FindAsync(id).ConfigureAwait(true);
             if (team == null)
             {
+                _logger.LogWarning("No Team found to edit at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
+            _logger.LogInformation("Team found at {Time} for editing", DateTime.UtcNow);
             ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name", team.ClubID);
             return View(team);
         }
@@ -174,19 +181,26 @@ namespace Rovers4.Controllers
         {
             if (team == null)
             {
+                _logger.LogWarning("Issue editing Team at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(team));
             }
 
             if (id != team.TeamID)
             {
+                _logger.LogWarning("Issue editing Team at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                if (team.TeamImageFile != null)
+                if (team.TeamImageFile != null && team.TeamImage != null)
                 {
                     _blobService.DeleteBlobData(team.TeamImage);
+                    string teamImage = UploadedImage(team);
+                    team.TeamImage = teamImage;
+                }
+                else if (team.TeamImageFile != null && team.TeamImage == null)
+                {
                     string teamImage = UploadedImage(team);
                     team.TeamImage = teamImage;
                 }
@@ -207,6 +221,7 @@ namespace Rovers4.Controllers
                         throw;
                     }
                 }
+                _logger.LogInformation("Team {Name} edited at at {Time}", team.Name, DateTime.UtcNow);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ClubID"] = new SelectList(_context.Clubs, "ClubID", "Name", team.ClubID);
@@ -218,6 +233,7 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
+                _logger.LogWarning("Issue deleting Team at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -226,9 +242,10 @@ namespace Rovers4.Controllers
                 .FirstOrDefaultAsync(m => m.TeamID == id).ConfigureAwait(true);
             if (team == null)
             {
+                _logger.LogWarning("Issue deleting Team at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
-
+            _logger.LogInformation("Team found for deletion at {Time}", DateTime.UtcNow);
             return View(team);
         }
 
@@ -238,9 +255,13 @@ namespace Rovers4.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var team = await _context.Teams.FindAsync(id).ConfigureAwait(true);
-            _blobService.DeleteBlobData(team.TeamImage);
+            if (team.TeamImage != null)
+            {
+                _blobService.DeleteBlobData(team.TeamImage);
+            }
             _context.Teams.Remove(team);
             await _context.SaveChangesAsync().ConfigureAwait(true);
+            _logger.LogInformation("Team {id} removed at {Time}", id, DateTime.UtcNow);
             return RedirectToAction(nameof(Index));
         }
 
@@ -250,6 +271,7 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
+                _logger.LogWarning("No Team found at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -257,8 +279,10 @@ namespace Rovers4.Controllers
                 .FirstOrDefaultAsync(m => m.TeamID == id).ConfigureAwait(true);
             if (team == null)
             {
+                _logger.LogWarning("No Team found at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
+            _logger.LogInformation("Team found at {Time}", DateTime.UtcNow);
             ViewData["CurrentTeam"] = _teamRepository.Teams.FirstOrDefault(c => c.TeamID == id)?.Name;
             return View("SendgridEmail");
         }
@@ -269,6 +293,7 @@ namespace Rovers4.Controllers
         {
             if (emailmodel == null)
             {
+                _logger.LogWarning("No Team found at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(emailmodel));
             }
 
@@ -286,7 +311,7 @@ namespace Rovers4.Controllers
                     await _mailService.SendEmailAsync(person, emailmodel.Subject, emailmodel.FixTypeString, emailmodel.HomeOrAwayString, emailmodel.KickOffTime, emailmodel.Opponent, emailmodel.MeetLocation, emailmodel.MeetTime).ConfigureAwait(true);
                 }
             }
-
+            _logger.LogInformation("Email sent for {Name} at {Time}", currentTeam, DateTime.UtcNow);
             return View("EmailSent");
         }
 

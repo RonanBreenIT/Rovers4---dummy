@@ -43,7 +43,7 @@
             <h3 style="padding-top: 2em">
                 Player Biography
             </h3>
-            <p>@Html.DisplayFor(modelItem => staff.PersonBio)</p>
+            <p style="white-space: pre-line">@Html.DisplayFor(modelItem => staff.PersonBio)</p>
         </section>
     }
 </div>
@@ -56,14 +56,7 @@
             <h3 style="padding-top: 2rem">Player Statistics</h3>
             @if ((this.User.IsInRole("Super Admin")))
             {
-                if (!Model.HasStats)
-                {
-                    <a class="btn btn-outline-success" asp-controller="PlayerStat" asp-action="Create">Add Stats</a>
-                }
-                else
-                {
-                    <a class="btn btn-secondary" asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Edit Stats</a>
-                }
+                <a class="btn btn-secondary" asp-controller="PlayerStat" asp-action="Edit" asp-route-id="@staff.PersonID">Edit Stats</a>
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Rovers4.Data;
 using Rovers4.Models;
 using Rovers4.Services;
@@ -18,13 +19,15 @@ namespace Rovers4.Controllers
         private readonly IPlayerStatRepository _playerStat;
         private readonly ITeamRepository _teamRepository;
         private readonly IBlobStorageService _blobService;
+        private readonly ILogger<PeopleController> _logger;
 
-        public PeopleController(ClubContext context, IPlayerStatRepository playerStat, ITeamRepository teamRepository, IBlobStorageService storageService)
+        public PeopleController(ClubContext context, IPlayerStatRepository playerStat, ITeamRepository teamRepository, IBlobStorageService storageService, ILogger<PeopleController> logger)
         {
             _context = context;
             _playerStat = playerStat;
             _teamRepository = teamRepository;
             _blobService = storageService;
+            _logger = logger;
         }
 
         [Authorize(Roles = "Super Admin, Team Admin")]
@@ -42,6 +45,7 @@ namespace Rovers4.Controllers
                 }
                 model.ThumbnailImage = _blobService.UploadFileToBlob(model.ProfileThumbnailImage.FileName, dataFiles, mimeType);
             }
+            _logger.LogInformation("Person Image uploaded at {Time}", DateTime.UtcNow);
             return model.ThumbnailImage;
         }
 
@@ -60,12 +64,14 @@ namespace Rovers4.Controllers
                 }
                 model.Image = _blobService.UploadFileToBlob(model.ProfileImage.FileName, dataFiles, mimeType);
             }
+            _logger.LogInformation("Person Image uploaded at {Time}", DateTime.UtcNow);
             return model.Image;
         }
 
         [Authorize(Roles = "Super Admin, Team Admin")]
         public IActionResult Create(int TeamID)
         {
+            _logger.LogInformation("Team found at {Time} for person creation", DateTime.UtcNow);
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
             return View();
         }
@@ -77,6 +83,7 @@ namespace Rovers4.Controllers
         {
             if (model == null)
             {
+                _logger.LogWarning("Issue creating Player at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(model));
             }
 
@@ -97,6 +104,7 @@ namespace Rovers4.Controllers
 
                 return RedirectToAction("Index", "Team");
             }
+            _logger.LogInformation("Player {Name} created at {Time}", model.FullName, DateTime.UtcNow);
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
             return View();
         }
@@ -105,6 +113,7 @@ namespace Rovers4.Controllers
         [Authorize(Roles = "Super Admin, Team Admin")]
         public IActionResult CreateMgmt(int TeamID)
         {
+            _logger.LogInformation("Team found at {Time} for person creation",DateTime.UtcNow);
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
             return View();
         }
@@ -116,6 +125,7 @@ namespace Rovers4.Controllers
         {
             if (model == null)
             {
+                _logger.LogWarning("Issue creating Management at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(model));
             }
 
@@ -132,6 +142,7 @@ namespace Rovers4.Controllers
                 await _context.SaveChangesAsync().ConfigureAwait(true);
                 return RedirectToAction("Index", "Team");
             }
+            _logger.LogInformation("Management {Name} created at {Time}", model.FullName, DateTime.UtcNow);
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(TeamID)?.Name;
             return View();
         }
@@ -141,14 +152,17 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
+                _logger.LogWarning("No Person found to edit at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
             var person = await _context.Persons.FindAsync(id).ConfigureAwait(true);
             if (person == null)
             {
+                _logger.LogWarning("No Person found to edit at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
+            _logger.LogInformation("Person found to edit at {Time}", DateTime.UtcNow);
             ViewBag.CurrentTeam = _teamRepository.GetTeamById(person.TeamID)?.Name;
             ViewBag.PersonType = person.PersonType.ToString();
             return View(person);
@@ -161,26 +175,38 @@ namespace Rovers4.Controllers
         {
             if (person == null)
             {
+                _logger.LogWarning("Issue editing Player at {Time}", DateTime.UtcNow);
                 throw new ArgumentNullException(nameof(person));
             } 
 
             if (id != person.PersonID)
             {
+                _logger.LogWarning("Issue editing Player at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                if (person.ProfileThumbnailImage != null)
+                if (person.ProfileThumbnailImage != null  && person.ThumbnailImage != null)
                 {
                     _blobService.DeleteBlobData(person.ThumbnailImage);
                     string thumnailImage = UploadedThumbnailImage(person);
                     person.ThumbnailImage = thumnailImage;
                 }
-
-                if (person.ProfileImage != null)
+                else if (person.ProfileThumbnailImage != null  && person.ThumbnailImage == null)
+                {
+                    string thumnailImage = UploadedThumbnailImage(person);
+                    person.ThumbnailImage = thumnailImage;
+                }
+                
+                if (person.ProfileImage != null && person.Image != null)
                 {
                     _blobService.DeleteBlobData(person.Image);
+                    string image = UploadedImage(person);
+                    person.Image = image;
+                }
+                else if (person.ProfileImage != null && person.Image == null)
+                {
                     string image = UploadedImage(person);
                     person.Image = image;
                 }
@@ -201,6 +227,7 @@ namespace Rovers4.Controllers
                         throw;
                     }
                 }
+                _logger.LogInformation("Person {Name} edited at {Time}", person.FullName, DateTime.UtcNow);
                 ViewBag.CurrentTeam = _teamRepository.GetTeamById(person.TeamID)?.Name;
                 return RedirectToAction("Index", "Team");
             }
@@ -212,6 +239,7 @@ namespace Rovers4.Controllers
         {
             if (id == null)
             {
+                _logger.LogWarning("No Person found to delete at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
 
@@ -220,9 +248,10 @@ namespace Rovers4.Controllers
                 .FirstOrDefaultAsync(m => m.PersonID == id).ConfigureAwait(true);
             if (person == null)
             {
+                _logger.LogWarning("No Person found to delete at {Time}", DateTime.UtcNow);
                 return NotFound();
             }
-
+            _logger.LogInformation("Person found to delete at {Time}", DateTime.UtcNow);
             return View(person);
         }
 
@@ -233,11 +262,18 @@ namespace Rovers4.Controllers
         {
             var person = await _context.Persons.FindAsync(id).ConfigureAwait(true);
             var playerStat = await _context.PlayerStats.FirstOrDefaultAsync(i => i.PersonID == id).ConfigureAwait(true);
-            _blobService.DeleteBlobData(person.ThumbnailImage);
-            _blobService.DeleteBlobData(person.Image);
+            if (person.ThumbnailImage != null)
+            {
+                _blobService.DeleteBlobData(person.ThumbnailImage);
+            }
+            if (person.Image != null)
+            {
+                _blobService.DeleteBlobData(person.Image);
+            }
             _context.PlayerStats.Remove(playerStat); // Delete player stat record first
             _context.Persons.Remove(person);
             await _context.SaveChangesAsync().ConfigureAwait(true);
+            _logger.LogInformation("Person {Name} deleted at {Time}", person.FullName, DateTime.UtcNow);
             return RedirectToAction("Index", "Team");
         }
 
