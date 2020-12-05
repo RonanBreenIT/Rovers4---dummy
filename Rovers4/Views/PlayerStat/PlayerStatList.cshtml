@@ -14,20 +14,30 @@
                 <h3>@Model.CurrentPlayer</h3>
                 @if (staff.PlayerPosition != null)
                 {
-                    <div class="card-img">
-                        <h6 class="card-title text-blue" style="font-weight:bold">Position: @Html.DisplayFor(modelItem => staff.PlayerPosition)</h6>
-                    </div>
+                    @if (DateTime.Now.AddYears(-18) > staff.DOB) // Added so wont display for under 18's //
+                    {
+                        <div class="card-img" id="cardImgPS">
+                            <div class="card-title">
+                                <p><span class="font-weight-bold">Position: </span>@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                                <p><span class="font-weight-bold">Date of Birth: </span>@Html.DisplayFor(modelItem => staff.DOB)</p>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card-img" id="cardImgPS">
+                            <div class="card-title">
+                                <p><span class="font-weight-bold">Position: </span>@Html.DisplayFor(modelItem => staff.PlayerPosition)</p>
+                            </div>
+                        </div>
+                    }
                 }
                 else
                 {
-                    <div class="card-img">
-                        <h6 class="card-title text-blue" style="font-weight:bold">Management Role: @Html.DisplayFor(modelItem => staff.MgmtRole)</h6>
-                    </div>
-                }
-                @if (DateTime.Now.AddYears(-18) > staff.DOB) // Added so wont display for under 18's //
-                {
-                    <div class="card-img">
-                        <h6 class="card-title text-blue" style="font-weight:bold">DOB: @Html.DisplayFor(modelItem => staff.DOB)</h6>
+                    <div class="card-img" id="cardImgPS">
+                        <div class="card-title">
+                            <p><span class="font-weight-bold">Management Role: </span>@Html.DisplayFor(modelItem => staff.MgmtRole)</p>
+                        </div>
                     </div>
                 }
             </div>
